@@ -7,8 +7,6 @@ import {
   CodeBracketIcon,
   BuildingOfficeIcon,
   MapPinIcon,
-  EnvelopeIcon,
-  DocumentTextIcon,
 } from "@heroicons/react/24/outline";
 
 export default function Hero() {
@@ -261,12 +259,12 @@ export default function Hero() {
                 </Button>
               </div>
 
-              {/* Enhanced Social Links */}
+              {/* Social Links - LinkedIn & GitHub Only */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.9 }}
-                className="flex flex-wrap items-center justify-center sm:justify-start gap-4"
+                className="flex items-center justify-center sm:justify-start gap-6"
               >
                 <a
                   href="https://linkedin.com/in/wintongee"
@@ -275,8 +273,8 @@ export default function Hero() {
                   className="group flex items-center gap-2 text-brand-text-light hover:text-brand-primary transition-all duration-300 hover:scale-105"
                   aria-label="Visit LinkedIn profile"
                 >
-                  <BuildingOfficeIcon className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
-                  <span className="text-sm font-medium">LinkedIn</span>
+                  <BuildingOfficeIcon className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
+                  <span className="text-base font-medium">LinkedIn</span>
                 </a>
                 <a
                   href="https://github.com/wintongee"
@@ -285,26 +283,8 @@ export default function Hero() {
                   className="group flex items-center gap-2 text-brand-text-light hover:text-brand-primary transition-all duration-300 hover:scale-105"
                   aria-label="Visit GitHub profile"
                 >
-                  <CodeBracketIcon className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
-                  <span className="text-sm font-medium">GitHub</span>
-                </a>
-                <a
-                  href="mailto:wintongee@gmail.com"
-                  className="group flex items-center gap-2 text-brand-text-light hover:text-brand-primary transition-all duration-300 hover:scale-105"
-                  aria-label="Send email"
-                >
-                  <EnvelopeIcon className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
-                  <span className="text-sm font-medium">Email</span>
-                </a>
-                <a
-                  href="/resume/AIML_Resume_WintonGee.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center gap-2 text-brand-text-light hover:text-brand-primary transition-all duration-300 hover:scale-105"
-                  aria-label="View resume"
-                >
-                  <DocumentTextIcon className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
-                  <span className="text-sm font-medium">Resume</span>
+                  <CodeBracketIcon className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
+                  <span className="text-base font-medium">GitHub</span>
                 </a>
               </motion.div>
             </motion.div>
