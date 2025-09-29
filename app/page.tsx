@@ -26,7 +26,7 @@ export default function Home() {
               View Resume
             </a>
             <a
-              href="mailto:winton.gee@example.com"
+              href="mailto:wintongee@gmail.com"
               className="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors"
             >
               Contact Me
