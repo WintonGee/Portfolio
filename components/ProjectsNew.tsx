@@ -216,10 +216,10 @@ export default function ProjectsNew() {
               Featured <span className="gradient-text">Projects</span>
             </h2>
             <p className="text-xl text-brand-text-light max-w-3xl mx-auto leading-relaxed">
-              A showcase of my recent AI/ML projects, from computer vision and
-              natural language processing to predictive analytics and autonomous
-              systems. Each project demonstrates my expertise in building
-              scalable, production-ready solutions.
+              A showcase of my recent projects, featuring full-stack web
+              applications with AI integration. Each project demonstrates my
+              expertise in building scalable, production-ready solutions that
+              solve real-world problems.
             </p>
           </motion.div>
 

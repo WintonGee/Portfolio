@@ -3,109 +3,64 @@ import Image from "next/image";
 import Link from "next/link";
 import ProjectCaseStudyClient from "./ProjectCaseStudyClient";
 
-// Sample project data - replace with your actual projects
+// Project data for FoodManager (PantryCraft)
 const projects = [
   {
-    slug: "ai-medical-diagnosis",
-    title: "AI-Powered Medical Diagnosis System",
+    slug: "foodmanager",
+    title: "FoodManager (PantryCraft)",
     summary:
-      "A deep learning system that assists radiologists in detecting early-stage lung cancer from chest X-rays with 94% accuracy.",
+      "A web application that helps users manage their ingredients efficiently and generate AI-powered recipe suggestions based on available items. Built with React.js, MongoDB, and OpenAI API to reduce food waste and simplify meal planning.",
     technologies: [
-      "Python",
-      "TensorFlow",
-      "CNN",
-      "Medical AI",
-      "OpenCV",
-      "DICOM",
+      "React.js",
+      "Material-UI",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "OpenAI API",
+      "JavaScript",
+      "Axios",
     ],
     problem:
-      "Early detection of lung cancer is crucial for patient survival, but manual analysis of chest X-rays is time-consuming and can miss subtle signs of early-stage cancer. Radiologists often face high workloads and may miss critical details in complex cases.",
+      "Many people face challenges in keeping track of ingredients in their pantry, planning meals with available ingredients, and reducing food waste due to forgotten or expired items. Finding creative recipes with limited ingredients is also a common struggle.",
     solution:
-      "I developed a deep learning model using Convolutional Neural Networks (CNN) and transfer learning techniques. The system processes chest X-rays in real-time, highlighting potential areas of concern and providing confidence scores for each detection.",
+      "I developed a comprehensive web application that combines ingredient management with AI-powered recipe suggestions. The system helps users track their pantry items, monitor expiration dates, and discover new recipes based on available ingredients using OpenAI's GPT models.",
     technicalDetails: [
-      "Implemented a custom CNN architecture based on ResNet-50 with medical imaging optimizations",
-      "Used transfer learning with pre-trained models on ImageNet, then fine-tuned on medical datasets",
-      "Applied data augmentation techniques including rotation, scaling, and intensity adjustments",
-      "Implemented attention mechanisms to focus on relevant anatomical regions",
-      "Built a REST API using FastAPI for real-time inference",
-      "Created a web interface for radiologists to review AI-assisted diagnoses",
+      "Built React.js frontend with Material-UI for consistent, modern design",
+      "Implemented Node.js/Express.js backend with RESTful API endpoints",
+      "Designed flexible MongoDB schema for ingredient and recipe storage",
+      "Integrated OpenAI API for intelligent recipe suggestions and ingredient matching",
+      "Created responsive design optimized for desktop and mobile devices",
+      "Implemented JWT-based authentication and user management",
+      "Added real-time ingredient updates and recipe generation",
+      "Built comprehensive CRUD operations for ingredient management",
     ],
     outcomes: [
-      "Achieved 94% accuracy in detecting early-stage lung cancer",
-      "Reduced diagnosis time by 60% for radiologists",
-      "Processed over 10,000 chest X-rays with consistent results",
-      "Received positive feedback from medical professionals",
-      "Published research paper in Medical AI Journal",
+      "Successfully integrated AI-powered recipe suggestions using OpenAI GPT models",
+      "Created intuitive user interface for efficient ingredient management",
+      "Implemented responsive design that works seamlessly across devices",
+      "Reduced food waste through better ingredient tracking and utilization",
+      "Simplified meal planning with contextual recipe recommendations",
+      "Built scalable full-stack application with modern technologies",
     ],
     images: [
       {
-        src: "/placeholder-medical-ai-1.jpg",
-        alt: "AI Diagnosis Interface",
+        src: "/images/projects/foodmanager/foodmanager.svg",
+        alt: "FoodManager Application Interface",
         caption:
-          "The AI-powered diagnosis interface showing detected anomalies",
+          "The main interface showing ingredient management and AI recipe suggestions",
       },
       {
-        src: "/placeholder-medical-ai-2.jpg",
-        alt: "Model Architecture",
-        caption: "CNN architecture diagram with attention mechanisms",
-      },
-    ],
-    liveUrl: "https://medical-ai-demo.vercel.app",
-    githubUrl: "https://github.com/wintongee/medical-ai-diagnosis",
-    duration: "6 months",
-    teamSize: "3 people",
-    role: "Lead AI Engineer",
-  },
-  {
-    slug: "sentiment-analysis-api",
-    title: "Real-time Sentiment Analysis API",
-    summary:
-      "A scalable REST API that performs real-time sentiment analysis on social media posts, handling 10,000+ requests per minute.",
-    technologies: [
-      "Python",
-      "FastAPI",
-      "AWS",
-      "NLP",
-      "Docker",
-      "Redis",
-      "BERT",
-    ],
-    problem:
-      "Companies need to monitor public sentiment about their brands and products in real-time, but existing solutions are either too slow or too expensive for high-volume social media monitoring.",
-    solution:
-      "I built a high-performance sentiment analysis API using state-of-the-art NLP models and optimized infrastructure. The system processes text in multiple languages and provides detailed sentiment scores with confidence levels.",
-    technicalDetails: [
-      "Fine-tuned BERT model on social media datasets for improved accuracy",
-      "Implemented Redis caching for frequently analyzed text patterns",
-      "Used AWS Lambda for serverless scaling during peak traffic",
-      "Built custom tokenization pipeline for social media text preprocessing",
-      "Implemented rate limiting and request queuing for fair resource usage",
-      "Created comprehensive monitoring and alerting system",
-    ],
-    outcomes: [
-      "Handles 10,000+ requests per minute with 99.9% uptime",
-      "Achieved 89% accuracy on sentiment classification",
-      "Reduced API response time to under 100ms average",
-      "Served over 1 million requests in first month",
-      "Generated $50K+ in revenue for the company",
-    ],
-    images: [
-      {
-        src: "/placeholder-sentiment-api-1.jpg",
-        alt: "API Dashboard",
+        src: "/images/projects/foodmanager/foodmanager-dashboard.svg",
+        alt: "Dashboard View",
         caption:
-          "Real-time monitoring dashboard showing API performance metrics",
-      },
-      {
-        src: "/placeholder-sentiment-api-2.jpg",
-        alt: "Sentiment Analysis Results",
-        caption: "Example sentiment analysis results with confidence scores",
+          "Dashboard showing ingredient categories and expiration tracking",
       },
     ],
-    liveUrl: "https://sentiment-api-docs.vercel.app",
-    githubUrl: "https://github.com/wintongee/sentiment-analysis-api",
-    duration: "4 months",
-    teamSize: "2 people",
+    githubUrl: "https://github.com/WintonGee/FoodManager",
+    reportUrl:
+      "https://drive.google.com/file/d/1ez2tc4DKTKrDWslWheUKjhegmqm7X7P7/view?usp=sharing",
+    duration: "5 months",
+    teamSize: "1 person",
     role: "Full-stack Developer",
   },
 ];

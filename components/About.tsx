@@ -39,24 +39,27 @@ export default function About() {
               {/* Main narrative paragraphs */}
               <div className="space-y-6 text-center">
                 <p className="text-lg text-brand-text-light leading-relaxed">
-                  I'm a passionate AI/ML Engineer with over 5 years of
-                  experience building intelligent systems that solve real-world
-                  problems. My expertise spans machine learning, deep learning,
-                  natural language processing, and computer vision.
+                  I'm a passionate software developer with experience building
+                  full-stack applications that solve real-world problems. My
+                  expertise spans web development, AI integration, and modern
+                  JavaScript frameworks.
                 </p>
 
                 <p className="text-lg text-brand-text-light leading-relaxed">
-                  I specialize in developing end-to-end ML pipelines, from data
-                  preprocessing to production deployment. I'm particularly
-                  interested in healthcare AI, where I've worked on medical
-                  image analysis and predictive modeling for patient outcomes.
+                  I specialize in developing end-to-end web applications, from
+                  frontend user interfaces to backend APIs and database design.
+                  I'm particularly interested in AI integration, where I've
+                  worked on applications that leverage AI APIs to provide
+                  intelligent features and user experiences.
                 </p>
 
                 <p className="text-lg text-brand-text-light leading-relaxed">
-                  When I'm not coding, you'll find me exploring the latest
-                  research papers, contributing to open-source projects, or
-                  mentoring aspiring data scientists. I believe in the power of
-                  AI to make the world a better place.
+                  When I'm not coding, you'll find me exploring new
+                  technologies, contributing to open-source projects, or working
+                  on personal projects that combine my interests in food,
+                  technology, and problem-solving. I believe in the power of
+                  technology to make everyday tasks more efficient and
+                  enjoyable.
                 </p>
               </div>
 
@@ -70,7 +73,7 @@ export default function About() {
               >
                 <div className="text-center p-6 bg-brand-beige-light rounded-xl shadow-organic">
                   <div className="text-3xl font-bold text-brand-primary mb-2">
-                    5+
+                    2+
                   </div>
                   <div className="text-sm text-brand-text-light">
                     Years Experience
@@ -78,22 +81,24 @@ export default function About() {
                 </div>
                 <div className="text-center p-6 bg-brand-beige-light rounded-xl shadow-organic">
                   <div className="text-3xl font-bold text-brand-primary mb-2">
-                    50+
+                    10+
                   </div>
                   <div className="text-sm text-brand-text-light">Projects</div>
                 </div>
                 <div className="text-center p-6 bg-brand-beige-light rounded-xl shadow-organic">
                   <div className="text-3xl font-bold text-brand-primary mb-2">
-                    10+
+                    5+
                   </div>
-                  <div className="text-sm text-brand-text-light">AI Models</div>
+                  <div className="text-sm text-brand-text-light">
+                    Technologies
+                  </div>
                 </div>
                 <div className="text-center p-6 bg-brand-beige-light rounded-xl shadow-organic">
                   <div className="text-3xl font-bold text-brand-primary mb-2">
-                    3
+                    1
                   </div>
                   <div className="text-sm text-brand-text-light">
-                    Research Papers
+                    Featured Project
                   </div>
                 </div>
               </motion.div>
@@ -111,21 +116,21 @@ export default function About() {
                 </h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  {/* AI / Machine Learning */}
+                  {/* AI / Web Technologies */}
                   <div className="text-center">
                     <h4 className="text-lg font-semibold text-brand-text mb-4">
-                      AI / Machine Learning
+                      AI / Web Technologies
                     </h4>
                     <div className="flex flex-wrap gap-2 justify-center">
                       {[
-                        "Python",
-                        "TensorFlow",
-                        "PyTorch",
-                        "OpenCV",
-                        "Transformers",
-                        "MLflow",
-                        "Pandas",
-                        "ONNX",
+                        "OpenAI API",
+                        "React.js",
+                        "Node.js",
+                        "MongoDB",
+                        "JavaScript",
+                        "Material-UI",
+                        "Express.js",
+                        "Axios",
                       ].map((tech) => (
                         <span
                           key={tech}
@@ -156,23 +161,23 @@ export default function About() {
                     </div>
                   </div>
 
-                  {/* Backend & DevOps */}
+                  {/* Backend & Tools */}
                   <div className="text-center">
                     <h4 className="text-lg font-semibold text-brand-text mb-4">
-                      Backend & DevOps
+                      Backend & Tools
                     </h4>
                     <div className="flex flex-wrap gap-2 justify-center">
                       {[
-                        "FastAPI",
-                        "AWS",
-                        "Docker",
-                        "Redis",
-                        "PostgreSQL",
+                        "Express.js",
                         "MongoDB",
-                        "Git",
-                        "Linux",
-                        "CloudWatch",
                         "JWT",
+                        "Git",
+                        "VS Code",
+                        "npm",
+                        "REST APIs",
+                        "JSON",
+                        "HTTP",
+                        "CORS",
                       ].map((tech) => (
                         <span
                           key={tech}
