@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import EducationTimeline from "./EducationTimeline";
 
 export default function About() {
   return (
@@ -108,6 +109,20 @@ export default function About() {
                   AI to make the world a better place.
                 </p>
               </div>
+
+              {/* Education Timeline */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                viewport={{ once: true }}
+                className="pt-8"
+              >
+                <h3 className="text-2xl font-semibold text-brand-text mb-8 text-center">
+                  My <span className="gradient-text">Journey</span>
+                </h3>
+                <EducationTimeline />
+              </motion.div>
 
               {/* Key Stats */}
               <motion.div
