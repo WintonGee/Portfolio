@@ -1,13 +1,15 @@
-import Header from "@/components/Header";
+import Navbar from "@/components/Navbar";
+import About from "@/components/About";
+import Projects from "@/components/Projects";
 import Chatbot from "@/components/Chatbot";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
-      <Header />
+      <Navbar />
 
       {/* Hero Section */}
-      <section className="container mx-auto px-4 py-20">
+      <section id="hero" className="container mx-auto px-4 py-32">
         <div className="text-center">
           <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">
             Winton Gee
@@ -33,8 +35,14 @@ export default function Home() {
         </div>
       </section>
 
+      {/* About Section */}
+      <About />
+
+      {/* Projects Section */}
+      <Projects />
+
       {/* Chatbot Section */}
-      <section className="container mx-auto px-4 py-16">
+      <section id="chat" className="container mx-auto px-4 py-16">
         <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-12">
           Ask Me Anything
         </h2>
