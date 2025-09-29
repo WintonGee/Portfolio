@@ -25,6 +25,21 @@ interface Project {
   duration: string;
   teamSize: string;
   role: string;
+  codeImplementation?: {
+    gptIntegration: {
+      model: string;
+      pricing: {
+        input: string;
+        output: string;
+      };
+      prompt: string;
+      maxTokens: number;
+      temperature: number;
+    };
+    apiEndpoint: string;
+    errorHandling: string;
+    caching: string;
+  };
 }
 
 interface ProjectCaseStudyClientProps {
@@ -313,6 +328,115 @@ export default function ProjectCaseStudyClient({
               </ul>
             </div>
           </motion.section>
+
+          {/* Code Implementation & AI Integration */}
+          {project.codeImplementation && (
+            <motion.section
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="mb-16"
+            >
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+                AI Integration & Code Implementation
+              </h2>
+
+              {/* GPT-3.5 Turbo Integration */}
+              <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border-l-4 border-purple-500 p-6 rounded-r-lg mb-8">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                  🤖 OpenAI GPT-3.5 Turbo Integration
+                </h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">
+                      Model Configuration
+                    </h4>
+                    <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                      <li>
+                        <strong>Model:</strong>{" "}
+                        {project.codeImplementation.gptIntegration.model}
+                      </li>
+                      <li>
+                        <strong>Max Tokens:</strong>{" "}
+                        {project.codeImplementation.gptIntegration.maxTokens}
+                      </li>
+                      <li>
+                        <strong>Temperature:</strong>{" "}
+                        {project.codeImplementation.gptIntegration.temperature}
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">
+                      Pricing Structure
+                    </h4>
+                    <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                      <li>
+                        <strong>Input:</strong>{" "}
+                        {
+                          project.codeImplementation.gptIntegration.pricing
+                            .input
+                        }
+                      </li>
+                      <li>
+                        <strong>Output:</strong>{" "}
+                        {
+                          project.codeImplementation.gptIntegration.pricing
+                            .output
+                        }
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* API Implementation */}
+              <div className="bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-lg p-6 mb-6">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                  🔧 API Implementation Details
+                </h3>
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-medium text-gray-800 dark:text-gray-200 mb-2">
+                      Endpoint
+                    </h4>
+                    <code className="bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded text-sm">
+                      {project.codeImplementation.apiEndpoint}
+                    </code>
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-gray-800 dark:text-gray-200 mb-2">
+                      Error Handling
+                    </h4>
+                    <p className="text-gray-700 dark:text-gray-300 text-sm">
+                      {project.codeImplementation.errorHandling}
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-gray-800 dark:text-gray-200 mb-2">
+                      Caching Strategy
+                    </h4>
+                    <p className="text-gray-700 dark:text-gray-300 text-sm">
+                      {project.codeImplementation.caching}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Prompt Engineering */}
+              <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                  💡 Prompt Engineering
+                </h3>
+                <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
+                  <pre className="text-sm text-gray-800 dark:text-gray-200 whitespace-pre-wrap">
+                    {project.codeImplementation.gptIntegration.prompt}
+                  </pre>
+                </div>
+              </div>
+            </motion.section>
+          )}
 
           {/* Call to Action */}
           <motion.div

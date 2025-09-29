@@ -28,32 +28,47 @@ const projects = [
       "Built React.js frontend with Material-UI for consistent, modern design",
       "Implemented Node.js/Express.js backend with RESTful API endpoints",
       "Designed flexible MongoDB schema for ingredient and recipe storage",
-      "Integrated OpenAI API for intelligent recipe suggestions and ingredient matching",
+      "Integrated OpenAI GPT-3.5 Turbo API for intelligent recipe suggestions",
       "Created responsive design optimized for desktop and mobile devices",
       "Implemented JWT-based authentication and user management",
       "Added real-time ingredient updates and recipe generation",
       "Built comprehensive CRUD operations for ingredient management",
+      "Optimized API costs with GPT-3.5 Turbo at $0.0015/1K input tokens, $0.002/1K output tokens",
+      "Implemented prompt engineering for efficient token usage and cost optimization",
     ],
     outcomes: [
-      "Successfully integrated AI-powered recipe suggestions using OpenAI GPT models",
+      "Successfully integrated AI-powered recipe suggestions using OpenAI GPT-3.5 Turbo",
       "Created intuitive user interface for efficient ingredient management",
       "Implemented responsive design that works seamlessly across devices",
       "Reduced food waste through better ingredient tracking and utilization",
       "Simplified meal planning with contextual recipe recommendations",
       "Built scalable full-stack application with modern technologies",
+      "Achieved cost-effective AI integration with optimized token usage",
+      "Delivered production-ready application with comprehensive error handling",
     ],
     images: [
       {
-        src: "/images/projects/foodmanager/foodmanager.svg",
+        src: "/images/projects/foodmanager/foodmanager-overview.png",
         alt: "FoodManager Application Interface",
         caption:
           "The main interface showing ingredient management and AI recipe suggestions",
       },
       {
-        src: "/images/projects/foodmanager/foodmanager-dashboard.svg",
+        src: "/images/projects/foodmanager/foodmanager-interface.png",
+        alt: "Application Interface",
+        caption: "Detailed view of the application interface and features",
+      },
+      {
+        src: "/images/projects/foodmanager/foodmanager-dashboard.png",
         alt: "Dashboard View",
         caption:
-          "Dashboard showing ingredient categories and expiration tracking",
+          "Dashboard with computer vision integration for automatic ingredient detection and tracking",
+      },
+      {
+        src: "/images/projects/foodmanager/foodmanager-cost-dashboard.png",
+        alt: "System Architecture",
+        caption:
+          "GPT-3.5 Turbo cost usage dashboard showing API consumption and pricing analytics",
       },
     ],
     githubUrl: "https://github.com/WintonGee/FoodManager",
@@ -62,6 +77,21 @@ const projects = [
     duration: "5 months",
     teamSize: "1 person",
     role: "Full-stack Developer",
+    codeImplementation: {
+      gptIntegration: {
+        model: "GPT-3.5 Turbo",
+        pricing: {
+          input: "$0.0015 per 1K tokens",
+          output: "$0.002 per 1K tokens",
+        },
+        prompt: `You are a helpful cooking assistant. Based on the available ingredients: {ingredients}, suggest 3 creative recipes that can be made with these ingredients. Include cooking time, difficulty level, and step-by-step instructions.`,
+        maxTokens: 500,
+        temperature: 0.7,
+      },
+      apiEndpoint: "/api/recipes/suggest",
+      errorHandling: "Comprehensive error handling with fallback responses",
+      caching: "Redis caching for frequently requested recipe combinations",
+    },
   },
 ];
 
