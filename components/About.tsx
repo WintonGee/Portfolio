@@ -28,7 +28,7 @@ export default function About() {
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-16 items-center">
-            {/* Profile Image */}
+            {/* Professional Journey Visualization */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -36,43 +36,76 @@ export default function About() {
               viewport={{ once: true }}
               className="flex justify-center"
             >
-              <div className="relative">
-                <div className="relative w-80 h-80 rounded-full overflow-hidden shadow-2xl">
-                  <Image
-                    src="/headshot.jpg"
-                    alt="Winton Gee - AI/ML Engineer"
-                    width={320}
-                    height={320}
-                    className="object-cover w-full h-full"
-                    priority
-                  />
+              <div className="relative w-full max-w-md">
+                {/* Timeline-style visualization */}
+                <div className="space-y-8">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    viewport={{ once: true }}
+                    className="flex items-center space-x-4"
+                  >
+                    <div className="w-4 h-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full"></div>
+                    <div className="flex-1 h-0.5 bg-gradient-to-r from-blue-500/50 to-transparent"></div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+                      5+ Years Experience
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                    viewport={{ once: true }}
+                    className="flex items-center space-x-4"
+                  >
+                    <div className="w-4 h-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
+                    <div className="flex-1 h-0.5 bg-gradient-to-r from-purple-500/50 to-transparent"></div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+                      AI/ML Specialization
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.6 }}
+                    viewport={{ once: true }}
+                    className="flex items-center space-x-4"
+                  >
+                    <div className="w-4 h-4 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full"></div>
+                    <div className="flex-1 h-0.5 bg-gradient-to-r from-green-500/50 to-transparent"></div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+                      Production Systems
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.8 }}
+                    viewport={{ once: true }}
+                    className="flex items-center space-x-4"
+                  >
+                    <div className="w-4 h-4 bg-gradient-to-r from-orange-500 to-red-500 rounded-full"></div>
+                    <div className="flex-1 h-0.5 bg-gradient-to-r from-orange-500/50 to-transparent"></div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+                      Healthcare AI Focus
+                    </div>
+                  </motion.div>
                 </div>
-                {/* Floating elements */}
+
+                {/* Central achievement badge */}
                 <motion.div
-                  animate={{
-                    y: [0, -10, 0],
-                    rotate: [0, 5, 0],
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full opacity-80"
-                />
-                <motion.div
-                  animate={{
-                    y: [0, 10, 0],
-                    rotate: [0, -5, 0],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 1,
-                  }}
-                  className="absolute -bottom-4 -left-4 w-6 h-6 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full opacity-80"
-                />
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6, delay: 1.0 }}
+                  viewport={{ once: true }}
+                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center shadow-2xl"
+                >
+                  <span className="text-white font-bold text-lg">AI</span>
+                </motion.div>
               </div>
             </motion.div>
 
