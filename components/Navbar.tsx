@@ -81,7 +81,7 @@ export default function Navbar() {
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-primary-light group-hover:w-full transition-all duration-300"></span>
             </motion.a>
             <Button
-              onClick={() => scrollToSection("chat")}
+              href="mailto:wintongee@gmail.com?subject=Let's Connect - Portfolio Inquiry&body=Hi Winton,%0D%0A%0D%0AI came across your portfolio and would like to connect regarding potential opportunities.%0D%0A%0D%0ABest regards,"
               size="md"
               className="px-6 py-2"
             >
