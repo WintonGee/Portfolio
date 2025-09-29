@@ -38,7 +38,10 @@ export default function Chatbot() {
   };
 
   useEffect(() => {
-    scrollToBottom();
+    // Only scroll to bottom if there are more than 1 message (avoid auto-scroll on initial load)
+    if (messages.length > 1) {
+      scrollToBottom();
+    }
   }, [messages]);
 
   const handleSubmit = async (e: React.FormEvent) => {

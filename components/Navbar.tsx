@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Button from "./ui/Button";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -79,14 +80,13 @@ export default function Navbar() {
               Resume
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-600 group-hover:w-full transition-all duration-300"></span>
             </motion.a>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            <Button
               onClick={() => scrollToSection("chat")}
-              className="px-6 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25"
+              size="md"
+              className="px-6 py-2"
             >
               Contact
-            </motion.button>
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}

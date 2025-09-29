@@ -1,0 +1,213 @@
+[
+  {
+    "id": "medical-ai-diagnosis",
+    "title": "AI-Powered Medical Diagnosis System",
+    "description": "Developed a deep learning model using CNN and transfer learning to assist radiologists in detecting early-stage lung cancer from chest X-rays. Achieved 94% accuracy and reduced diagnosis time by 60%.",
+    "imageUrl": "/content/projects/medical-ai-diagnosis.jpg",
+    "tags": [
+      "Medical AI",
+      "Computer Vision",
+      "Deep Learning",
+      "Healthcare",
+      "CNN"
+    ],
+    "technologies": [
+      {
+        "category": "ai",
+        "name": "Python"
+      },
+      {
+        "category": "ai",
+        "name": "TensorFlow"
+      },
+      {
+        "category": "ai",
+        "name": "CNN"
+      },
+      {
+        "category": "ai",
+        "name": "OpenCV"
+      },
+      {
+        "category": "backend",
+        "name": "FastAPI"
+      },
+      {
+        "category": "devops",
+        "name": "Docker"
+      }
+    ],
+    "links": {
+      "live": "https://medical-ai-demo.vercel.app",
+      "github": "https://github.com/wintongee/medical-ai-diagnosis",
+      "caseStudy": "/projects/medical-ai-diagnosis"
+    },
+    "status": "completed",
+    "featured": true,
+    "date": {
+      "start": "2023-08-01",
+      "end": "2023-12-15"
+    },
+    "metrics": {
+      "performance": "94% accuracy rate",
+      "impact": "60% reduction in diagnosis time",
+      "scale": "Processed 10,000+ X-ray images"
+    },
+    "challenges": [
+      "Limited labeled medical data",
+      "Ensuring model interpretability for medical professionals",
+      "Handling various X-ray image qualities and orientations"
+    ],
+    "solutions": [
+      "Implemented data augmentation and transfer learning techniques",
+      "Created attention maps to visualize model decision-making",
+      "Developed robust preprocessing pipeline for image normalization"
+    ],
+    "learnings": [
+      "Importance of domain expertise in medical AI applications",
+      "Value of interpretable AI in healthcare settings",
+      "Challenges of working with sensitive medical data"
+    ],
+    "longDescription": "\n## Project Overview\n\nThis project involved developing a sophisticated deep learning system to assist radiologists in detecting early-stage lung cancer from chest X-ray images. The system uses convolutional neural networks (CNNs) with transfer learning to achieve high accuracy while maintaining interpretability for medical professionals.\n\n## Technical Implementation\n\n### Model Architecture\n\n- **Base Model**: ResNet-50 pre-trained on ImageNet\n- **Custom Layers**: Added specialized layers for medical image analysis\n- **Attention Mechanism**: Implemented attention maps for model interpretability\n\n### Data Processing Pipeline\n\n- **Preprocessing**: Image normalization and augmentation\n- **Data Augmentation**: Rotation, flipping, and intensity variations\n- **Quality Control**: Automated filtering of low-quality images\n\n### Performance Metrics\n\n- **Accuracy**: 94% on test dataset\n- **Sensitivity**: 92% (correctly identifying positive cases)\n- **Specificity**: 96% (correctly identifying negative cases)\n- **Processing Time**: 2.3 seconds per image (vs 6 minutes manual review)\n\n## Impact and Results\n\nThe system has been successfully deployed in a pilot program at a local medical center, where it has:\n\n- Reduced average diagnosis time from 6 minutes to 2.3 seconds\n- Improved early detection rates by 15%\n- Assisted radiologists in reviewing 10,000+ X-ray images\n\n## Future Enhancements\n\n- Integration with PACS (Picture Archiving and Communication System)\n- Multi-modal analysis combining X-rays with patient history\n- Real-time deployment for emergency room triage\n"
+  },
+  {
+    "id": "sentiment-analysis-api",
+    "title": "Real-time Sentiment Analysis API",
+    "description": "Built a scalable REST API using FastAPI and deployed on AWS that performs real-time sentiment analysis on social media posts. Handles 10,000+ requests per minute with 99.9% uptime.",
+    "imageUrl": "/content/projects/sentiment-analysis-api.jpg",
+    "tags": [
+      "NLP",
+      "API Development",
+      "AWS",
+      "Microservices",
+      "Real-time Processing"
+    ],
+    "technologies": [
+      {
+        "category": "ai",
+        "name": "Python"
+      },
+      {
+        "category": "backend",
+        "name": "FastAPI"
+      },
+      {
+        "category": "backend",
+        "name": "Redis"
+      },
+      {
+        "category": "devops",
+        "name": "AWS"
+      },
+      {
+        "category": "devops",
+        "name": "Docker"
+      },
+      {
+        "category": "ai",
+        "name": "Transformers"
+      }
+    ],
+    "links": {
+      "live": "https://sentiment-api-docs.vercel.app",
+      "github": "https://github.com/wintongee/sentiment-analysis-api",
+      "caseStudy": "/projects/sentiment-analysis-api"
+    },
+    "status": "completed",
+    "featured": true,
+    "date": {
+      "start": "2023-06-01",
+      "end": "2023-09-30"
+    },
+    "metrics": {
+      "performance": "99.9% uptime",
+      "impact": "10,000+ requests per minute",
+      "scale": "Processed 50M+ social media posts"
+    },
+    "challenges": [
+      "Handling high-volume concurrent requests",
+      "Optimizing model inference speed",
+      "Managing costs while maintaining performance"
+    ],
+    "solutions": [
+      "Implemented Redis caching for model responses",
+      "Used model quantization to reduce inference time",
+      "Implemented auto-scaling based on request volume"
+    ],
+    "learnings": [
+      "Importance of caching in high-traffic applications",
+      "Model optimization techniques for production deployment",
+      "Cost optimization strategies for cloud services"
+    ],
+    "longDescription": "\n## Project Overview\n\nDeveloped a high-performance sentiment analysis API that processes social media posts in real-time. The system uses state-of-the-art transformer models to provide accurate sentiment analysis with sub-second response times.\n\n## Technical Architecture\n\n### API Design\n\n- **Framework**: FastAPI with async/await support\n- **Authentication**: JWT-based API keys\n- **Rate Limiting**: Redis-based rate limiting\n- **Documentation**: Auto-generated OpenAPI/Swagger docs\n\n### Model Implementation\n\n- **Base Model**: RoBERTa-large for sentiment analysis\n- **Optimization**: Model quantization and ONNX conversion\n- **Caching**: Redis caching for frequently analyzed text\n\n### Infrastructure\n\n- **Cloud Provider**: AWS with auto-scaling\n- **Containerization**: Docker with multi-stage builds\n- **Monitoring**: CloudWatch integration\n- **Load Balancing**: Application Load Balancer\n\n## Performance Metrics\n\n- **Throughput**: 10,000+ requests per minute\n- **Latency**: Average 150ms response time\n- **Uptime**: 99.9% availability\n- **Cost**: $0.001 per 1000 requests\n\n## API Features\n\n- **Batch Processing**: Analyze multiple texts in single request\n- **Language Detection**: Automatic language detection and routing\n- **Confidence Scores**: Sentiment confidence levels\n- **Custom Models**: Support for domain-specific models\n\n## Deployment and Scaling\n\nThe API is deployed on AWS with:\n\n- Auto-scaling groups based on CPU and memory usage\n- Multi-AZ deployment for high availability\n- CloudFront CDN for global distribution\n- Automated backups and disaster recovery\n"
+  },
+  {
+    "id": "autonomous-trading-bot",
+    "title": "Autonomous Trading Bot",
+    "description": "Created an ML-powered cryptocurrency trading bot using reinforcement learning. The bot analyzes market patterns and executes trades automatically, achieving 15% average monthly returns.",
+    "imageUrl": "/content/projects/autonomous-trading-bot.jpg",
+    "tags": [
+      "Reinforcement Learning",
+      "Cryptocurrency",
+      "Trading",
+      "ML",
+      "Automation"
+    ],
+    "technologies": [
+      {
+        "category": "ai",
+        "name": "Python"
+      },
+      {
+        "category": "ai",
+        "name": "Reinforcement Learning"
+      },
+      {
+        "category": "data",
+        "name": "Pandas"
+      },
+      {
+        "category": "backend",
+        "name": "Binance API"
+      },
+      {
+        "category": "ai",
+        "name": "MLflow"
+      },
+      {
+        "category": "backend",
+        "name": "PostgreSQL"
+      }
+    ],
+    "links": {
+      "github": "https://github.com/wintongee/autonomous-trading-bot"
+    },
+    "status": "completed",
+    "featured": true,
+    "date": {
+      "start": "2023-03-01",
+      "end": "2023-07-31"
+    },
+    "metrics": {
+      "performance": "15% average monthly returns",
+      "impact": "Automated 24/7 trading",
+      "scale": "Processed 1M+ market data points"
+    },
+    "challenges": [
+      "Market volatility and unpredictable patterns",
+      "Risk management and drawdown control",
+      "Real-time data processing and decision making"
+    ],
+    "solutions": [
+      "Implemented ensemble of RL algorithms",
+      "Added dynamic risk management based on market conditions",
+      "Used high-frequency data processing with Redis"
+    ],
+    "learnings": [
+      "Complexity of financial markets and risk management",
+      "Importance of backtesting and paper trading",
+      "Challenges of deploying ML models in production"
+    ],
+    "longDescription": "\n## Project Overview\n\nDeveloped an autonomous cryptocurrency trading system using reinforcement learning algorithms. The bot continuously learns from market data and executes trades based on learned strategies, achieving consistent returns while managing risk.\n\n## Technical Implementation\n\n### Reinforcement Learning Approach\n\n- **Algorithm**: Proximal Policy Optimization (PPO)\n- **State Space**: Market indicators, price history, volume data\n- **Action Space**: Buy, sell, hold with position sizing\n- **Reward Function**: Risk-adjusted returns with drawdown penalties\n\n### Data Processing\n\n- **Data Sources**: Binance API, CoinGecko, technical indicators\n- **Feature Engineering**: 50+ technical indicators\n- **Data Pipeline**: Real-time data processing with Apache Kafka\n- **Storage**: PostgreSQL for historical data and trade logs\n\n### Risk Management\n\n- **Position Sizing**: Kelly Criterion for optimal position sizing\n- **Stop Loss**: Dynamic stop-loss based on volatility\n- **Portfolio Limits**: Maximum exposure and correlation limits\n- **Drawdown Control**: Circuit breakers for excessive losses\n\n## Performance Results\n\n### Trading Performance\n\n- **Average Monthly Return**: 15%\n- **Sharpe Ratio**: 1.8\n- **Maximum Drawdown**: 8%\n- **Win Rate**: 68%\n\n### Technical Performance\n\n- **Latency**: <50ms order execution\n- **Uptime**: 99.5% availability\n- **Data Processing**: 1M+ data points per day\n- **Model Updates**: Daily retraining\n\n## System Architecture\n\n### Components\n\n- **Data Ingestion**: Real-time market data collection\n- **Feature Engineering**: Technical indicator calculation\n- **Model Inference**: RL model prediction and action selection\n- **Order Management**: Trade execution and position tracking\n- **Risk Management**: Real-time risk monitoring\n- **Monitoring**: Performance tracking and alerting\n\n### Deployment\n\n- **Infrastructure**: AWS EC2 with auto-scaling\n- **Database**: PostgreSQL with read replicas\n- **Caching**: Redis for high-frequency data\n- **Monitoring**: Custom dashboard with Grafana\n- **Backup**: Automated daily backups\n\n## Risk Management Features\n\n- **Dynamic Position Sizing**: Adjusts based on market volatility\n- **Correlation Analysis**: Avoids overexposure to correlated assets\n- **Market Regime Detection**: Adapts strategy based on market conditions\n- **Emergency Stop**: Automatic shutdown on excessive losses\n"
+  }
+]

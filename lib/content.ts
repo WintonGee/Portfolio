@@ -1,0 +1,109 @@
+import { Project, ProjectCategory, ProjectFilters } from "@/types/project";
+import projectsData from "@/data/projects.json";
+
+// Get all projects from static data
+export function getAllProjects(): Project[] {
+  return projectsData as Project[];
+}
+
+// Get featured projects
+export function getFeaturedProjects(): Project[] {
+  return getAllProjects().filter((project) => project.featured);
+}
+
+// Get projects by category
+export function getProjectsByCategory(category: string): Project[] {
+  return getAllProjects().filter((project) =>
+    project.technologies.some((tech) => tech.category === category)
+  );
+}
+
+// Get projects by status
+export function getProjectsByStatus(status: Project["status"]): Project[] {
+  return getAllProjects().filter((project) => project.status === status);
+}
+
+// Filter projects
+export function filterProjects(filters: ProjectFilters): Project[] {
+  let projects = getAllProjects();
+
+  if (filters.category) {
+    projects = projects.filter((project) =>
+      project.technologies.some((tech) => tech.category === filters.category)
+    );
+  }
+
+  if (filters.status) {
+    projects = projects.filter((project) => project.status === filters.status);
+  }
+
+  if (filters.featured !== undefined) {
+    projects = projects.filter(
+      (project) => project.featured === filters.featured
+    );
+  }
+
+  if (filters.technology) {
+    projects = projects.filter((project) =>
+      project.technologies.some((tech) =>
+        tech.name.toLowerCase().includes(filters.technology!.toLowerCase())
+      )
+    );
+  }
+
+  return projects;
+}
+
+// Get project categories
+export function getProjectCategories(): ProjectCategory[] {
+  const projects = getAllProjects();
+  const categories: { [key: string]: Project[] } = {};
+
+  projects.forEach((project) => {
+    project.technologies.forEach((tech) => {
+      if (!categories[tech.category]) {
+        categories[tech.category] = [];
+      }
+      if (!categories[tech.category].find((p) => p.id === project.id)) {
+        categories[tech.category].push(project);
+      }
+    });
+  });
+
+  return Object.entries(categories).map(([name, projectList]) => ({
+    name,
+    description: getCategoryDescription(name),
+    projects: projectList,
+  }));
+}
+
+function getCategoryDescription(category: string): string {
+  const descriptions: { [key: string]: string } = {
+    ai: "Artificial Intelligence and Machine Learning projects",
+    frontend: "Frontend development and user interface projects",
+    backend: "Backend development and API projects",
+    devops: "DevOps, deployment, and infrastructure projects",
+    data: "Data science, analysis, and visualization projects",
+  };
+
+  return descriptions[category] || "Project category";
+}
+
+// Get related projects
+export function getRelatedProjects(
+  currentProject: Project,
+  limit: number = 3
+): Project[] {
+  const allProjects = getAllProjects();
+  const currentTags = currentProject.tags;
+
+  return allProjects
+    .filter((project) => project.id !== currentProject.id)
+    .map((project) => ({
+      project,
+      score: project.tags.filter((tag) => currentTags.includes(tag)).length,
+    }))
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map((item) => item.project);
+}

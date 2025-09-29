@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
+import Button from "./ui/Button";
 
 const Hero3D = dynamic(() => import("./Hero3D"), {
   ssr: false,
@@ -61,21 +62,17 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="flex flex-col sm:flex-row gap-4"
             >
-              <a
-                href="/resume/AIML_Resume_WintonGee.pdf"
-                target="_blank"
-                className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/25 hover:scale-105 transform"
-              >
-                <span className="relative z-10">View Resume</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl blur opacity-0 group-hover:opacity-75 transition-opacity duration-300"></div>
-              </a>
+              <Button href="/resume/AIML_Resume_WintonGee.pdf" size="lg">
+                View Resume
+              </Button>
 
-              <a
+              <Button
                 href="mailto:wintongee@gmail.com"
-                className="group px-8 py-4 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 font-semibold rounded-xl transition-all duration-300 hover:shadow-xl hover:scale-105 transform"
+                variant="secondary"
+                size="lg"
               >
                 Contact Me
-              </a>
+              </Button>
             </motion.div>
 
             {/* Tech Stack Preview */}

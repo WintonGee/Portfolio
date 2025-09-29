@@ -3,73 +3,12 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-
-// Sample project data - replace with your actual projects
-const projects = [
-  {
-    title: "AI-Powered Medical Diagnosis System",
-    description:
-      "Developed a deep learning model using CNN and transfer learning to assist radiologists in detecting early-stage lung cancer from chest X-rays. Achieved 94% accuracy and reduced diagnosis time by 60%.",
-    imageUrl: "/placeholder-medical-ai.jpg", // Replace with actual image
-    tags: ["Python", "TensorFlow", "CNN", "Medical AI", "OpenCV"],
-    liveUrl: "https://medical-ai-demo.vercel.app",
-    githubUrl: "https://github.com/wintongee/medical-ai-diagnosis",
-    caseStudyUrl: "/projects/ai-medical-diagnosis",
-  },
-  {
-    title: "Real-time Sentiment Analysis API",
-    description:
-      "Built a scalable REST API using FastAPI and deployed on AWS that performs real-time sentiment analysis on social media posts. Handles 10,000+ requests per minute with 99.9% uptime.",
-    imageUrl: "/placeholder-sentiment-api.jpg", // Replace with actual image
-    tags: ["Python", "FastAPI", "AWS", "NLP", "Docker", "Redis"],
-    liveUrl: "https://sentiment-api-docs.vercel.app",
-    githubUrl: "https://github.com/wintongee/sentiment-analysis-api",
-    caseStudyUrl: "/projects/sentiment-analysis-api",
-  },
-  {
-    title: "Autonomous Trading Bot",
-    description:
-      "Created an ML-powered cryptocurrency trading bot using reinforcement learning. The bot analyzes market patterns and executes trades automatically, achieving 15% average monthly returns.",
-    imageUrl: "/placeholder-trading-bot.jpg", // Replace with actual image
-    tags: [
-      "Python",
-      "Reinforcement Learning",
-      "Pandas",
-      "Binance API",
-      "MLflow",
-    ],
-    githubUrl: "https://github.com/wintongee/autonomous-trading-bot",
-  },
-  {
-    title: "Computer Vision Object Detection",
-    description:
-      "Implemented YOLO v8 for real-time object detection in video streams. Optimized for edge devices using TensorRT, achieving 30 FPS on NVIDIA Jetson Nano.",
-    imageUrl: "/placeholder-object-detection.jpg", // Replace with actual image
-    tags: ["Python", "YOLO", "OpenCV", "TensorRT", "Edge Computing"],
-    liveUrl: "https://object-detection-demo.vercel.app",
-    githubUrl: "https://github.com/wintongee/object-detection-yolo",
-  },
-  {
-    title: "Natural Language Processing Pipeline",
-    description:
-      "Built an end-to-end NLP pipeline for document classification and named entity recognition. Processes 1M+ documents daily with 97% accuracy using transformer models.",
-    imageUrl: "/placeholder-nlp-pipeline.jpg", // Replace with actual image
-    tags: ["Python", "Transformers", "spaCy", "Apache Airflow", "PostgreSQL"],
-    githubUrl: "https://github.com/wintongee/nlp-document-pipeline",
-  },
-  {
-    title: "Predictive Analytics Dashboard",
-    description:
-      "Developed an interactive dashboard using React and D3.js for visualizing ML model predictions and business metrics. Features real-time updates and advanced filtering capabilities.",
-    imageUrl: "/placeholder-dashboard.jpg", // Replace with actual image
-    tags: ["React", "D3.js", "TypeScript", "Node.js", "MongoDB"],
-    liveUrl: "https://analytics-dashboard.vercel.app",
-    githubUrl: "https://github.com/wintongee/predictive-analytics-dashboard",
-  },
-];
+import { getAllProjects } from "@/lib/content";
+import { Project } from "@/types/project";
+import Button from "./ui/Button";
 
 interface ProjectItemProps {
-  project: (typeof projects)[0];
+  project: Project;
   index: number;
 }
 
@@ -110,9 +49,9 @@ function ProjectItem({ project, index }: ProjectItemProps) {
             {/* Overlay content */}
             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <div className="flex gap-4">
-                {project.liveUrl && (
+                {project.links.live && (
                   <a
-                    href={project.liveUrl}
+                    href={project.links.live}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-6 py-3 bg-white text-gray-900 font-semibold rounded-lg hover:bg-gray-100 transition-colors duration-200"
@@ -120,9 +59,9 @@ function ProjectItem({ project, index }: ProjectItemProps) {
                     Live Demo
                   </a>
                 )}
-                {project.githubUrl && (
+                {project.links.github && (
                   <a
-                    href={project.githubUrl}
+                    href={project.links.github}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-6 py-3 bg-gray-900 text-white font-semibold rounded-lg hover:bg-gray-800 transition-colors duration-200"
@@ -171,9 +110,9 @@ function ProjectItem({ project, index }: ProjectItemProps) {
 
           {/* Technology Tags */}
           <div className="flex flex-wrap gap-3">
-            {project.tags.map((tag, tagIndex) => (
+            {project.technologies.map((tech, tagIndex) => (
               <motion.span
-                key={tag}
+                key={tech.name}
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{
@@ -183,19 +122,16 @@ function ProjectItem({ project, index }: ProjectItemProps) {
                 viewport={{ once: true }}
                 className="px-4 py-2 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/30 dark:to-cyan-900/30 text-blue-700 dark:text-blue-300 text-sm font-medium rounded-full border border-blue-200 dark:border-blue-700"
               >
-                {tag}
+                {tech.name}
               </motion.span>
             ))}
           </div>
 
           {/* Action Buttons */}
           <div className="flex flex-wrap gap-4 pt-4">
-            {project.caseStudyUrl && (
-              <Link
-                href={project.caseStudyUrl}
-                className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/25 hover:scale-105 transform border-2 border-blue-500/20"
-              >
-                <span className="relative z-10 flex items-center gap-2">
+            {project.links.caseStudy && (
+              <Link href={project.links.caseStudy}>
+                <Button size="lg" className="border-2 border-blue-500/20">
                   <svg
                     className="w-5 h-5"
                     fill="none"
@@ -210,18 +146,12 @@ function ProjectItem({ project, index }: ProjectItemProps) {
                     />
                   </svg>
                   Case Study
-                </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl blur opacity-0 group-hover:opacity-75 transition-opacity duration-300"></div>
+                </Button>
               </Link>
             )}
 
-            {project.liveUrl && (
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 font-medium rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105 transform flex items-center gap-2"
-              >
+            {project.links.live && (
+              <Button href={project.links.live} variant="outline" size="md">
                 <svg
                   className="w-4 h-4"
                   fill="none"
@@ -236,16 +166,11 @@ function ProjectItem({ project, index }: ProjectItemProps) {
                   />
                 </svg>
                 Live Demo
-              </a>
+              </Button>
             )}
 
-            {project.githubUrl && (
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 font-medium rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105 transform flex items-center gap-2"
-              >
+            {project.links.github && (
+              <Button href={project.links.github} variant="outline" size="md">
                 <svg
                   className="w-4 h-4"
                   fill="none"
@@ -260,7 +185,7 @@ function ProjectItem({ project, index }: ProjectItemProps) {
                   />
                 </svg>
                 View Code
-              </a>
+              </Button>
             )}
           </div>
         </motion.div>
@@ -270,6 +195,8 @@ function ProjectItem({ project, index }: ProjectItemProps) {
 }
 
 export default function ProjectsNew() {
+  const projects = getAllProjects();
+
   return (
     <section
       id="projects"
@@ -299,7 +226,7 @@ export default function ProjectsNew() {
           {/* Projects List */}
           <div className="space-y-8">
             {projects.map((project, index) => (
-              <ProjectItem key={index} project={project} index={index} />
+              <ProjectItem key={project.id} project={project} index={index} />
             ))}
           </div>
 
@@ -320,20 +247,16 @@ export default function ProjectsNew() {
                 innovative solutions.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href="mailto:wintongee@gmail.com"
-                  className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/25 hover:scale-105 transform"
-                >
-                  <span className="relative z-10">Get In Touch</span>
-                </a>
-                <a
+                <Button href="mailto:wintongee@gmail.com" size="lg">
+                  Get In Touch
+                </Button>
+                <Button
                   href="https://github.com/wintongee"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group px-8 py-4 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 font-semibold rounded-xl transition-all duration-300 hover:shadow-xl hover:scale-105 transform"
+                  variant="secondary"
+                  size="lg"
                 >
                   View All Projects
-                </a>
+                </Button>
               </div>
             </div>
           </motion.div>
