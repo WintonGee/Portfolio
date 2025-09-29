@@ -103,7 +103,12 @@ export default function Hero() {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.3, delay: 1 + index * 0.1 }}
-                    className="px-3 py-1 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-full shadow-sm border border-gray-200 dark:border-gray-700"
+                    whileHover={{
+                      scale: 1.1,
+                      y: -2,
+                      boxShadow: "0 8px 25px rgba(59, 130, 246, 0.3)",
+                    }}
+                    className="px-3 py-1 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-full shadow-sm border border-gray-200 dark:border-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-cyan-50 dark:hover:from-blue-900/30 dark:hover:to-cyan-900/30 hover:text-blue-700 dark:hover:text-blue-300 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-300 cursor-pointer"
                   >
                     {tech}
                   </motion.span>
@@ -124,11 +129,13 @@ export default function Hero() {
               {/* Floating elements */}
               <motion.div
                 animate={{
-                  y: [0, -10, 0],
-                  rotate: [0, 5, 0],
+                  y: [0, -20, 0],
+                  x: [0, 10, 0],
+                  rotate: [0, 360, 0],
+                  scale: [1, 1.1, 1],
                 }}
                 transition={{
-                  duration: 4,
+                  duration: 8,
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
@@ -136,16 +143,48 @@ export default function Hero() {
               />
               <motion.div
                 animate={{
-                  y: [0, 10, 0],
-                  rotate: [0, -5, 0],
+                  y: [0, 15, 0],
+                  x: [0, -8, 0],
+                  rotate: [0, -360, 0],
+                  scale: [1, 0.9, 1],
                 }}
                 transition={{
-                  duration: 3,
+                  duration: 6,
                   repeat: Infinity,
                   ease: "easeInOut",
                   delay: 1,
                 }}
                 className="absolute -bottom-4 -left-4 w-6 h-6 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full opacity-80"
+              />
+              <motion.div
+                animate={{
+                  y: [0, -15, 0],
+                  x: [0, 12, 0],
+                  rotate: [0, 180, 0],
+                  scale: [1, 1.2, 1],
+                }}
+                transition={{
+                  duration: 7,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 2,
+                }}
+                className="absolute top-1/2 -right-8 w-4 h-4 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full opacity-60"
+              />
+              <motion.div
+                animate={{
+                  y: [0, 20, 0],
+                  x: [0, -15, 0],
+                  rotate: [0, -180, 0],
+                  scale: [1, 0.8, 1],
+                }}
+                transition={{
+                  duration: 9,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.5,
+                }}
+                className="absolute top-1/3 -left-6 w-5 h-5 bg-gradient-to-r from-green-400 to-teal-500 rounded-full opacity-70"
               />
             </div>
           </motion.div>

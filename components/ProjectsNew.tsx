@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 // Sample project data - replace with your actual projects
 const projects = [
@@ -13,6 +14,7 @@ const projects = [
     tags: ["Python", "TensorFlow", "CNN", "Medical AI", "OpenCV"],
     liveUrl: "https://medical-ai-demo.vercel.app",
     githubUrl: "https://github.com/wintongee/medical-ai-diagnosis",
+    caseStudyUrl: "/projects/ai-medical-diagnosis",
   },
   {
     title: "Real-time Sentiment Analysis API",
@@ -22,6 +24,7 @@ const projects = [
     tags: ["Python", "FastAPI", "AWS", "NLP", "Docker", "Redis"],
     liveUrl: "https://sentiment-api-docs.vercel.app",
     githubUrl: "https://github.com/wintongee/sentiment-analysis-api",
+    caseStudyUrl: "/projects/sentiment-analysis-api",
   },
   {
     title: "Autonomous Trading Bot",
@@ -186,17 +189,15 @@ function ProjectItem({ project, index }: ProjectItemProps) {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex gap-4 pt-4">
-            {project.liveUrl && (
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25 hover:scale-105 transform"
+          <div className="flex flex-wrap gap-4 pt-4">
+            {project.caseStudyUrl && (
+              <Link
+                href={project.caseStudyUrl}
+                className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/25 hover:scale-105 transform border-2 border-blue-500/20"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   <svg
-                    className="w-4 h-4"
+                    className="w-5 h-5"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -205,11 +206,36 @@ function ProjectItem({ project, index }: ProjectItemProps) {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                     />
                   </svg>
-                  Live Demo
+                  Case Study
                 </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl blur opacity-0 group-hover:opacity-75 transition-opacity duration-300"></div>
+              </Link>
+            )}
+
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 font-medium rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105 transform flex items-center gap-2"
+              >
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
+                </svg>
+                Live Demo
               </a>
             )}
 
@@ -218,7 +244,7 @@ function ProjectItem({ project, index }: ProjectItemProps) {
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105 transform flex items-center gap-2"
+                className="group px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 font-medium rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105 transform flex items-center gap-2"
               >
                 <svg
                   className="w-4 h-4"

@@ -17,10 +17,24 @@ export default function Home() {
       <Hero />
 
       {/* About Section */}
-      <About />
+      <motion.section
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+      >
+        <About />
+      </motion.section>
 
       {/* Projects Section */}
-      <ProjectsNew />
+      <motion.section
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+      >
+        <ProjectsNew />
+      </motion.section>
 
       {/* Chatbot Section */}
       <motion.section
