@@ -30,7 +30,7 @@ export default function Navbar() {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-slate-900/50 backdrop-blur-md shadow-xl border-b border-white/10"
+          ? "bg-brand-beige/90 backdrop-blur-md shadow-organic-lg border-b border-brand-secondary/30"
           : "bg-transparent"
       }`}
     >
@@ -44,7 +44,7 @@ export default function Navbar() {
           >
             <button
               onClick={() => scrollToSection("hero")}
-              className="text-2xl font-bold text-gray-900 dark:text-white hover:gradient-text transition-all duration-300"
+              className="text-2xl font-bold text-brand-text hover:gradient-text transition-all duration-300"
             >
               Winton Gee
             </button>
@@ -56,29 +56,29 @@ export default function Navbar() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => scrollToSection("about")}
-              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-cyan-400 font-medium transition-colors duration-200 relative group"
+              className="text-brand-text hover:text-brand-primary font-medium transition-colors duration-200 relative group"
             >
               About
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-600 group-hover:w-full transition-all duration-300"></span>
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-primary-light group-hover:w-full transition-all duration-300"></span>
             </motion.button>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => scrollToSection("projects")}
-              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-cyan-400 font-medium transition-colors duration-200 relative group"
+              className="text-brand-text hover:text-brand-primary font-medium transition-colors duration-200 relative group"
             >
               Projects
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-600 group-hover:w-full transition-all duration-300"></span>
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-primary-light group-hover:w-full transition-all duration-300"></span>
             </motion.button>
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               href="/resume/AIML_Resume_WintonGee.pdf"
               target="_blank"
-              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-cyan-400 font-medium transition-colors duration-200 relative group"
+              className="text-brand-text hover:text-brand-primary font-medium transition-colors duration-200 relative group"
             >
               Resume
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-600 group-hover:w-full transition-all duration-300"></span>
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-primary-light group-hover:w-full transition-all duration-300"></span>
             </motion.a>
             <Button
               onClick={() => scrollToSection("chat")}
@@ -98,7 +98,7 @@ export default function Navbar() {
                 // You can implement mobile menu toggle here
                 console.log("Mobile menu toggle");
               }}
-              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-cyan-400 transition-colors duration-200"
+              className="text-brand-text hover:text-brand-primary transition-colors duration-200"
             >
               <svg
                 className="w-6 h-6"

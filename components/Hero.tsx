@@ -8,7 +8,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 relative overflow-hidden"
+      className="min-h-screen flex items-center bg-gradient-to-br from-brand-beige via-brand-beige-light to-brand-beige-dark relative overflow-hidden"
     >
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -23,7 +23,7 @@ export default function Hero() {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-r from-cyan-400/20 to-blue-500/20 rounded-full blur-xl"
+          className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-r from-brand-primary/20 to-brand-secondary/20 rounded-full blur-xl"
         />
         <motion.div
           animate={{
@@ -37,7 +37,7 @@ export default function Hero() {
             ease: "easeInOut",
             delay: 2,
           }}
-          className="absolute bottom-20 left-20 w-24 h-24 bg-gradient-to-r from-blue-400/20 to-purple-500/20 rounded-full blur-xl"
+          className="absolute bottom-20 left-20 w-24 h-24 bg-gradient-to-r from-brand-secondary/20 to-brand-primary/20 rounded-full blur-xl"
         />
       </div>
 
@@ -57,7 +57,7 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative group"
             >
-              <div className="relative w-64 h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden shadow-2xl ring-4 ring-white/20 dark:ring-gray-800/20">
+              <div className="relative w-64 h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden shadow-organic-2xl ring-4 ring-brand-secondary/30">
                 <Image
                   src="/headshot.jpg"
                   alt="Winton Gee - AI/ML Engineer"
@@ -79,7 +79,7 @@ export default function Hero() {
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full opacity-80"
+                className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full opacity-80"
               />
               <motion.div
                 animate={{
@@ -92,7 +92,7 @@ export default function Hero() {
                   ease: "easeInOut",
                   delay: 1,
                 }}
-                className="absolute -bottom-4 -left-4 w-6 h-6 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full opacity-80"
+                className="absolute -bottom-4 -left-4 w-6 h-6 bg-gradient-to-r from-brand-secondary to-brand-primary rounded-full opacity-80"
               />
             </motion.div>
 
@@ -103,10 +103,10 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-center lg:text-left space-y-4"
             >
-              <p className="text-lg text-gray-600 dark:text-gray-300 font-medium">
+              <p className="text-lg text-brand-text font-medium">
                 Hi, I'm Winton 👋
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400 max-w-md">
+              <p className="text-sm text-brand-text-light max-w-md">
                 Passionate about building AI solutions that make a real
                 difference
               </p>
@@ -122,7 +122,7 @@ export default function Hero() {
           >
             <div className="space-y-6">
               <motion.h1
-                className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white leading-tight"
+                className="text-5xl md:text-6xl lg:text-7xl font-bold text-brand-text leading-tight"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
@@ -137,10 +137,10 @@ export default function Hero() {
                 transition={{ duration: 0.8, delay: 0.6 }}
                 className="space-y-4"
               >
-                <h2 className="text-2xl md:text-3xl font-light text-gray-600 dark:text-gray-300">
+                <h2 className="text-2xl md:text-3xl font-light text-brand-text-light">
                   Building Intelligent Systems
                 </h2>
-                <p className="text-lg text-gray-500 dark:text-gray-400 max-w-2xl leading-relaxed">
+                <p className="text-lg text-brand-text-light max-w-2xl leading-relaxed">
                   I specialize in developing end-to-end machine learning
                   solutions, from data preprocessing to production deployment.
                   With expertise in computer vision, NLP, and predictive
@@ -175,7 +175,7 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.8 }}
               className="pt-6"
             >
-              <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 font-medium">
+              <p className="text-sm text-brand-text-light mb-4 font-medium">
                 Core Technologies:
               </p>
               <div className="flex flex-wrap gap-3">
@@ -196,9 +196,9 @@ export default function Hero() {
                     whileHover={{
                       scale: 1.1,
                       y: -2,
-                      boxShadow: "0 8px 25px rgba(59, 130, 246, 0.3)",
+                      boxShadow: "0 8px 25px rgba(85, 107, 47, 0.3)",
                     }}
-                    className="px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-full shadow-sm border border-gray-200 dark:border-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-cyan-50 dark:hover:from-blue-900/30 dark:hover:to-cyan-900/30 hover:text-blue-700 dark:hover:text-blue-300 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-300 cursor-pointer"
+                    className="px-4 py-2 bg-brand-beige-light text-brand-text text-sm font-medium rounded-full shadow-organic border border-brand-secondary hover:bg-gradient-to-r hover:from-brand-primary/10 hover:to-brand-secondary/10 hover:text-brand-primary hover:border-brand-primary transition-all duration-300 cursor-pointer"
                   >
                     {tech}
                   </motion.span>

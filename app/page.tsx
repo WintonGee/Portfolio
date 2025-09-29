@@ -10,7 +10,7 @@ import FloatingChatButton from "@/components/FloatingChatButton";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+    <main className="min-h-screen bg-gradient-to-br from-brand-beige to-brand-beige-light">
       <Navbar />
 
       {/* Hero Section */}
@@ -25,7 +25,7 @@ export default function Home() {
         className="relative"
       >
         {/* Section divider */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent"></div>
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-secondary to-transparent"></div>
         <About />
       </motion.section>
 
@@ -38,7 +38,7 @@ export default function Home() {
         className="relative"
       >
         {/* Section divider */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent"></div>
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-secondary to-transparent"></div>
         <ProjectsNew />
       </motion.section>
 
@@ -49,7 +49,7 @@ export default function Home() {
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
         id="chat"
-        className="py-32 bg-gradient-to-b from-gray-50 to-white dark:from-slate-800 dark:to-slate-900"
+        className="py-32 bg-gradient-to-b from-brand-beige-light to-brand-beige"
       >
         <div className="container mx-auto px-4">
           <motion.div
@@ -59,10 +59,10 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">
+            <h2 className="text-5xl font-bold text-brand-text mb-6">
               Ask Me <span className="gradient-text">Anything</span>
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            <p className="text-xl text-brand-text-light max-w-3xl mx-auto">
               Have questions about my work, AI/ML, or want to discuss a
               potential collaboration? I'm here to help!
             </p>

@@ -35,11 +35,11 @@ export default function Button({
 
   const variantClasses = {
     primary:
-      "group relative bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white hover:shadow-xl hover:shadow-blue-500/25",
+      "group relative bg-gradient-to-r from-brand-primary to-brand-primary-light hover:from-brand-primary-dark hover:to-brand-primary text-brand-beige hover:shadow-organic-lg hover:shadow-brand-primary/25",
     secondary:
-      "group px-8 py-4 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 hover:shadow-lg",
+      "group px-8 py-4 border-2 border-brand-secondary text-brand-text hover:bg-brand-primary hover:text-brand-beige hover:shadow-organic",
     outline:
-      "px-6 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 font-medium rounded-lg hover:shadow-lg",
+      "px-6 py-2 border-2 border-brand-secondary text-brand-text hover:bg-brand-primary hover:text-brand-beige font-medium rounded-lg hover:shadow-organic",
   };
 
   const classes = `${baseClasses} ${sizeClasses[size]} ${variantClasses[variant]} ${className}`;
@@ -48,7 +48,7 @@ export default function Button({
     <>
       <span className="relative z-10 flex items-center gap-2">{children}</span>
       {variant === "primary" && (
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl blur opacity-0 group-hover:opacity-75 transition-opacity duration-300"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-primary to-brand-primary-light rounded-xl blur opacity-0 group-hover:opacity-75 transition-opacity duration-300"></div>
       )}
     </>
   );

@@ -7,7 +7,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="py-32 bg-gradient-to-b from-white to-gray-50 dark:from-slate-800 dark:to-slate-900"
+      className="py-32 bg-gradient-to-b from-brand-beige-light to-brand-beige"
     >
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
@@ -18,10 +18,10 @@ export default function About() {
             viewport={{ once: true }}
             className="text-center mb-20"
           >
-            <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">
+            <h2 className="text-5xl font-bold text-brand-text mb-6">
               About <span className="gradient-text">Me</span>
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            <p className="text-xl text-brand-text-light max-w-3xl mx-auto">
               Passionate about building intelligent systems that make a
               difference
             </p>
@@ -46,9 +46,9 @@ export default function About() {
                     viewport={{ once: true }}
                     className="flex items-center space-x-4"
                   >
-                    <div className="w-4 h-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full"></div>
-                    <div className="flex-1 h-0.5 bg-gradient-to-r from-blue-500/50 to-transparent"></div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+                    <div className="w-4 h-4 bg-gradient-to-r from-brand-primary to-brand-primary-light rounded-full"></div>
+                    <div className="flex-1 h-0.5 bg-gradient-to-r from-brand-primary/50 to-transparent"></div>
+                    <div className="text-sm text-brand-text-light font-medium">
                       5+ Years Experience
                     </div>
                   </motion.div>
@@ -60,9 +60,9 @@ export default function About() {
                     viewport={{ once: true }}
                     className="flex items-center space-x-4"
                   >
-                    <div className="w-4 h-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
-                    <div className="flex-1 h-0.5 bg-gradient-to-r from-purple-500/50 to-transparent"></div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+                    <div className="w-4 h-4 bg-gradient-to-r from-brand-secondary to-brand-primary rounded-full"></div>
+                    <div className="flex-1 h-0.5 bg-gradient-to-r from-brand-secondary/50 to-transparent"></div>
+                    <div className="text-sm text-brand-text-light font-medium">
                       AI/ML Specialization
                     </div>
                   </motion.div>
@@ -74,9 +74,9 @@ export default function About() {
                     viewport={{ once: true }}
                     className="flex items-center space-x-4"
                   >
-                    <div className="w-4 h-4 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full"></div>
-                    <div className="flex-1 h-0.5 bg-gradient-to-r from-green-500/50 to-transparent"></div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+                    <div className="w-4 h-4 bg-gradient-to-r from-brand-primary-light to-brand-secondary rounded-full"></div>
+                    <div className="flex-1 h-0.5 bg-gradient-to-r from-brand-primary-light/50 to-transparent"></div>
+                    <div className="text-sm text-brand-text-light font-medium">
                       Production Systems
                     </div>
                   </motion.div>
@@ -88,9 +88,9 @@ export default function About() {
                     viewport={{ once: true }}
                     className="flex items-center space-x-4"
                   >
-                    <div className="w-4 h-4 bg-gradient-to-r from-orange-500 to-red-500 rounded-full"></div>
-                    <div className="flex-1 h-0.5 bg-gradient-to-r from-orange-500/50 to-transparent"></div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+                    <div className="w-4 h-4 bg-gradient-to-r from-brand-secondary-dark to-brand-primary-dark rounded-full"></div>
+                    <div className="flex-1 h-0.5 bg-gradient-to-r from-brand-secondary-dark/50 to-transparent"></div>
+                    <div className="text-sm text-brand-text-light font-medium">
                       Healthcare AI Focus
                     </div>
                   </motion.div>
@@ -102,9 +102,9 @@ export default function About() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.6, delay: 1.0 }}
                   viewport={{ once: true }}
-                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center shadow-2xl"
+                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-gradient-to-r from-brand-primary to-brand-primary-light rounded-full flex items-center justify-center shadow-organic-2xl"
                 >
-                  <span className="text-white font-bold text-lg">AI</span>
+                  <span className="text-brand-beige font-bold text-lg">AI</span>
                 </motion.div>
               </div>
             </motion.div>
@@ -118,7 +118,7 @@ export default function About() {
               className="space-y-8"
             >
               <div className="space-y-6">
-                <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                <p className="text-lg text-brand-text-light leading-relaxed">
                   I'm a passionate AI/ML Engineer with over 5 years of
                   experience building intelligent systems that solve real-world
                   problems. My expertise spans machine learning, deep learning,
@@ -126,7 +126,7 @@ export default function About() {
                   strong foundation in software engineering and data science.
                 </p>
 
-                <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                <p className="text-lg text-brand-text-light leading-relaxed">
                   I specialize in developing end-to-end ML pipelines, from data
                   preprocessing and model training to deployment and monitoring.
                   I'm particularly interested in the intersection of AI and
@@ -134,7 +134,7 @@ export default function About() {
                   image analysis and predictive modeling for patient outcomes.
                 </p>
 
-                <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                <p className="text-lg text-brand-text-light leading-relaxed">
                   When I'm not coding, you'll find me exploring the latest
                   research papers, contributing to open-source projects, or
                   mentoring aspiring data scientists. I believe in the power of
@@ -151,7 +151,7 @@ export default function About() {
                 viewport={{ once: true }}
                 className="pt-6"
               >
-                <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-8">
+                <h3 className="text-2xl font-semibold text-brand-text mb-8">
                   Core Technologies
                 </h3>
 
@@ -164,8 +164,8 @@ export default function About() {
                     viewport={{ once: true }}
                     className="space-y-4"
                   >
-                    <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 flex items-center gap-2">
-                      <span className="w-2 h-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></span>
+                    <h4 className="text-lg font-semibold text-brand-text flex items-center gap-2">
+                      <span className="w-2 h-2 bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full"></span>
                       AI / Machine Learning
                     </h4>
                     <div className="flex flex-wrap gap-3">
@@ -191,9 +191,9 @@ export default function About() {
                           whileHover={{
                             scale: 1.1,
                             y: -2,
-                            boxShadow: "0 8px 25px rgba(168, 85, 247, 0.3)",
+                            boxShadow: "0 8px 25px rgba(85, 107, 47, 0.3)",
                           }}
-                          className="px-4 py-2 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 text-purple-700 dark:text-purple-300 text-sm font-medium rounded-full border border-purple-200 dark:border-purple-700 hover:from-purple-100 hover:to-pink-100 dark:hover:from-purple-800/50 dark:hover:to-pink-800/50 hover:border-purple-300 dark:hover:border-purple-600 transition-all duration-300 cursor-pointer"
+                          className="px-4 py-2 bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10 text-brand-primary text-sm font-medium rounded-full border border-brand-primary/30 hover:from-brand-primary/20 hover:to-brand-secondary/20 hover:border-brand-primary transition-all duration-300 cursor-pointer"
                         >
                           {tech}
                         </motion.span>
@@ -209,8 +209,8 @@ export default function About() {
                     viewport={{ once: true }}
                     className="space-y-4"
                   >
-                    <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 flex items-center gap-2">
-                      <span className="w-2 h-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full"></span>
+                    <h4 className="text-lg font-semibold text-brand-text flex items-center gap-2">
+                      <span className="w-2 h-2 bg-gradient-to-r from-brand-secondary to-brand-primary-light rounded-full"></span>
                       Frontend Development
                     </h4>
                     <div className="flex flex-wrap gap-3">
@@ -234,9 +234,9 @@ export default function About() {
                           whileHover={{
                             scale: 1.1,
                             y: -2,
-                            boxShadow: "0 8px 25px rgba(59, 130, 246, 0.3)",
+                            boxShadow: "0 8px 25px rgba(85, 107, 47, 0.3)",
                           }}
-                          className="px-4 py-2 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/30 dark:to-cyan-900/30 text-blue-700 dark:text-blue-300 text-sm font-medium rounded-full border border-blue-200 dark:border-blue-700 hover:from-blue-100 hover:to-cyan-100 dark:hover:from-blue-800/50 dark:hover:to-cyan-800/50 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-300 cursor-pointer"
+                          className="px-4 py-2 bg-gradient-to-r from-brand-secondary/10 to-brand-primary-light/10 text-brand-primary text-sm font-medium rounded-full border border-brand-secondary/30 hover:from-brand-secondary/20 hover:to-brand-primary-light/20 hover:border-brand-primary transition-all duration-300 cursor-pointer"
                         >
                           {tech}
                         </motion.span>
@@ -252,8 +252,8 @@ export default function About() {
                     viewport={{ once: true }}
                     className="space-y-4"
                   >
-                    <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 flex items-center gap-2">
-                      <span className="w-2 h-2 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full"></span>
+                    <h4 className="text-lg font-semibold text-brand-text flex items-center gap-2">
+                      <span className="w-2 h-2 bg-gradient-to-r from-brand-primary-light to-brand-secondary-dark rounded-full"></span>
                       Backend & DevOps
                     </h4>
                     <div className="flex flex-wrap gap-3">
@@ -279,9 +279,9 @@ export default function About() {
                           whileHover={{
                             scale: 1.1,
                             y: -2,
-                            boxShadow: "0 8px 25px rgba(34, 197, 94, 0.3)",
+                            boxShadow: "0 8px 25px rgba(85, 107, 47, 0.3)",
                           }}
-                          className="px-4 py-2 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/30 dark:to-emerald-900/30 text-green-700 dark:text-green-300 text-sm font-medium rounded-full border border-green-200 dark:border-green-700 hover:from-green-100 hover:to-emerald-100 dark:hover:from-green-800/50 dark:hover:to-emerald-800/50 hover:border-green-300 dark:hover:border-green-600 transition-all duration-300 cursor-pointer"
+                          className="px-4 py-2 bg-gradient-to-r from-brand-primary-light/10 to-brand-secondary-dark/10 text-brand-primary text-sm font-medium rounded-full border border-brand-primary-light/30 hover:from-brand-primary-light/20 hover:to-brand-secondary-dark/20 hover:border-brand-primary transition-all duration-300 cursor-pointer"
                         >
                           {tech}
                         </motion.span>

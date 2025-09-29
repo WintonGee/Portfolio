@@ -36,7 +36,7 @@ function ProjectItem({ project, index }: ProjectItemProps) {
           viewport={{ once: true }}
           className={`relative group ${!isEven ? "lg:col-start-2" : ""}`}
         >
-          <div className="relative aspect-video w-full overflow-hidden rounded-2xl shadow-2xl">
+          <div className="relative aspect-video w-full overflow-hidden rounded-2xl shadow-organic-2xl">
             <Image
               src={project.imageUrl}
               alt={project.title}
@@ -54,7 +54,7 @@ function ProjectItem({ project, index }: ProjectItemProps) {
                     href={project.links.live}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-6 py-3 bg-white text-gray-900 font-semibold rounded-lg hover:bg-gray-100 transition-colors duration-200"
+                    className="px-6 py-3 bg-brand-beige text-brand-text font-semibold rounded-lg hover:bg-brand-beige-light transition-colors duration-200"
                   >
                     Live Demo
                   </a>
@@ -64,7 +64,7 @@ function ProjectItem({ project, index }: ProjectItemProps) {
                     href={project.links.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-6 py-3 bg-gray-900 text-white font-semibold rounded-lg hover:bg-gray-800 transition-colors duration-200"
+                    className="px-6 py-3 bg-brand-primary text-brand-beige font-semibold rounded-lg hover:bg-brand-primary-dark transition-colors duration-200"
                   >
                     View Code
                   </a>
@@ -85,7 +85,7 @@ function ProjectItem({ project, index }: ProjectItemProps) {
               ease: "easeInOut",
               delay: index * 0.5,
             }}
-            className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full opacity-20"
+            className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full opacity-20"
           />
         </motion.div>
 
@@ -100,10 +100,10 @@ function ProjectItem({ project, index }: ProjectItemProps) {
           }`}
         >
           <div className="space-y-4">
-            <h3 className="text-3xl font-bold text-gray-900 dark:text-white">
+            <h3 className="text-3xl font-bold text-brand-text">
               {project.title}
             </h3>
-            <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+            <p className="text-lg text-brand-text-light leading-relaxed">
               {project.description}
             </p>
           </div>
@@ -120,7 +120,7 @@ function ProjectItem({ project, index }: ProjectItemProps) {
                   delay: index * 0.1 + 0.4 + tagIndex * 0.05,
                 }}
                 viewport={{ once: true }}
-                className="px-4 py-2 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/30 dark:to-cyan-900/30 text-blue-700 dark:text-blue-300 text-sm font-medium rounded-full border border-blue-200 dark:border-blue-700"
+                className="px-4 py-2 bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10 text-brand-primary text-sm font-medium rounded-full border border-brand-primary/30"
               >
                 {tech.name}
               </motion.span>
@@ -131,7 +131,7 @@ function ProjectItem({ project, index }: ProjectItemProps) {
           <div className="flex flex-wrap gap-4 pt-4">
             {project.links.caseStudy && (
               <Link href={project.links.caseStudy}>
-                <Button size="lg" className="border-2 border-blue-500/20">
+                <Button size="lg" className="border-2 border-brand-primary/20">
                   <svg
                     className="w-5 h-5"
                     fill="none"
@@ -200,7 +200,7 @@ export default function ProjectsNew() {
   return (
     <section
       id="projects"
-      className="py-32 bg-gradient-to-b from-gray-50 to-white dark:from-slate-900 dark:to-slate-800"
+      className="py-32 bg-gradient-to-b from-brand-beige to-brand-beige-light"
     >
       <div className="container mx-auto px-4">
         <div className="max-w-7xl mx-auto">
@@ -212,10 +212,10 @@ export default function ProjectsNew() {
             viewport={{ once: true }}
             className="text-center mb-20"
           >
-            <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">
+            <h2 className="text-5xl font-bold text-brand-text mb-6">
               Featured <span className="gradient-text">Projects</span>
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-brand-text-light max-w-3xl mx-auto leading-relaxed">
               A showcase of my recent AI/ML projects, from computer vision and
               natural language processing to predictive analytics and autonomous
               systems. Each project demonstrates my expertise in building
@@ -239,10 +239,10 @@ export default function ProjectsNew() {
             className="text-center mt-20"
           >
             <div className="glass-effect rounded-2xl p-8 max-w-2xl mx-auto">
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+              <h3 className="text-2xl font-bold text-brand-text mb-4">
                 Interested in collaborating?
               </h3>
-              <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
+              <p className="text-lg text-brand-text-light mb-8">
                 I'm always excited to work on new projects and explore
                 innovative solutions.
               </p>
