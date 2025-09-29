@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import EducationTimeline from "./EducationTimeline";
 
 export default function About() {
@@ -29,55 +28,6 @@ export default function About() {
           </motion.div>
 
           <div className="max-w-4xl mx-auto">
-            {/* Professional Photo */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="flex justify-center mb-16"
-            >
-              <div className="relative group">
-                <div className="relative w-64 h-64 rounded-2xl overflow-hidden shadow-organic-2xl ring-4 ring-brand-secondary/20">
-                  <Image
-                    src="/headshot.jpg"
-                    alt="Winton Gee - AI/ML Engineer"
-                    width={256}
-                    height={256}
-                    className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
-                    priority
-                  />
-                </div>
-
-                {/* Floating accent elements */}
-                <motion.div
-                  animate={{
-                    y: [0, -10, 0],
-                    rotate: [0, 5, 0],
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full opacity-80"
-                />
-                <motion.div
-                  animate={{
-                    y: [0, 10, 0],
-                    rotate: [0, -5, 0],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 1,
-                  }}
-                  className="absolute -bottom-4 -left-4 w-6 h-6 bg-gradient-to-r from-brand-secondary to-brand-primary rounded-full opacity-80"
-                />
-              </div>
-            </motion.div>
-
             {/* About Content */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -86,7 +36,7 @@ export default function About() {
               viewport={{ once: true }}
               className="space-y-8"
             >
-              {/* Main content */}
+              {/* Main narrative paragraphs */}
               <div className="space-y-6 text-center">
                 <p className="text-lg text-brand-text-light leading-relaxed">
                   I'm a passionate AI/ML Engineer with over 5 years of
@@ -110,25 +60,11 @@ export default function About() {
                 </p>
               </div>
 
-              {/* Education Timeline */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                viewport={{ once: true }}
-                className="pt-8"
-              >
-                <h3 className="text-2xl font-semibold text-brand-text mb-8 text-center">
-                  My <span className="gradient-text">Journey</span>
-                </h3>
-                <EducationTimeline />
-              </motion.div>
-
               {/* Key Stats */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
                 viewport={{ once: true }}
                 className="grid grid-cols-2 md:grid-cols-4 gap-6 py-8"
               >
@@ -162,11 +98,11 @@ export default function About() {
                 </div>
               </motion.div>
 
-              {/* Core Technologies - Simplified */}
+              {/* Core Technologies - Categorized */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
                 viewport={{ once: true }}
                 className="pt-6"
               >
@@ -174,29 +110,94 @@ export default function About() {
                   Core Technologies
                 </h3>
 
-                <div className="flex flex-wrap gap-3 justify-center">
-                  {[
-                    "Python",
-                    "TensorFlow",
-                    "PyTorch",
-                    "React",
-                    "Next.js",
-                    "AWS",
-                    "Docker",
-                    "FastAPI",
-                    "SQL",
-                    "MongoDB",
-                    "Git",
-                    "Linux",
-                  ].map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-4 py-2 bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10 text-brand-primary text-sm font-medium rounded-full border border-brand-primary/20 hover:from-brand-primary/20 hover:to-brand-secondary/20 hover:border-brand-primary transition-all duration-300 cursor-pointer"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {/* AI / Machine Learning */}
+                  <div className="text-center">
+                    <h4 className="text-lg font-semibold text-brand-text mb-4">
+                      AI / Machine Learning
+                    </h4>
+                    <div className="flex flex-wrap gap-2 justify-center">
+                      {[
+                        "Python",
+                        "TensorFlow",
+                        "PyTorch",
+                        "OpenCV",
+                        "Transformers",
+                        "MLflow",
+                        "Pandas",
+                        "ONNX",
+                      ].map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-3 py-2 bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10 text-brand-primary text-sm font-medium rounded-full border border-brand-primary/20 hover:from-brand-primary/20 hover:to-brand-secondary/20 hover:border-brand-primary transition-all duration-300 cursor-pointer"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Frontend Development */}
+                  <div className="text-center">
+                    <h4 className="text-lg font-semibold text-brand-text mb-4">
+                      Frontend Development
+                    </h4>
+                    <div className="flex flex-wrap gap-2 justify-center">
+                      {["React", "Next.js", "TypeScript", "Tailwind CSS"].map(
+                        (tech) => (
+                          <span
+                            key={tech}
+                            className="px-3 py-2 bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10 text-brand-primary text-sm font-medium rounded-full border border-brand-primary/20 hover:from-brand-primary/20 hover:to-brand-secondary/20 hover:border-brand-primary transition-all duration-300 cursor-pointer"
+                          >
+                            {tech}
+                          </span>
+                        )
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Backend & DevOps */}
+                  <div className="text-center">
+                    <h4 className="text-lg font-semibold text-brand-text mb-4">
+                      Backend & DevOps
+                    </h4>
+                    <div className="flex flex-wrap gap-2 justify-center">
+                      {[
+                        "FastAPI",
+                        "AWS",
+                        "Docker",
+                        "Redis",
+                        "PostgreSQL",
+                        "MongoDB",
+                        "Git",
+                        "Linux",
+                        "CloudWatch",
+                        "JWT",
+                      ].map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-3 py-2 bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10 text-brand-primary text-sm font-medium rounded-full border border-brand-primary/20 hover:from-brand-primary/20 hover:to-brand-secondary/20 hover:border-brand-primary transition-all duration-300 cursor-pointer"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
+              </motion.div>
+
+              {/* Education Timeline */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                viewport={{ once: true }}
+                className="pt-8"
+              >
+                <h3 className="text-2xl font-semibold text-brand-text mb-8 text-center">
+                  My <span className="gradient-text">Journey</span>
+                </h3>
+                <EducationTimeline />
               </motion.div>
             </motion.div>
           </div>
