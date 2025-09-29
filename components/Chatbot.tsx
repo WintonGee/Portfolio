@@ -15,7 +15,7 @@ export default function Chatbot() {
       id: "1",
       role: "assistant",
       content:
-        "Hello! I'm your AI assistant. Ask me anything about my portfolio, projects, or skills!",
+        "Hi there! I'm Winton, and I'm excited to chat with you about my work, projects, and experience. Feel free to ask me anything!",
       timestamp: new Date(),
     },
   ]);
@@ -23,8 +23,18 @@ export default function Chatbot() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  const quickSelectOptions = [
+    "Tell me about your AI/ML experience",
+    "What projects have you worked on?",
+    "What technologies do you use?",
+  ];
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleQuickSelect = (option: string) => {
+    setInput(option);
   };
 
   useEffect(() => {
@@ -128,9 +138,9 @@ export default function Chatbot() {
     <div className="bg-white dark:bg-slate-800 rounded-lg shadow-lg overflow-hidden">
       {/* Chat Header */}
       <div className="bg-blue-600 text-white p-4">
-        <h3 className="text-lg font-semibold">AI Assistant</h3>
+        <h3 className="text-lg font-semibold">Chat with Winton</h3>
         <p className="text-blue-100 text-sm">
-          Ask me about my portfolio and projects
+          Ask me about my work, projects, and experience
         </p>
       </div>
 
@@ -144,15 +154,20 @@ export default function Chatbot() {
             }`}
           >
             <div
-              className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
+              className={`max-w-xs lg:max-w-lg px-4 py-3 rounded-lg shadow-sm ${
                 message.role === "user"
                   ? "bg-blue-600 text-white"
                   : "bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white"
               }`}
             >
-              <p className="text-sm">{message.content}</p>
-              <p className="text-xs opacity-70 mt-1">
-                {message.timestamp.toLocaleTimeString()}
+              <p className="text-sm leading-relaxed whitespace-pre-wrap">
+                {message.content}
+              </p>
+              <p className="text-xs opacity-70 mt-2">
+                {message.timestamp.toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
               </p>
             </div>
           </div>
@@ -179,6 +194,26 @@ export default function Chatbot() {
         <div ref={messagesEndRef} />
       </div>
 
+      {/* Quick Select Options */}
+      {messages.length === 1 && (
+        <div className="px-4 pb-4">
+          <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 text-center">
+            Or try one of these:
+          </p>
+          <div className="flex flex-wrap gap-2 justify-center">
+            {quickSelectOptions.map((option, index) => (
+              <button
+                key={index}
+                onClick={() => handleQuickSelect(option)}
+                className="px-3 py-2 text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200 border border-gray-200 dark:border-gray-600"
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Input Form */}
       <form
         onSubmit={handleSubmit}
@@ -189,7 +224,7 @@ export default function Chatbot() {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask me anything about my portfolio..."
+            placeholder="Ask me about my work, projects, or experience..."
             className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:text-white"
             disabled={isLoading}
           />

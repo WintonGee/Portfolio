@@ -18,14 +18,19 @@ export default function ProjectCard({
   githubUrl,
 }: ProjectCardProps) {
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group">
+    <a
+      href={liveUrl || githubUrl || "#"}
+      target={liveUrl || githubUrl ? "_blank" : undefined}
+      rel={liveUrl || githubUrl ? "noopener noreferrer" : undefined}
+      className="block bg-white dark:bg-slate-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group hover:scale-[1.02] transform"
+    >
       {/* Project Image */}
-      <div className="relative h-48 w-full overflow-hidden">
+      <div className="relative aspect-video w-full overflow-hidden rounded-t-lg">
         <Image
           src={imageUrl}
           alt={title}
           width={400}
-          height={192}
+          height={225}
           className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
         />
         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -56,12 +61,7 @@ export default function ProjectCard({
         {/* Action Buttons */}
         <div className="flex gap-3">
           {liveUrl && (
-            <a
-              href={liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
-            >
+            <span className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200">
               <svg
                 className="w-4 h-4"
                 fill="none"
@@ -76,16 +76,11 @@ export default function ProjectCard({
                 />
               </svg>
               Live Demo
-            </a>
+            </span>
           )}
 
           {githubUrl && (
-            <a
-              href={githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white font-medium rounded-lg transition-colors"
-            >
+            <span className="flex items-center gap-2 px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white font-medium rounded-lg transition-colors duration-200">
               <svg
                 className="w-4 h-4"
                 fill="none"
@@ -100,10 +95,10 @@ export default function ProjectCard({
                 />
               </svg>
               Code
-            </a>
+            </span>
           )}
         </div>
       </div>
-    </div>
+    </a>
   );
 }

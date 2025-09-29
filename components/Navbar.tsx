@@ -35,7 +35,7 @@ export default function Navbar() {
           <div className="flex items-center">
             <button
               onClick={() => scrollToSection("hero")}
-              className="text-2xl font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              className="text-2xl font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
             >
               Winton Gee
             </button>
@@ -45,29 +45,23 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-8">
             <button
               onClick={() => scrollToSection("about")}
-              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors"
+              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200"
             >
               About
             </button>
             <button
               onClick={() => scrollToSection("projects")}
-              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors"
+              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200"
             >
               Projects
             </button>
             <a
               href="/resume/AIML_Resume_WintonGee.pdf"
               target="_blank"
-              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors"
+              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200"
             >
               Resume
             </a>
-            <button
-              onClick={() => scrollToSection("chat")}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors"
-            >
-              Chat
-            </button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -77,7 +71,7 @@ export default function Navbar() {
                 // You can implement mobile menu toggle here
                 console.log("Mobile menu toggle");
               }}
-              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
             >
               <svg
                 className="w-6 h-6"

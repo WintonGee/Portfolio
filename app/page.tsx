@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import About from "@/components/About";
 import Projects from "@/components/Projects";
 import Chatbot from "@/components/Chatbot";
+import FloatingChatButton from "@/components/FloatingChatButton";
 
 export default function Home() {
   return (
@@ -21,13 +22,13 @@ export default function Home() {
             <a
               href="/resume/AIML_Resume_WintonGee.pdf"
               target="_blank"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-200 hover:shadow-lg hover:scale-105 transform"
             >
               View Resume
             </a>
             <a
               href="mailto:wintongee@gmail.com"
-              className="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors"
+              className="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-200 hover:shadow-lg hover:scale-105 transform"
             >
               Contact Me
             </a>
@@ -50,6 +51,9 @@ export default function Home() {
           <Chatbot />
         </div>
       </section>
+
+      {/* Floating Chat Button */}
+      <FloatingChatButton />
     </main>
   );
 }

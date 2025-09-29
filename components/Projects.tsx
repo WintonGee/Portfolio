@@ -102,7 +102,7 @@ export default function Projects() {
             <div className="flex justify-center gap-4">
               <a
                 href="mailto:winton.gee@example.com"
-                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-200 hover:shadow-lg hover:scale-105 transform"
               >
                 Get In Touch
               </a>
@@ -110,7 +110,7 @@ export default function Projects() {
                 href="https://github.com/wintongee"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors"
+                className="border-2 border-gray-600 dark:border-gray-400 text-gray-600 dark:text-gray-400 hover:bg-gray-600 hover:text-white dark:hover:bg-gray-400 dark:hover:text-gray-900 font-semibold py-3 px-8 rounded-lg transition-all duration-200 hover:shadow-lg hover:scale-105 transform"
               >
                 View All Projects
               </a>
