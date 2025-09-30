@@ -62,28 +62,73 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
   const professionalData = transformToChartData(professionalItems);
   const academicData = transformToChartData(academicItems);
 
-  // Custom dot component for timeline points with visible labels
+  // Helper function to get logo path for institution
+  const getLogoPath = (institution: string): string => {
+    const logoMap: Record<string, string> = {
+      Mercor: "/logos/mercor.png",
+      "CoChat.io": "/logos/cochat.png",
+      "AfterQuery Experts": "/logos/afterquery.png",
+      "Cal Poly, San Luis Obispo": "/logos/calpoly.png",
+      "California Polytechnic State University, San Luis Obispo":
+        "/logos/calpoly.png",
+      "Ricoh USA, Inc.": "/logos/ricoh.png",
+      Tribot: "/logos/tribot.png",
+      Square: "/logos/square.png",
+      LinkedIn: "/logos/linkedin.png",
+      "City College of San Francisco": "/logos/ccsf.png",
+    };
+
+    // Try exact match first
+    if (logoMap[institution]) {
+      return logoMap[institution];
+    }
+
+    // Try partial matches for variations
+    const lowerInstitution = institution.toLowerCase();
+    if (lowerInstitution.includes("mercor")) return "/logos/mercor.png";
+    if (lowerInstitution.includes("cochat")) return "/logos/cochat.png";
+    if (lowerInstitution.includes("afterquery")) return "/logos/afterquery.png";
+    if (
+      lowerInstitution.includes("cal poly") ||
+      lowerInstitution.includes("calpoly")
+    )
+      return "/logos/calpoly.png";
+    if (lowerInstitution.includes("ricoh")) return "/logos/ricoh.png";
+    if (lowerInstitution.includes("tribot")) return "/logos/tribot.png";
+    if (lowerInstitution.includes("square")) return "/logos/square.png";
+    if (lowerInstitution.includes("linkedin")) return "/logos/linkedin.png";
+    if (
+      lowerInstitution.includes("city college") ||
+      lowerInstitution.includes("ccsf")
+    )
+      return "/logos/ccsf.png";
+
+    return "/logos/default.png";
+  };
+
+  // Custom dot component for timeline points with logos
   const CustomDot = (props: any) => {
     const { cx, cy, payload } = props;
     const isCurrent = payload?.isCurrent;
     const category = payload?.category;
     const item = payload?.item;
     const color = getCategoryColor(category, isCurrent);
+    const logoPath = getLogoPath(item?.institution || "");
 
     return (
       <g>
-        {/* Main dot */}
+        {/* Logo background circle */}
         <motion.circle
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.5, delay: payload.progression * 0.1 }}
           cx={cx}
           cy={cy}
-          r={10}
-          fill={color}
+          r={20}
+          fill="white"
           stroke={color}
           strokeWidth={3}
-          className="cursor-pointer hover:r-14 transition-all duration-300"
+          className="cursor-pointer hover:r-22 transition-all duration-300"
           onClick={() =>
             setActiveIndex(
               activeIndex === payload.progression - 1
@@ -97,17 +142,45 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
           onMouseLeave={() => !isMobile && setActiveIndex(null)}
         />
 
-        {/* Category indicator */}
-        <motion.circle
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.3, delay: payload.progression * 0.1 + 0.2 }}
-          cx={cx}
-          cy={cy}
-          r={4}
-          fill="white"
+        {/* Logo image */}
+        <motion.foreignObject
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.4, delay: payload.progression * 0.1 + 0.2 }}
+          x={cx - 16}
+          y={cy - 16}
+          width={32}
+          height={32}
           className="pointer-events-none"
-        />
+        >
+          <div className="w-8 h-8 rounded-full overflow-hidden">
+            <img
+              src={logoPath}
+              alt={`${item?.institution} logo`}
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                e.currentTarget.src = "/logos/default.png";
+              }}
+            />
+          </div>
+        </motion.foreignObject>
+
+        {/* Current status indicator */}
+        {isCurrent && (
+          <motion.circle
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{
+              duration: 0.3,
+              delay: payload.progression * 0.1 + 0.3,
+            }}
+            cx={cx + 14}
+            cy={cy - 14}
+            r={5}
+            fill="#ef4444"
+            className="pointer-events-none animate-pulse"
+          />
+        )}
 
         {/* Visible label */}
         <motion.text
@@ -115,26 +188,12 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: payload.progression * 0.1 + 0.3 }}
           x={cx}
-          y={cy - 20}
+          y={cy + 35}
           textAnchor="middle"
           className="text-xs font-medium fill-gray-700 pointer-events-none"
-          style={{ fontSize: "10px" }}
+          style={{ fontSize: "11px" }}
         >
           {item?.title}
-        </motion.text>
-
-        {/* Institution/Type label */}
-        <motion.text
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: payload.progression * 0.1 + 0.4 }}
-          x={cx}
-          y={cy + 25}
-          textAnchor="middle"
-          className="text-xs fill-gray-500 pointer-events-none"
-          style={{ fontSize: "9px" }}
-        >
-          {item?.institution?.split(",")[0] || item?.type}
         </motion.text>
       </g>
     );
@@ -221,7 +280,12 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
 
       {/* Chart Container */}
       <div
-        className={`relative h-[${TIMELINE_CONFIG.CHART_HEIGHT.mobile}px] md:h-[${TIMELINE_CONFIG.CHART_HEIGHT.desktop}px] bg-gradient-to-br from-brand-beige/30 to-brand-beige-light/30 rounded-2xl p-6`}
+        className="relative bg-gradient-to-br from-brand-beige/30 to-brand-beige-light/30 rounded-2xl p-6"
+        style={{
+          height: isMobile
+            ? `${TIMELINE_CONFIG.CHART_HEIGHT.mobile}px`
+            : `${TIMELINE_CONFIG.CHART_HEIGHT.desktop}px`,
+        }}
       >
         <ResponsiveContainer width="100%" height="100%">
           <LineChart margin={{ top: 60, right: 30, left: 20, bottom: 60 }}>
