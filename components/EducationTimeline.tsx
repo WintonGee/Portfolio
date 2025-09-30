@@ -300,6 +300,27 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
               tick={{ fontSize: 12, fill: "#6B7280" }}
               axisLine={{ stroke: "#6B7280" }}
               tickLine={{ stroke: "#6B7280" }}
+              tickFormatter={(value) => Math.round(value).toString()}
+              ticks={(() => {
+                // Generate whole number ticks based on the data range
+                const minYear = Math.floor(
+                  Math.min(
+                    ...professionalData.map((d) => d.year),
+                    ...academicData.map((d) => d.year)
+                  )
+                );
+                const maxYear = Math.ceil(
+                  Math.max(
+                    ...professionalData.map((d) => d.year),
+                    ...academicData.map((d) => d.year)
+                  )
+                );
+                const ticks = [];
+                for (let year = minYear; year <= maxYear; year++) {
+                  ticks.push(year);
+                }
+                return ticks;
+              })()}
               label={{
                 value: "Timeline (Years)",
                 position: "insideBottom",
