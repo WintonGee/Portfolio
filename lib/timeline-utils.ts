@@ -31,7 +31,7 @@ export function addSpacingToOverlappingPoints(
       const lastDate = extractStartDate(lastItem.year);
 
       if (currentDate - lastDate < spacingThreshold) {
-        // Add spacing by adjusting the date slightly
+        // Add spacing by adjusting the date slightly, but preserve the original year range
         const adjustedDate = lastDate + spacingThreshold;
         const year = Math.floor(adjustedDate);
         const month = Math.round((adjustedDate % 1) * 12) + 1;
@@ -49,7 +49,13 @@ export function addSpacingToOverlappingPoints(
           "November",
           "December",
         ];
-        currentItem.year = `${monthNames[month - 1]} ${year}`;
+
+        // Only modify the year if it's a single date, preserve ranges
+        if (!currentItem.year.includes(" - ")) {
+          currentItem.year = `${monthNames[month - 1]} ${year}`;
+        }
+        // For date ranges, keep the original year but adjust the internal date for positioning
+        currentItem._adjustedDate = adjustedDate;
       }
     }
 
@@ -72,7 +78,7 @@ export function filterItemsByCategory(
 // Transform items to chart data
 export function transformToChartData(items: TimelineItem[]): TimelineData[] {
   return items.map((item, index) => ({
-    year: extractStartDate(item.year),
+    year: (item as any)._adjustedDate || extractStartDate(item.year),
     progression: index + 1,
     item: item,
     isCurrent: item.isCurrent ?? false,

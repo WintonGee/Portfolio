@@ -200,15 +200,32 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
     return HOVER_DESCRIPTIONS[item.title] || item.description;
   };
 
+  // Helper function to get logo for tooltip
+  const getTooltipLogo = (item: TimelineItem): string => {
+    return getLogoPath(item.institution || "");
+  };
+
   // Custom tooltip
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
+      const logoPath = getTooltipLogo(data.item);
+
       return (
         <div className="bg-brand-beige-light rounded-2xl p-4 shadow-organic-xl border border-brand-secondary/20 max-w-sm">
           <div className="space-y-3">
-            {/* Year badge */}
+            {/* Year badge with logo */}
             <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10 text-brand-primary border border-brand-primary/20">
+              <div className="w-5 h-5 rounded-full overflow-hidden mr-2 flex-shrink-0">
+                <img
+                  src={logoPath}
+                  alt={`${data.item.institution} logo`}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.src = "/logos/default.png";
+                  }}
+                />
+              </div>
               {data.item.year}
             </div>
 

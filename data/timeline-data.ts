@@ -3,7 +3,7 @@ import { TimelineItem } from "../types/timeline";
 export const timelineData: TimelineItem[] = [
   // Professional Experience
   {
-    year: "July 2024 - Present",
+    year: "July 2025 - Present",
     title: "AI Engineer",
     description:
       "Working with top foundational model labs to improve output quality and provide actionable feedback to enhance multimodal generative AI. Increased model-generated code correctness by 5% and reduced hallucinations across 25+ backend tasks.",
@@ -13,7 +13,7 @@ export const timelineData: TimelineItem[] = [
     type: "Full-time",
   },
   {
-    year: "April 2024 - August 2024",
+    year: "April 2025 - August 2025",
     title: "Founder",
     description:
       "Founded CoChat.io, an AI-driven platform for interactive online personas. Launched MVP in TypeScript/React with PostgreSQL + Supabase backend, shipping core features to 15 test users. Engineered AI personalization with embeddings and RAG pipelines.",
@@ -22,7 +22,7 @@ export const timelineData: TimelineItem[] = [
     type: "Startup",
   },
   {
-    year: "March 2024 - April 2024",
+    year: "March 2025 - April 2025",
     title: "Software Engineer",
     description:
       "Trained and refined AI models to improve their backend code generation capabilities using Python and LLMs. Developed and evaluated backend code generation in Python and Java for three top foundational model labs, increasing model reliability.",
