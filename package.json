@@ -25,7 +25,8 @@
     "gray-matter": "^4.0.3",
     "next": "14.0.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "recharts": "^3.2.1"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",

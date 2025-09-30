@@ -39,27 +39,22 @@ export default function About() {
               {/* Main narrative paragraphs */}
               <div className="space-y-6 text-center">
                 <p className="text-lg text-brand-text-light leading-relaxed">
-                  I'm a passionate software developer with experience building
-                  full-stack applications that solve real-world problems. My
-                  expertise spans web development, AI integration, and modern
-                  JavaScript frameworks.
-                </p>
-
-                <p className="text-lg text-brand-text-light leading-relaxed">
-                  I specialize in developing end-to-end web applications, from
-                  frontend user interfaces to backend APIs and database design.
-                  I'm particularly interested in AI integration, where I've
-                  worked on applications that leverage AI APIs to provide
-                  intelligent features and user experiences.
+                  As a passionate AI/ML Engineer, my focus is on building
+                  intelligent full-stack applications that solve real-world
+                  problems. I specialize in developing end-to-end intelligent
+                  systems, from designing responsive frontend interfaces to
+                  engineering backend APIs and databases. I'm particularly
+                  passionate about leveraging AI models to create intuitive
+                  features and user experiences.
                 </p>
 
                 <p className="text-lg text-brand-text-light leading-relaxed">
                   When I'm not coding, you'll find me exploring new
                   technologies, contributing to open-source projects, or working
-                  on personal projects that combine my interests in food,
-                  technology, and problem-solving. I believe in the power of
-                  technology to make everyday tasks more efficient and
-                  enjoyable.
+                  on personal projects that combine my interests in food and
+                  technology, such as developing an AI-powered application to
+                  reduce food waste. I believe in the power of technology to
+                  make everyday tasks more efficient and enjoyable.
                 </p>
               </div>
 
@@ -116,21 +111,19 @@ export default function About() {
                 </h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  {/* AI / Web Technologies */}
+                  {/* AI & Machine Learning */}
                   <div className="text-center">
                     <h4 className="text-lg font-semibold text-brand-text mb-4">
-                      AI / Web Technologies
+                      AI & Machine Learning
                     </h4>
                     <div className="flex flex-wrap gap-2 justify-center">
                       {[
+                        "Python",
                         "OpenAI API",
-                        "React.js",
-                        "Node.js",
-                        "MongoDB",
-                        "JavaScript",
-                        "Material-UI",
-                        "Express.js",
-                        "Axios",
+                        "Google Gemini AI",
+                        "TensorFlow",
+                        "AI Integration",
+                        "RAG Systems",
                       ].map((tech) => (
                         <span
                           key={tech}
@@ -148,36 +141,40 @@ export default function About() {
                       Frontend Development
                     </h4>
                     <div className="flex flex-wrap gap-2 justify-center">
-                      {["React", "Next.js", "TypeScript", "Tailwind CSS"].map(
-                        (tech) => (
-                          <span
-                            key={tech}
-                            className="px-3 py-2 bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10 text-brand-primary text-sm font-medium rounded-full border border-brand-primary/20 hover:from-brand-primary/20 hover:to-brand-secondary/20 hover:border-brand-primary transition-all duration-300 cursor-pointer"
-                          >
-                            {tech}
-                          </span>
-                        )
-                      )}
+                      {[
+                        "TypeScript",
+                        "JavaScript",
+                        "React.js",
+                        "Next.js",
+                        "Tailwind CSS",
+                        "Material-UI",
+                        "HTML/CSS",
+                      ].map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-3 py-2 bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10 text-brand-primary text-sm font-medium rounded-full border border-brand-primary/20 hover:from-brand-primary/20 hover:to-brand-secondary/20 hover:border-brand-primary transition-all duration-300 cursor-pointer"
+                        >
+                          {tech}
+                        </span>
+                      ))}
                     </div>
                   </div>
 
-                  {/* Backend & Tools */}
+                  {/* Backend & Database */}
                   <div className="text-center">
                     <h4 className="text-lg font-semibold text-brand-text mb-4">
-                      Backend & Tools
+                      Backend & Database
                     </h4>
                     <div className="flex flex-wrap gap-2 justify-center">
                       {[
+                        "Node.js",
                         "Express.js",
                         "MongoDB",
-                        "JWT",
-                        "Git",
-                        "VS Code",
-                        "npm",
+                        "Supabase",
+                        "SQL",
+                        "JWT Authentication",
                         "REST APIs",
-                        "JSON",
-                        "HTTP",
-                        "CORS",
+                        "Axios",
                       ].map((tech) => (
                         <span
                           key={tech}
@@ -200,7 +197,7 @@ export default function About() {
                 className="pt-8"
               >
                 <h3 className="text-2xl font-semibold text-brand-text mb-8 text-center">
-                  My <span className="gradient-text">Journey</span>
+                  My <span className="gradient-text">Experience</span>
                 </h3>
                 <EducationTimeline />
               </motion.div>
