@@ -35,7 +35,7 @@ export const timelineData: TimelineItem[] = [
     title: "AI Ethics Research",
     description:
       "Conducted research into the ethical implications and societal impact of advancing artificial intelligence systems. Proposed fairness reforms for AI risk assessment tools by evaluating 5 research papers focused on bias mitigation.",
-    institution: "Cal Poly, San Luis Obispo",
+    institution: "California Polytechnic State University, San Luis Obispo",
     category: "professional",
     type: "Research",
   },

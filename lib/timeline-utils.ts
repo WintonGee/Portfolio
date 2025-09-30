@@ -55,7 +55,7 @@ export function addSpacingToOverlappingPoints(
           currentItem.year = `${monthNames[month - 1]} ${year}`;
         }
         // For date ranges, keep the original year but adjust the internal date for positioning
-        currentItem._adjustedDate = adjustedDate;
+        (currentItem as any)._adjustedDate = adjustedDate;
       }
     }
 
