@@ -75,7 +75,7 @@ export function transformToChartData(items: TimelineItem[]): TimelineData[] {
     year: extractStartDate(item.year),
     progression: index + 1,
     item: item,
-    isCurrent: item.isCurrent,
+    isCurrent: item.isCurrent ?? false,
     category: item.category,
     type: item.type,
   }));
