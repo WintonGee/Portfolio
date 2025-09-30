@@ -180,12 +180,12 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
 
         {/* Visible label */}
         <motion.text
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, delay: payload.progression * 0.1 + 0.3 }}
-          x={cx}
-          y={cy + 35}
-          textAnchor="middle"
+          x={cx + 30}
+          y={cy + 5}
+          textAnchor="start"
           className="text-xs font-medium fill-gray-700 pointer-events-none"
           style={{ fontSize: "11px" }}
         >
@@ -323,22 +323,6 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
                 value: "Timeline (Years)",
                 position: "insideBottom",
                 offset: -10,
-                style: { textAnchor: "middle", fontSize: 14, fill: "#6B7280" },
-              }}
-            />
-            <YAxis
-              type="number"
-              domain={[
-                0,
-                Math.max(professionalItems.length, academicItems.length) + 1,
-              ]}
-              tick={{ fontSize: 12, fill: "#6B7280" }}
-              axisLine={{ stroke: "#6B7280" }}
-              tickLine={{ stroke: "#6B7280" }}
-              label={{
-                value: "Career Progression",
-                angle: -90,
-                position: "insideLeft",
                 style: { textAnchor: "middle", fontSize: 14, fill: "#6B7280" },
               }}
             />

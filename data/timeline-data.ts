@@ -23,7 +23,7 @@ export const timelineData: TimelineItem[] = [
   },
   {
     year: "March 2024 - April 2024",
-    title: "Python Software Engineer",
+    title: "Software Engineer",
     description:
       "Trained and refined AI models to improve their backend code generation capabilities using Python and LLMs. Developed and evaluated backend code generation in Python and Java for three top foundational model labs, increasing model reliability.",
     institution: "AfterQuery Experts",
@@ -79,7 +79,7 @@ export const timelineData: TimelineItem[] = [
   // Academic Experience
   {
     year: "June 2024 - May 2025",
-    title: "Data Science, Mathematics, Engineering",
+    title: "AI Studies",
     description:
       "Advanced studies in data science, mathematics, and engineering at City College of San Francisco. Focused on statistical analysis, machine learning algorithms, and engineering principles to complement computer science foundation.",
     institution: "City College of San Francisco",
