@@ -2,6 +2,9 @@
 
 import { motion } from "framer-motion";
 import EducationTimeline from "./EducationTimeline";
+import { AnimatedSection, AnimatedCard } from "./ui/AnimatedSection";
+import { STATS_DATA, TECHNOLOGIES } from "../data/about-data";
+import { commonClasses } from "../lib/utils";
 
 export default function About() {
   return (
@@ -9,23 +12,17 @@ export default function About() {
       id="about"
       className="py-32 bg-gradient-to-b from-brand-beige-light to-brand-beige"
     >
-      <div className="container mx-auto px-4">
+      <div className={commonClasses.container}>
         <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-5xl font-bold text-brand-text mb-6">
+          <AnimatedSection className="text-center mb-20">
+            <h2 className={commonClasses.heading}>
               About <span className="gradient-text">Me</span>
             </h2>
-            <p className="text-xl text-brand-text-light max-w-3xl mx-auto">
+            <p className={commonClasses.subheading}>
               Passionate about building intelligent systems that make a
               difference
             </p>
-          </motion.div>
+          </AnimatedSection>
 
           <div className="max-w-4xl mx-auto">
             {/* About Content */}
@@ -59,148 +56,61 @@ export default function About() {
               </div>
 
               {/* Key Stats */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                viewport={{ once: true }}
+              <AnimatedCard
+                delay={0.3}
                 className="grid grid-cols-2 md:grid-cols-4 gap-6 py-8"
               >
-                <div className="text-center p-6 bg-brand-beige-light rounded-xl shadow-organic">
-                  <div className="text-3xl font-bold text-brand-primary mb-2">
-                    2+
+                {STATS_DATA.map((stat, index) => (
+                  <div
+                    key={index}
+                    className="text-center p-6 bg-brand-beige-light rounded-xl shadow-organic"
+                  >
+                    <div className="text-3xl font-bold text-brand-primary mb-2">
+                      {stat.value}
+                    </div>
+                    <div className="text-sm text-brand-text-light">
+                      {stat.label}
+                    </div>
                   </div>
-                  <div className="text-sm text-brand-text-light">
-                    Years Experience
-                  </div>
-                </div>
-                <div className="text-center p-6 bg-brand-beige-light rounded-xl shadow-organic">
-                  <div className="text-3xl font-bold text-brand-primary mb-2">
-                    10+
-                  </div>
-                  <div className="text-sm text-brand-text-light">Projects</div>
-                </div>
-                <div className="text-center p-6 bg-brand-beige-light rounded-xl shadow-organic">
-                  <div className="text-3xl font-bold text-brand-primary mb-2">
-                    5+
-                  </div>
-                  <div className="text-sm text-brand-text-light">
-                    Technologies
-                  </div>
-                </div>
-                <div className="text-center p-6 bg-brand-beige-light rounded-xl shadow-organic">
-                  <div className="text-3xl font-bold text-brand-primary mb-2">
-                    1
-                  </div>
-                  <div className="text-sm text-brand-text-light">
-                    Featured Project
-                  </div>
-                </div>
-              </motion.div>
+                ))}
+              </AnimatedCard>
 
               {/* Core Technologies - Categorized */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                viewport={{ once: true }}
-                className="pt-6"
-              >
+              <AnimatedCard delay={0.4} className="pt-6">
                 <h3 className="text-2xl font-semibold text-brand-text mb-8 text-center">
                   Core Technologies
                 </h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  {/* AI & Machine Learning */}
-                  <div className="text-center">
-                    <h4 className="text-lg font-semibold text-brand-text mb-4">
-                      AI & Machine Learning
-                    </h4>
-                    <div className="flex flex-wrap gap-2 justify-center">
-                      {[
-                        "Python",
-                        "OpenAI API",
-                        "Google Gemini AI",
-                        "TensorFlow",
-                        "AI Integration",
-                        "RAG Systems",
-                      ].map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-3 py-2 bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10 text-brand-primary text-sm font-medium rounded-full border border-brand-primary/20 hover:from-brand-primary/20 hover:to-brand-secondary/20 hover:border-brand-primary transition-all duration-300 cursor-pointer"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Frontend Development */}
-                  <div className="text-center">
-                    <h4 className="text-lg font-semibold text-brand-text mb-4">
-                      Frontend Development
-                    </h4>
-                    <div className="flex flex-wrap gap-2 justify-center">
-                      {[
-                        "TypeScript",
-                        "JavaScript",
-                        "React.js",
-                        "Next.js",
-                        "Tailwind CSS",
-                        "Material-UI",
-                        "HTML/CSS",
-                      ].map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-3 py-2 bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10 text-brand-primary text-sm font-medium rounded-full border border-brand-primary/20 hover:from-brand-primary/20 hover:to-brand-secondary/20 hover:border-brand-primary transition-all duration-300 cursor-pointer"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Backend & Database */}
-                  <div className="text-center">
-                    <h4 className="text-lg font-semibold text-brand-text mb-4">
-                      Backend & Database
-                    </h4>
-                    <div className="flex flex-wrap gap-2 justify-center">
-                      {[
-                        "Node.js",
-                        "Express.js",
-                        "MongoDB",
-                        "Supabase",
-                        "SQL",
-                        "JWT Authentication",
-                        "REST APIs",
-                        "Axios",
-                      ].map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-3 py-2 bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10 text-brand-primary text-sm font-medium rounded-full border border-brand-primary/20 hover:from-brand-primary/20 hover:to-brand-secondary/20 hover:border-brand-primary transition-all duration-300 cursor-pointer"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+                  {Object.entries(TECHNOLOGIES).map(
+                    ([category, technologies]) => (
+                      <div key={category} className="text-center">
+                        <h4 className="text-lg font-semibold text-brand-text mb-4">
+                          {category}
+                        </h4>
+                        <div className="flex flex-wrap gap-2 justify-center">
+                          {technologies.map((tech) => (
+                            <span
+                              key={tech}
+                              className="px-3 py-2 bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10 text-brand-primary text-sm font-medium rounded-full border border-brand-primary/20 hover:from-brand-primary/20 hover:to-brand-secondary/20 hover:border-brand-primary transition-all duration-300 cursor-pointer"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )
+                  )}
                 </div>
-              </motion.div>
+              </AnimatedCard>
 
               {/* Education Timeline */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-                viewport={{ once: true }}
-                className="pt-8"
-              >
+              <AnimatedSection delay={0.5} className="pt-8">
                 <h3 className="text-2xl font-semibold text-brand-text mb-8 text-center">
                   My <span className="gradient-text">Experience</span>
                 </h3>
                 <EducationTimeline />
-              </motion.div>
+              </AnimatedSection>
             </motion.div>
           </div>
         </div>
