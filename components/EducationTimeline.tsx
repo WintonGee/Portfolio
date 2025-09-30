@@ -68,9 +68,9 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
       Mercor: "/logos/mercor.png",
       "CoChat.io": "/logos/cochat.png",
       "AfterQuery Experts": "/logos/afterquery.png",
-      "Cal Poly, San Luis Obispo": "/logos/calpoly.png",
+      "Cal Poly, San Luis Obispo": "/logos/calpoly-mustangs.png",
       "California Polytechnic State University, San Luis Obispo":
-        "/logos/calpoly.png",
+        "/logos/calpoly-mustangs.png",
       "Ricoh USA, Inc.": "/logos/ricoh.png",
       Tribot: "/logos/tribot.png",
       Square: "/logos/square.png",
@@ -92,7 +92,7 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
       lowerInstitution.includes("cal poly") ||
       lowerInstitution.includes("calpoly")
     )
-      return "/logos/calpoly.png";
+      return "/logos/calpoly-mustangs.png";
     if (lowerInstitution.includes("ricoh")) return "/logos/ricoh.png";
     if (lowerInstitution.includes("tribot")) return "/logos/tribot.png";
     if (lowerInstitution.includes("square")) return "/logos/square.png";
