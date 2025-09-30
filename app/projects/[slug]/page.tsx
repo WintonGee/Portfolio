@@ -59,16 +59,16 @@ const projects = [
         caption: "Detailed view of the application interface and features",
       },
       {
-        src: "/images/projects/foodmanager/foodmanager-dashboard.png",
-        alt: "Dashboard View",
-        caption:
-          "Dashboard with computer vision integration for automatic ingredient detection and tracking",
-      },
-      {
         src: "/images/projects/foodmanager/foodmanager-cost-dashboard.png",
-        alt: "System Architecture",
+        alt: "Cost Dashboard View",
         caption:
           "GPT-3.5 Turbo cost usage dashboard showing API consumption and pricing analytics",
+      },
+      {
+        src: "/images/projects/foodmanager/foodmanager-cover.png",
+        alt: "Project Overview",
+        caption:
+          "Complete project overview showing the FoodManager application interface and features",
       },
     ],
     githubUrl: "https://github.com/WintonGee/FoodManager",
