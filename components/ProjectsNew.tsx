@@ -151,9 +151,9 @@ function ProjectItem({ project, index }: ProjectItemProps) {
             )}
 
             {project.links.live && (
-              <Button href={project.links.live} variant="outline" size="md">
+              <Button href={project.links.live} variant="outline" size="lg">
                 <svg
-                  className="w-4 h-4"
+                  className="w-5 h-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -170,9 +170,9 @@ function ProjectItem({ project, index }: ProjectItemProps) {
             )}
 
             {project.links.github && (
-              <Button href={project.links.github} variant="outline" size="md">
+              <Button href={project.links.github} variant="outline" size="lg">
                 <svg
-                  className="w-4 h-4"
+                  className="w-5 h-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
