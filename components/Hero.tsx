@@ -251,7 +251,7 @@ export default function Hero() {
                   View Resume
                 </Button>
                 <Button
-                  href="mailto:wintongee@gmail.com?subject=Let's Connect - Portfolio Inquiry&body=Hi Winton,%0D%0A%0D%0AI came across your portfolio and would like to connect regarding potential opportunities.%0D%0A%0D%0ABest regards,"
+                  href="https://linkedin.com/in/wintongee"
                   variant="secondary"
                   size="lg"
                 >
