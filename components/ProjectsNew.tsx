@@ -100,7 +100,7 @@ function ProjectItem({ project, index }: ProjectItemProps) {
           }`}
         >
           <div className="space-y-4">
-            <h3 className="text-3xl font-bold text-brand-text">
+            <h3 className="text-2xl font-bold text-brand-text">
               {project.title}
             </h3>
             <p className="text-lg text-brand-text-light leading-relaxed">
@@ -239,7 +239,7 @@ export default function ProjectsNew() {
             className="text-center mt-20"
           >
             <div className="glass-effect rounded-2xl p-8 max-w-2xl mx-auto">
-              <h3 className="text-2xl font-bold text-brand-text mb-4">
+              <h3 className="text-3xl font-bold text-brand-text mb-4">
                 Interested in collaborating?
               </h3>
               <p className="text-lg text-brand-text-light mb-8">

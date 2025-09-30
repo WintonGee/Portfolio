@@ -19,62 +19,32 @@ export const STATS_DATA = [
   },
 ];
 
-// Proficiency levels for visual indicators
-export type ProficiencyLevel = "expert" | "advanced" | "proficient";
-
-export interface Technology {
-  name: string;
-  proficiency: ProficiencyLevel;
-}
-
-export const TECHNOLOGIES: Record<string, Technology[]> = {
+export const TECHNOLOGIES = {
   "AI & Machine Learning": [
-    { name: "Python", proficiency: "expert" },
-    { name: "OpenAI API", proficiency: "expert" },
-    { name: "Google Gemini AI", proficiency: "expert" },
-    { name: "TensorFlow", proficiency: "advanced" },
-    { name: "AI Integration", proficiency: "expert" },
-    { name: "RAG Systems", proficiency: "advanced" },
+    "Python",
+    "OpenAI API",
+    "Google Gemini AI",
+    "TensorFlow",
+    "AI Integration",
+    "RAG Systems",
   ],
   "Frontend Development": [
-    { name: "TypeScript", proficiency: "expert" },
-    { name: "JavaScript", proficiency: "expert" },
-    { name: "React.js", proficiency: "expert" },
-    { name: "Next.js", proficiency: "advanced" },
-    { name: "Tailwind CSS", proficiency: "expert" },
-    { name: "Material-UI", proficiency: "advanced" },
-    { name: "HTML/CSS", proficiency: "expert" },
+    "TypeScript",
+    "JavaScript",
+    "React.js",
+    "Next.js",
+    "Tailwind CSS",
+    "Material-UI",
+    "HTML/CSS",
   ],
   "Backend & Database": [
-    { name: "Node.js", proficiency: "expert" },
-    { name: "Express.js", proficiency: "advanced" },
-    { name: "MongoDB", proficiency: "advanced" },
-    { name: "Supabase", proficiency: "proficient" },
-    { name: "SQL", proficiency: "expert" },
-    { name: "JWT Authentication", proficiency: "advanced" },
-    { name: "REST APIs", proficiency: "expert" },
-    { name: "Axios", proficiency: "expert" },
+    "Node.js",
+    "Express.js",
+    "MongoDB",
+    "Supabase",
+    "SQL",
+    "JWT Authentication",
+    "REST APIs",
+    "Axios",
   ],
-};
-
-// Color mapping for proficiency levels
-export const PROFICIENCY_COLORS = {
-  expert: {
-    bg: "bg-brand-primary",
-    text: "text-white",
-    border: "border-brand-primary-dark",
-    shadow: "shadow-organic-lg",
-  },
-  advanced: {
-    bg: "bg-brand-secondary",
-    text: "text-white",
-    border: "border-brand-secondary-dark",
-    shadow: "shadow-organic",
-  },
-  proficient: {
-    bg: "bg-brand-beige-light",
-    text: "text-brand-text",
-    border: "border-brand-secondary/50",
-    shadow: "shadow-organic",
-  },
 };

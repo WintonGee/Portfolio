@@ -128,7 +128,7 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
           fill="white"
           stroke={color}
           strokeWidth={3}
-          className="cursor-pointer hover:r-22 transition-all duration-300"
+          className="cursor-pointer hover:scale-110 transition-all duration-300"
           onClick={() =>
             setActiveIndex(
               activeIndex === payload.progression - 1
@@ -136,10 +136,6 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
                 : payload.progression - 1
             )
           }
-          onMouseEnter={() =>
-            !isMobile && setActiveIndex(payload.progression - 1)
-          }
-          onMouseLeave={() => !isMobile && setActiveIndex(null)}
         />
 
         {/* Logo image */}
@@ -257,7 +253,9 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
         viewport={{ once: true }}
         className="text-center mb-12"
       >
-        <h4 className="text-3xl font-bold text-brand-text mb-2">My Journey</h4>
+        <h2 className="text-5xl font-bold text-brand-text mb-6">
+          My <span className="gradient-text">Journey</span>
+        </h2>
         <div className="w-24 h-1 bg-gradient-to-r from-brand-primary to-brand-secondary mx-auto rounded-full mb-6"></div>
 
         {/* Filter Controls */}
