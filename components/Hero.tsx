@@ -297,7 +297,7 @@ export default function Hero() {
               className="pt-12"
             >
               <p className="text-base text-brand-text-light mb-8 font-semibold tracking-wide uppercase">
-                Core Technologies
+                Core Expertise
               </p>
               <div className="flex flex-wrap gap-4">
                 {[

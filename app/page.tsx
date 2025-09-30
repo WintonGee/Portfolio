@@ -16,17 +16,19 @@ export default function Home() {
       {/* Hero Section */}
       <Hero />
 
-      {/* About Section */}
+      {/* Timeline Section */}
       <motion.section
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="relative"
+        className="relative py-32 bg-gradient-to-b from-brand-beige-light to-brand-beige"
       >
         {/* Section divider */}
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-secondary to-transparent"></div>
-        <About />
+        <div className="container mx-auto px-4">
+          <About />
+        </div>
       </motion.section>
 
       {/* Projects Section */}
