@@ -13,18 +13,45 @@ export function getAllProjectFiles(): string[] {
     return [];
   }
 
-  return fs
-    .readdirSync(projectsPath)
-    .filter((file) => file.endsWith(".md"))
-    .map((file) => path.join(projectsPath, file));
+  const getAllMdFiles = (dir: string): string[] => {
+    const files: string[] = [];
+    const items = fs.readdirSync(dir);
+
+    for (const item of items) {
+      const fullPath = path.join(dir, item);
+      const stat = fs.statSync(fullPath);
+
+      if (stat.isDirectory()) {
+        files.push(...getAllMdFiles(fullPath));
+      } else if (item.endsWith(".md") && !item.startsWith("README")) {
+        files.push(fullPath);
+      }
+    }
+
+    return files;
+  };
+
+  return getAllMdFiles(projectsPath);
 }
 
 // Parse a single project file
 export function getProjectBySlug(slug: string): Project | null {
-  const filePath = path.join(contentDirectory, "projects", `${slug}.md`);
+  // First try the old structure
+  let filePath = path.join(contentDirectory, "projects", `${slug}.md`);
 
   if (!fs.existsSync(filePath)) {
-    return null;
+    // Try the new structure with subdirectories
+    const allFiles = getAllProjectFiles();
+    const matchingFile = allFiles.find((file) => {
+      const fileName = path.basename(file, ".md");
+      return fileName === slug;
+    });
+
+    if (matchingFile) {
+      filePath = matchingFile;
+    } else {
+      return null;
+    }
   }
 
   const fileContents = fs.readFileSync(filePath, "utf8");

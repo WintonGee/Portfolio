@@ -1,7 +1,7 @@
 ---
 title: "FoodManager (PantryCraft)"
 description: "A web application that helps users manage their ingredients efficiently and generate AI-powered recipe suggestions based on available items. Built with React.js, MongoDB, and OpenAI API to reduce food waste and simplify meal planning."
-imageUrl: "/content/projects/foodmanager.jpg"
+imageUrl: "/images/projects/foodmanager/foodmanager-cover.png"
 tags:
   [
     "Web Development",
@@ -33,6 +33,7 @@ technologies:
 links:
   github: "https://github.com/WintonGee/FoodManager"
   report: "https://drive.google.com/file/d/1ez2tc4DKTKrDWslWheUKjhegmqm7X7P7/view?usp=sharing"
+  caseStudy: "/projects/foodmanager"
 status: "completed"
 featured: true
 date:
