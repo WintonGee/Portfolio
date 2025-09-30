@@ -266,10 +266,10 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
             <button
               key={filter.key}
               onClick={() => setFilterCategory(filter.key as any)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+              className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
                 filterCategory === filter.key
-                  ? `${filter.color} text-white shadow-lg`
-                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                  ? `${filter.color} text-white shadow-organic-lg border-2 border-brand-primary/20`
+                  : "bg-brand-beige-light text-brand-text border-2 border-brand-secondary/30 hover:bg-brand-beige-dark hover:border-brand-secondary/50"
               }`}
             >
               {filter.label}

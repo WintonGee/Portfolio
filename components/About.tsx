@@ -106,9 +106,6 @@ export default function About() {
 
               {/* Education Timeline */}
               <AnimatedSection delay={0.5} className="pt-8">
-                <h3 className="text-2xl font-semibold text-brand-text mb-8 text-center">
-                  My <span className="gradient-text">Experience</span>
-                </h3>
                 <EducationTimeline />
               </AnimatedSection>
             </motion.div>

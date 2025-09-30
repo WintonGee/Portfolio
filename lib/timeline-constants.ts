@@ -16,9 +16,9 @@ export const TIMELINE_CONFIG = {
 
 // Filter options for timeline
 export const FILTER_OPTIONS: FilterOption[] = [
-  { key: "all", label: "All", color: "bg-gray-500" },
-  { key: "professional", label: "Professional", color: "bg-blue-500" },
-  { key: "academic", label: "Academic", color: "bg-green-500" },
+  { key: "all", label: "All", color: "bg-brand-primary" },
+  { key: "professional", label: "Professional", color: "bg-brand-primary" },
+  { key: "academic", label: "Academic", color: "bg-brand-secondary" },
 ];
 
 // Hover descriptions for timeline items
