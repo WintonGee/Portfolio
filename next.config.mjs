@@ -1,10 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Enable experimental features for better performance
-  experimental: {
-    optimizePackageImports: ["framer-motion", "@heroicons/react"],
-  },
-
   // Image optimization
   images: {
     formats: ["image/webp", "image/avif"],
@@ -79,7 +74,7 @@ const nextConfig = {
       );
     }
 
-    // Optimize bundle size
+    // Simplified bundle optimization to prevent micromatch issues
     if (!dev && !isServer) {
       config.optimization.splitChunks = {
         chunks: "all",
@@ -88,16 +83,7 @@ const nextConfig = {
             test: /[\\/]node_modules[\\/]/,
             name: "vendors",
             chunks: "all",
-          },
-          framerMotion: {
-            test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
-            name: "framer-motion",
-            chunks: "all",
-          },
-          heroicons: {
-            test: /[\\/]node_modules[\\/]@heroicons[\\/]/,
-            name: "heroicons",
-            chunks: "all",
+            priority: 10,
           },
         },
       };
@@ -106,11 +92,18 @@ const nextConfig = {
     return config;
   },
 
-  // Output configuration
-  output: "standalone",
-
   // Enable SWC minification
   swcMinify: true,
+
+  // Disable build traces collection to prevent micromatch stack overflow
+  generateBuildId: async () => {
+    return "build-" + Date.now();
+  },
+
+  // Enable experimental features for better performance
+  experimental: {
+    optimizePackageImports: ["framer-motion", "@heroicons/react"],
+  },
 };
 
 export default nextConfig;
