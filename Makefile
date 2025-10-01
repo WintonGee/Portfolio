@@ -49,8 +49,7 @@ setup-env: ## Set up environment variables
 setup: install setup-env ## Complete project setup
 	@echo "$(GREEN)🎉 Project setup complete!$(RESET)"
 	@echo "$(YELLOW)Next steps:$(RESET)"
-	@echo "  1. Run 'make generate-embeddings' to create embeddings"
-	@echo "  2. Run 'make dev' to start development server"
+	@echo "  1. Run 'make dev' to start development server"
 
 # Development targets
 .PHONY: dev
@@ -79,16 +78,6 @@ lint-fix: ## Run ESLint with auto-fix
 	@echo "$(BLUE)Running ESLint with auto-fix...$(RESET)"
 	npm run lint -- --fix
 
-# AI and Embeddings targets
-.PHONY: generate-embeddings
-generate-embeddings: ## Generate embeddings for portfolio content
-	@echo "$(BLUE)Generating embeddings...$(RESET)"
-	@if [ ! -f .env.local ]; then \
-		echo "$(RED)❌ .env.local file not found. Run 'make setup-env' first$(RESET)"; \
-		exit 1; \
-	fi
-	npm run generate-embeddings
-	@echo "$(GREEN)✅ Embeddings generated successfully$(RESET)"
 
 # Performance targets
 .PHONY: optimize-images
@@ -179,15 +168,11 @@ clean: ## Clean build artifacts and node_modules
 	rm -rf .next
 	rm -rf out
 	rm -rf node_modules
-	rm -rf data/embeddings.json
-	rm -rf data/embeddings-summary.json
 	@echo "$(GREEN)✅ Project cleaned$(RESET)"
 
 .PHONY: clean-data
 clean-data: ## Clean only data files
 	@echo "$(BLUE)Cleaning data files...$(RESET)"
-	rm -rf data/embeddings.json
-	rm -rf data/embeddings-summary.json
 	@echo "$(GREEN)✅ Data files cleaned$(RESET)"
 
 .PHONY: status
@@ -208,13 +193,6 @@ status: ## Show project status
 		echo "  ❌ node_modules missing (run 'make install')"; \
 	fi
 	@echo ""
-	@echo "$(YELLOW)Embeddings:$(RESET)"
-	@if [ -f data/embeddings.json ]; then \
-		echo "  ✅ embeddings.json exists"; \
-		echo "  📊 $$(wc -l < data/embeddings.json) lines"; \
-	else \
-		echo "  ❌ embeddings.json missing (run 'make generate-embeddings')"; \
-	fi
 	@echo ""
 	@echo "$(YELLOW)Projects:$(RESET)"
 	@echo "  📁 $(shell find content/projects -name "*.mdx" | wc -l) project files"
@@ -242,10 +220,10 @@ deploy-netlify: build ## Deploy to Netlify
 
 # Development workflow targets
 .PHONY: dev-full
-dev-full: setup generate-embeddings dev ## Complete development setup and start
+dev-full: setup dev ## Complete development setup and start
 
 .PHONY: rebuild
-rebuild: clean install generate-embeddings build ## Clean rebuild of entire project
+rebuild: clean install build ## Clean rebuild of entire project
 
 # Git targets
 .PHONY: git-setup
@@ -262,7 +240,7 @@ git-setup: ## Set up git repository
 
 # All-in-one targets
 .PHONY: init
-init: git-setup setup generate-embeddings ## Complete project initialization
+init: git-setup setup ## Complete project initialization
 
 .PHONY: quick-start
 quick-start: ## Quick start for development
@@ -274,8 +252,6 @@ quick-start: ## Quick start for development
 	@echo "$(YELLOW)2. Installing dependencies...$(RESET)"
 	@$(MAKE) install
 	@echo ""
-	@echo "$(YELLOW)3. Generating embeddings...$(RESET)"
-	@$(MAKE) generate-embeddings
 	@echo ""
 	@echo "$(GREEN)🎉 Ready to go!$(RESET)"
 	@echo "$(CYAN)Run 'make dev' to start the development server$(RESET)"
