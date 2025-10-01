@@ -1,0 +1,62 @@
+{
+  "name": "Winton Gee - AI/ML Engineer Portfolio",
+  "short_name": "Winton Gee",
+  "description": "AI/ML Engineer & Software Developer - Portfolio and Resume",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F5F5DC",
+  "theme_color": "#556B2F",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["portfolio", "developer", "ai", "ml"],
+  "icons": [
+    {
+      "src": "/logos/default.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logos/default.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/images/projects/foodmanager/foodmanager-cover.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Portfolio Homepage"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "View Resume",
+      "short_name": "Resume",
+      "description": "View Winton's resume",
+      "url": "/resume/AIML_Resume_WintonGee.pdf",
+      "icons": [
+        {
+          "src": "/logos/default.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Contact",
+      "short_name": "Contact",
+      "description": "Get in touch with Winton",
+      "url": "mailto:wintongee@gmail.com",
+      "icons": [
+        {
+          "src": "/logos/default.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}

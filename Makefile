@@ -5,7 +5,7 @@
 # Variables
 NODE_VERSION := 18
 PORT := 3000
-GEMINI_API_KEY := AIzaSyCIV6PKQ3rXSDR6jd70U2txZgHP3iGL53M
+GEMINI_API_KEY := ${GEMINI_API_KEY}
 
 # Colors for output
 RED := \033[0;31m
@@ -37,6 +37,11 @@ install: ## Install all dependencies
 .PHONY: setup-env
 setup-env: ## Set up environment variables
 	@echo "$(BLUE)Setting up environment variables...$(RESET)"
+	@if [ -z "$(GEMINI_API_KEY)" ]; then \
+		echo "$(RED)❌ GEMINI_API_KEY environment variable not set$(RESET)"; \
+		echo "$(YELLOW)Please set your Gemini API key: export GEMINI_API_KEY=your_api_key$(RESET)"; \
+		exit 1; \
+	fi
 	@echo "GEMINI_API_KEY=$(GEMINI_API_KEY)" > .env.local
 	@echo "$(GREEN)✅ Environment variables set up$(RESET)"
 
@@ -84,6 +89,35 @@ generate-embeddings: ## Generate embeddings for portfolio content
 	fi
 	npm run generate-embeddings
 	@echo "$(GREEN)✅ Embeddings generated successfully$(RESET)"
+
+# Performance targets
+.PHONY: optimize-images
+optimize-images: ## Optimize images to WebP and AVIF formats
+	@echo "$(BLUE)Optimizing images...$(RESET)"
+	npm run optimize-images
+	@echo "$(GREEN)✅ Images optimized successfully$(RESET)"
+
+.PHONY: analyze-bundle
+analyze-bundle: ## Analyze bundle size and dependencies
+	@echo "$(BLUE)Analyzing bundle...$(RESET)"
+	npm run analyze
+	@echo "$(GREEN)✅ Bundle analysis complete$(RESET)"
+
+.PHONY: lighthouse
+lighthouse: ## Run Lighthouse performance audit
+	@echo "$(BLUE)Running Lighthouse audit...$(RESET)"
+	@if [ ! -f lighthouse-report.html ]; then \
+		npm run lighthouse; \
+		echo "$(GREEN)✅ Lighthouse report generated: lighthouse-report.html$(RESET)"; \
+	else \
+		echo "$(YELLOW)⚠️  Lighthouse report already exists$(RESET)"; \
+	fi
+
+.PHONY: perf-test
+perf-test: ## Run complete performance test suite
+	@echo "$(BLUE)Running performance tests...$(RESET)"
+	npm run perf
+	@echo "$(GREEN)✅ Performance tests complete$(RESET)"
 
 .PHONY: test-chat
 test-chat: ## Test the chatbot API
