@@ -2,7 +2,7 @@
 
 import fs from "fs";
 import path from "path";
-import { getAllProjects } from "../lib/content-server";
+import { getAllProjects } from "../lib/content";
 
 async function buildProjects() {
   console.log("🔨 Building projects data...");

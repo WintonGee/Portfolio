@@ -12,6 +12,12 @@
   "categories": ["portfolio", "developer", "ai", "ml"],
   "icons": [
     {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
       "src": "/logos/default.png",
       "sizes": "192x192",
       "type": "image/png",

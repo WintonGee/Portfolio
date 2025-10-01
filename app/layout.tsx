@@ -12,8 +12,11 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   metadataBase: new URL("https://wintongee.com"),
   icons: {
-    icon: "/logos/default.png",
-    apple: "/logos/default.png",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    apple: "/apple-touch-icon.png",
   },
   openGraph: {
     title: "Winton Gee - AI/ML Engineer",
@@ -59,6 +62,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="manifest" href="/manifest.json" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="Winton Gee" />

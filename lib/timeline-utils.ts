@@ -1,6 +1,43 @@
 import { TimelineItem, TimelineData, FilterCategory } from "../types/timeline";
-import { extractStartDate } from "./utils";
 import { TIMELINE_CONFIG } from "./timeline-constants";
+
+// Date extraction utility
+function extractStartDate(dateString: string): number {
+  const dateFormats = [
+    /(\w+)\s+(\d{4})/, // "July 2025" or "September 2022"
+    /(\d{4})/, // Just year
+  ];
+
+  for (const format of dateFormats) {
+    const match = dateString.match(format);
+    if (match) {
+      if (match[1] && match[2]) {
+        // Month and year format
+        const month = match[1];
+        const year = parseInt(match[2]);
+        const monthMap: { [key: string]: number } = {
+          January: 1,
+          February: 2,
+          March: 3,
+          April: 4,
+          May: 5,
+          June: 6,
+          July: 7,
+          August: 8,
+          September: 9,
+          October: 10,
+          November: 11,
+          December: 12,
+        };
+        return year + (monthMap[month] || 0) / 12;
+      } else if (match[1]) {
+        // Just year
+        return parseInt(match[1]);
+      }
+    }
+  }
+  return 0;
+}
 
 // Sort items chronologically (oldest first)
 export function sortItemsChronologically(
