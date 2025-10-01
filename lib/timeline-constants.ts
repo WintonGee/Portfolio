@@ -4,8 +4,8 @@ import { FilterOption } from "../types/timeline";
 export const TIMELINE_CONFIG = {
   SPACING_THRESHOLD: 0.15, // Minimum spacing between points (in years)
   CHART_HEIGHT: {
-    mobile: 600,
-    desktop: 700,
+    mobile: 500,
+    desktop: 550,
   },
   COLORS: {
     professional: "#6366f1",

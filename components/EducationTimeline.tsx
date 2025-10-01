@@ -295,7 +295,7 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
 
       {/* Chart Container */}
       <div
-        className="relative bg-gradient-to-br from-brand-beige/30 to-brand-beige-light/30 rounded-2xl p-6"
+        className="relative bg-gradient-to-br from-brand-beige/30 to-brand-beige-light/30 rounded-2xl p-4"
         style={{
           height: isMobile
             ? `${TIMELINE_CONFIG.CHART_HEIGHT.mobile}px`
@@ -303,7 +303,7 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
         }}
       >
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart margin={{ top: 60, right: 80, left: 20, bottom: 60 }}>
+          <LineChart margin={{ top: 50, right: 60, left: 20, bottom: 50 }}>
             <CartesianGrid
               strokeDasharray="3 3"
               stroke="rgba(107, 114, 128, 0.1)"

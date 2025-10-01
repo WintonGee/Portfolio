@@ -305,9 +305,9 @@ export default function Hero() {
                   "TypeScript",
                   "React",
                   "SQL",
-                  "Gemini",
-                  "OpenAI",
                   "Cursor",
+                  "OpenAI",
+                  "Gemini",
                 ].map((tech, index) => (
                   <motion.span
                     key={tech}
