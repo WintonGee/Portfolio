@@ -100,6 +100,9 @@ const nextConfig = {
     return "build-" + Date.now();
   },
 
+  // Disable build traces collection to prevent micromatch stack overflow
+  outputFileTracing: false,
+
   // Enable experimental features for better performance
   experimental: {
     optimizePackageImports: ["framer-motion", "@heroicons/react"],
