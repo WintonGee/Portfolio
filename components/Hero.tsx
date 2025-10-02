@@ -186,11 +186,9 @@ export default function Hero() {
                   href="mailto:wintongee@gmail.com"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="flex items-center gap-3 px-4 py-2 rounded-xl bg-brand-beige-light/50 hover:bg-brand-beige-light border border-brand-secondary/20 hover:border-brand-primary/30 transition-all duration-300 group"
+                  className="flex items-center gap-3 transition-all duration-300 group"
                 >
-                  <div className="p-1.5 rounded-lg bg-brand-primary/10 group-hover:bg-brand-primary/20 transition-colors duration-300">
-                    <EnvelopeIcon className="w-4 h-4 text-brand-primary group-hover:scale-110 transition-transform duration-300" />
-                  </div>
+                  <EnvelopeIcon className="w-4 h-4 text-brand-primary group-hover:scale-110 transition-transform duration-300" />
                   <span className="text-base font-medium text-brand-text-light group-hover:text-brand-text transition-colors duration-300">
                     wintongee@gmail.com
                   </span>
@@ -201,11 +199,9 @@ export default function Hero() {
                   href="tel:+14158063004"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="flex items-center gap-3 px-4 py-2 rounded-xl bg-brand-beige-light/50 hover:bg-brand-beige-light border border-brand-secondary/20 hover:border-brand-primary/30 transition-all duration-300 group"
+                  className="flex items-center gap-3 transition-all duration-300 group"
                 >
-                  <div className="p-1.5 rounded-lg bg-brand-primary/10 group-hover:bg-brand-primary/20 transition-colors duration-300">
-                    <PhoneIcon className="w-4 h-4 text-brand-primary group-hover:scale-110 transition-transform duration-300" />
-                  </div>
+                  <PhoneIcon className="w-4 h-4 text-brand-primary group-hover:scale-110 transition-transform duration-300" />
                   <span className="text-base font-medium text-brand-text-light group-hover:text-brand-text transition-colors duration-300">
                     (415) 806-3004
                   </span>
