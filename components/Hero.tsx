@@ -13,7 +13,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center bg-gradient-to-br from-brand-beige via-brand-beige-light to-brand-beige-dark relative overflow-hidden"
+      className="h-screen flex items-center bg-gradient-to-br from-brand-beige via-brand-beige-light to-brand-beige-dark relative overflow-hidden pt-20"
     >
       {/* Enhanced Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -64,14 +64,14 @@ export default function Hero() {
       </div>
 
       {/* Main Container with Perfect Spacing */}
-      <div className="container mx-auto px-8 py-32 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-24 items-center max-w-7xl mx-auto">
+      <div className="container mx-auto px-8 py-8 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-16 items-center max-w-7xl mx-auto">
           {/* Left Column - Enhanced Personal Section */}
           <motion.div
             initial={{ opacity: 0, x: -60 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="flex flex-col items-center lg:items-start space-y-16"
+            className="flex flex-col items-center lg:items-start space-y-12"
           >
             {/* Professional Photo with Enhanced Styling */}
             <motion.div
@@ -80,7 +80,7 @@ export default function Hero() {
               transition={{ duration: 1, delay: 0.3 }}
               className="relative group"
             >
-              <div className="relative w-72 h-72 lg:w-96 lg:h-96 rounded-full overflow-hidden shadow-organic-2xl ring-4 ring-brand-secondary/20 hover:ring-brand-primary/30 transition-all duration-700">
+              <div className="relative w-64 h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden shadow-organic-2xl ring-4 ring-brand-secondary/20 hover:ring-brand-primary/30 transition-all duration-700">
                 <Image
                   src="/headshot.jpg"
                   alt="Winton Gee - AI/ML Engineer"
@@ -156,9 +156,10 @@ export default function Hero() {
                 transition={{ duration: 0.8, delay: 0.8 }}
                 className="text-lg text-brand-text-light max-w-md leading-relaxed"
               >
-                Passionate about continuous learning and exploring the latest AI
-                technologies to build innovative solutions that push the
-                boundaries of what's possible
+                What draws me to AI? We're at the cutting edge of what's
+                possible, reshaping how we solve problems and interact with the
+                world. I'm passionate about pushing beyond today's limitations
+                to build tomorrow's solutions.
               </motion.p>
 
               {/* Enhanced Location with Alumni Status */}
@@ -203,13 +204,13 @@ export default function Hero() {
             initial={{ opacity: 0, x: 60 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.4 }}
-            className="space-y-16"
+            className="space-y-12"
           >
             {/* Enhanced Typography Hierarchy */}
-            <div className="space-y-10">
+            <div className="space-y-8">
               {/* Main Headline with Balanced Typography */}
               <motion.h1
-                className="text-5xl md:text-6xl lg:text-7xl font-bold text-brand-text leading-tight tracking-tight"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold text-brand-text leading-tight tracking-tight"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.6 }}
@@ -229,11 +230,11 @@ export default function Hero() {
                   Building Intelligent Systems
                 </h2>
                 <p className="text-lg text-brand-text-light max-w-2xl leading-relaxed">
-                  I specialize in developing AI-powered solutions using Python,
-                  TypeScript, and modern frameworks. Currently working as a
-                  contract AI/ML Engineer for Mercor, I leverage cutting-edge
-                  technologies including Gemini and OpenAI to build intelligent
-                  systems that solve real-world problems.
+                  With expertise in Python, TypeScript, and modern AI
+                  frameworks, I deliver solutions that solve complex challenges.
+                  Currently partnering with Mercor as an AI/ML Engineer, I
+                  design and implement intelligent systems powered by Gemini and
+                  OpenAI, bringing breakthrough ideas to life.
                 </p>
               </motion.div>
             </div>
@@ -243,7 +244,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.8 }}
-              className="space-y-10"
+              className="space-y-8"
             >
               {/* Enhanced Button Layout */}
               <div className="flex flex-col sm:flex-row gap-4">
@@ -294,9 +295,9 @@ export default function Hero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 1.0 }}
-              className="pt-12"
+              className="pt-8"
             >
-              <p className="text-base text-brand-text-light mb-8 font-semibold tracking-wide uppercase">
+              <p className="text-base text-brand-text-light mb-6 font-semibold tracking-wide uppercase">
                 Core Expertise
               </p>
               <div className="flex flex-wrap gap-4">
