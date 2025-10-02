@@ -232,7 +232,7 @@ export default function ProjectsNew() {
   const projects = getAllProjects();
 
   return (
-    <div id="projects" className="max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto">
       {/* Section Header */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}

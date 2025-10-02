@@ -2,11 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRouter, usePathname } from "next/navigation";
 import Button from "./ui/Button";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,12 +41,59 @@ export default function Navbar() {
     };
   }, [isMobileMenuOpen]);
 
+  // Handle URL fragments when navigating from other pages
+  useEffect(() => {
+    if (pathname === "/" && window.location.hash) {
+      const hash = window.location.hash.substring(1);
+      setTimeout(() => {
+        const element = document.getElementById(hash);
+        if (element) {
+          const navbar = document.querySelector("nav");
+          const navbarHeight = navbar ? navbar.offsetHeight : 100;
+          const elementPosition = element.offsetTop - navbarHeight;
+
+          window.scrollTo({
+            top: elementPosition,
+            behavior: "smooth",
+          });
+        }
+      }, 100); // Small delay to ensure page is loaded
+    }
+  }, [pathname]);
+
   const scrollToSection = (sectionId: string) => {
+    // If we're not on the home page, navigate to home first
+    if (pathname !== "/") {
+      router.push(`/#${sectionId}`);
+      setIsMobileMenuOpen(false);
+      return;
+    }
+
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      const navbar = document.querySelector("nav");
+      const navbarHeight = navbar ? navbar.offsetHeight : 100;
+      const elementPosition = element.offsetTop - navbarHeight;
+
+      window.scrollTo({
+        top: elementPosition,
+        behavior: "smooth",
+      });
       setIsMobileMenuOpen(false); // Close mobile menu after navigation
     }
+  };
+
+  const navigateToHome = () => {
+    if (pathname !== "/") {
+      router.push("/");
+    } else {
+      // Scroll to top of page when on home page
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -66,7 +116,7 @@ export default function Navbar() {
             className="flex items-center"
           >
             <button
-              onClick={() => scrollToSection("hero")}
+              onClick={navigateToHome}
               className="text-2xl font-bold text-brand-text hover:gradient-text transition-all duration-300"
             >
               Winton Gee
@@ -91,6 +141,15 @@ export default function Navbar() {
               className="text-brand-text hover:text-brand-primary font-medium transition-colors duration-200 relative group"
             >
               Projects
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-primary-light group-hover:w-full transition-all duration-300"></span>
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => scrollToSection("chat")}
+              className="text-brand-text hover:text-brand-primary font-medium transition-colors duration-200 relative group"
+            >
+              Chat
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-primary-light group-hover:w-full transition-all duration-300"></span>
             </motion.button>
             <Button
@@ -197,10 +256,20 @@ export default function Navbar() {
                     Projects
                   </motion.button>
 
-                  <motion.div
+                  <motion.button
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.2 }}
+                    onClick={() => scrollToSection("chat")}
+                    className="text-left text-lg font-medium text-brand-text hover:text-brand-primary transition-colors duration-200 py-2"
+                  >
+                    Chat
+                  </motion.button>
+
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.25 }}
                     className="py-2"
                   >
                     <Button
@@ -218,7 +287,7 @@ export default function Navbar() {
                   <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.25 }}
+                    transition={{ delay: 0.3 }}
                     className="pt-4"
                   >
                     <Button
@@ -234,7 +303,7 @@ export default function Navbar() {
                   <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.3 }}
+                    transition={{ delay: 0.35 }}
                     className="flex justify-center space-x-6 pt-4 border-t border-brand-secondary/30"
                   >
                     <a
