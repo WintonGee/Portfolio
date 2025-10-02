@@ -100,12 +100,30 @@ const nextConfig = {
     return "build-" + Date.now();
   },
 
-  // Disable build traces collection to prevent micromatch stack overflow
+  // Optimize build performance
   outputFileTracing: false,
+
+  // Enable static optimization
+  trailingSlash: false,
+
+  // Optimize bundle size
+  poweredByHeader: false,
 
   // Enable experimental features for better performance
   experimental: {
-    optimizePackageImports: ["framer-motion", "@heroicons/react"],
+    optimizePackageImports: [
+      "framer-motion",
+      "@heroicons/react",
+      "@radix-ui/react-hover-card",
+    ],
+    turbo: {
+      rules: {
+        "*.svg": {
+          loaders: ["@svgr/webpack"],
+          as: "*.js",
+        },
+      },
+    },
   },
 };
 
