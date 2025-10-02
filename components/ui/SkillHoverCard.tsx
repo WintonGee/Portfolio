@@ -11,6 +11,17 @@ interface SkillHoverCardProps {
   className?: string;
 }
 
+const PROFICIENCY_STYLES = {
+  beginner:
+    "bg-brand-secondary/20 text-brand-secondary border-brand-secondary/30",
+  intermediate:
+    "bg-brand-primary/20 text-brand-primary border-brand-primary/30",
+  advanced:
+    "bg-brand-primary-dark/20 text-brand-primary-dark border-brand-primary-dark/30",
+  expert:
+    "bg-brand-text-dark/20 text-brand-text-dark border-brand-text-dark/30",
+} as const;
+
 export function SkillHoverCard({
   skill,
   children,
@@ -25,41 +36,11 @@ export function SkillHoverCard({
     setMounted(true);
   }, []);
 
-  const getProficiencyColor = (proficiency: string) => {
-    switch (proficiency) {
-      case "beginner":
-        return "text-brand-secondary";
-      case "intermediate":
-        return "text-brand-primary";
-      case "advanced":
-        return "text-brand-primary-dark";
-      case "expert":
-        return "text-brand-text-dark";
-      default:
-        return "text-brand-text";
-    }
-  };
-
-  const getProficiencyBadge = (proficiency: string) => {
-    switch (proficiency) {
-      case "beginner":
-        return "bg-brand-secondary/20 text-brand-secondary border-brand-secondary/30";
-      case "intermediate":
-        return "bg-brand-primary/20 text-brand-primary border-brand-primary/30";
-      case "advanced":
-        return "bg-brand-primary-dark/20 text-brand-primary-dark border-brand-primary-dark/30";
-      case "expert":
-        return "bg-brand-text-dark/20 text-brand-text-dark border-brand-text-dark/30";
-      default:
-        return "bg-brand-text/20 text-brand-text border-brand-text/30";
-    }
-  };
-
   const handleMouseEnter = () => {
     if (triggerRef.current) {
       const rect = triggerRef.current.getBoundingClientRect();
       setPosition({
-        x: rect.left + rect.width / 2 - 200, // Center the card (400px wide)
+        x: rect.left + rect.width / 2 - 200,
         y: rect.bottom + 8,
       });
     }
@@ -69,6 +50,10 @@ export function SkillHoverCard({
   const handleMouseLeave = () => {
     setIsVisible(false);
   };
+
+  const proficiencyStyle =
+    PROFICIENCY_STYLES[skill.proficiency as keyof typeof PROFICIENCY_STYLES] ||
+    PROFICIENCY_STYLES.beginner;
 
   const hoverCard = (
     <AnimatePresence>
@@ -102,9 +87,7 @@ export function SkillHoverCard({
                   {skill.name}
                 </h3>
                 <div
-                  className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium border ${getProficiencyBadge(
-                    skill.proficiency
-                  )}`}
+                  className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium border ${proficiencyStyle}`}
                 >
                   {skill.proficiency.charAt(0).toUpperCase() +
                     skill.proficiency.slice(1)}
@@ -121,11 +104,8 @@ export function SkillHoverCard({
             {skill.usage.length > 0 && (
               <div className="space-y-3">
                 {skill.usage.map((usage, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
                     className="bg-gradient-to-r from-brand-beige/50 to-brand-beige-light/50 rounded-lg p-4 border border-brand-secondary/20"
                   >
                     <div className="flex items-start gap-3">
@@ -139,17 +119,8 @@ export function SkillHoverCard({
                         </p>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
-              </div>
-            )}
-
-            {/* No usage message */}
-            {skill.usage.length === 0 && (
-              <div className="text-center py-4">
-                <div className="text-sm text-brand-text-light italic">
-                  Skill ready for future projects
-                </div>
               </div>
             )}
 
