@@ -279,7 +279,6 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
         <h2 className="text-5xl font-bold text-brand-text mb-6">
           My <span className="gradient-text">Journey</span>
         </h2>
-        <div className="w-24 h-1 bg-gradient-to-r from-brand-primary to-brand-secondary mx-auto rounded-full mb-6"></div>
 
         {/* Filter Controls */}
         <div className="flex justify-center gap-4 mb-8">
@@ -301,7 +300,7 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
 
       {/* Chart Container */}
       <div
-        className="relative bg-gradient-to-br from-brand-beige/30 to-brand-beige-light/30 rounded-2xl p-4"
+        className="relative bg-gradient-to-br from-brand-beige-light/50 to-brand-beige/50 rounded-2xl p-4 border border-brand-secondary/20"
         style={{
           height: isMobile
             ? `${TIMELINE_CONFIG.CHART_HEIGHT.mobile}px`

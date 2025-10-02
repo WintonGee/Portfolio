@@ -198,21 +198,14 @@ export default function Hero() {
               </motion.h1>
 
               {/* Balanced Subheading */}
-              <motion.div
+              <motion.h2
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.7 }}
-                className="space-y-6"
+                className="text-2xl md:text-3xl font-light text-brand-text-light leading-tight"
               >
-                <h2 className="text-2xl md:text-3xl font-light text-brand-text-light leading-tight">
-                  Building Intelligent Systems
-                </h2>
-                <p className="text-lg text-brand-text-light max-w-2xl leading-relaxed">
-                  Delivering AI solutions that solve complex challenges through
-                  modern frameworks, intelligent system design, and cutting-edge
-                  API integrations.
-                </p>
-              </motion.div>
+                Building Intelligent Systems
+              </motion.h2>
             </div>
 
             {/* Enhanced Action Section */}

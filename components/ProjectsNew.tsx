@@ -198,70 +198,53 @@ export default function ProjectsNew() {
   const projects = getAllProjects();
 
   return (
-    <section
-      id="projects"
-      className="py-32 bg-gradient-to-b from-brand-beige to-brand-beige-light"
-    >
-      <div className="container mx-auto px-4">
-        <div className="max-w-7xl mx-auto">
-          {/* Section Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-5xl font-bold text-brand-text mb-6">
-              Featured <span className="gradient-text">Projects</span>
-            </h2>
-            <p className="text-xl text-brand-text-light max-w-3xl mx-auto leading-relaxed">
-              A showcase of my recent projects, featuring full-stack web
-              applications with AI integration. Each project demonstrates my
-              expertise in building scalable, production-ready solutions that
-              solve real-world problems.
-            </p>
-          </motion.div>
+    <div className="max-w-7xl mx-auto">
+      {/* Section Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        className="text-center mb-20"
+      >
+        <h2 className="text-5xl font-bold text-brand-text">
+          Featured <span className="gradient-text">Projects</span>
+        </h2>
+      </motion.div>
 
-          {/* Projects List */}
-          <div className="space-y-8">
-            {projects.map((project, index) => (
-              <ProjectItem key={project.id} project={project} index={index} />
-            ))}
-          </div>
-
-          {/* Call to Action */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}
-            className="text-center mt-20"
-          >
-            <div className="glass-effect rounded-2xl p-8 max-w-2xl mx-auto">
-              <h3 className="text-3xl font-bold text-brand-text mb-4">
-                Interested in collaborating?
-              </h3>
-              <p className="text-lg text-brand-text-light mb-8">
-                I'm always excited to work on new projects and explore
-                innovative solutions.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button href="mailto:wintongee@gmail.com" size="lg">
-                  Get In Touch
-                </Button>
-                <Button
-                  href="https://github.com/wintongee"
-                  variant="secondary"
-                  size="lg"
-                >
-                  View All Projects
-                </Button>
-              </div>
-            </div>
-          </motion.div>
-        </div>
+      {/* Projects List */}
+      <div className="space-y-8">
+        {projects.map((project, index) => (
+          <ProjectItem key={project.id} project={project} index={index} />
+        ))}
       </div>
-    </section>
+
+      {/* Call to Action */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+        viewport={{ once: true }}
+        className="text-center mt-20"
+      >
+        <div className="glass-effect rounded-2xl p-8 max-w-2xl mx-auto">
+          <h3 className="text-3xl font-bold text-brand-text mb-8">
+            Interested in collaborating?
+          </h3>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button href="mailto:wintongee@gmail.com" size="lg">
+              Get In Touch
+            </Button>
+            <Button
+              href="https://github.com/wintongee"
+              variant="secondary"
+              size="lg"
+            >
+              View All Projects
+            </Button>
+          </div>
+        </div>
+      </motion.div>
+    </div>
   );
 }
