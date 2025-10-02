@@ -93,16 +93,15 @@ export default function Navbar() {
               Projects
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-primary-light group-hover:w-full transition-all duration-300"></span>
             </motion.button>
-            <motion.a
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            <Button
               href="/resume/AIML_Resume_WintonGee.pdf"
-              target="_blank"
-              className="text-brand-text hover:text-brand-primary font-medium transition-colors duration-200 relative group"
+              download="Winton_Gee_Resume.pdf"
+              variant="outline"
+              size="md"
+              className="px-4 py-2"
             >
-              Resume
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-primary-light group-hover:w-full transition-all duration-300"></span>
-            </motion.a>
+              Download Resume
+            </Button>
             <Button
               href="mailto:wintongee@gmail.com?subject=Let's Connect - Portfolio Inquiry&body=Hi Winton,%0D%0A%0D%0AI came across your portfolio and would like to connect regarding potential opportunities.%0D%0A%0D%0ABest regards,"
               size="md"
@@ -198,16 +197,22 @@ export default function Navbar() {
                     Projects
                   </motion.button>
 
-                  <motion.a
+                  <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.2 }}
-                    href="/resume/AIML_Resume_WintonGee.pdf"
-                    target="_blank"
-                    className="text-left text-lg font-medium text-brand-text hover:text-brand-primary transition-colors duration-200 py-2"
+                    className="py-2"
                   >
-                    Resume
-                  </motion.a>
+                    <Button
+                      href="/resume/AIML_Resume_WintonGee.pdf"
+                      download="Winton_Gee_Resume.pdf"
+                      variant="outline"
+                      size="md"
+                      className="w-full justify-center"
+                    >
+                      Download Resume
+                    </Button>
+                  </motion.div>
 
                   {/* Mobile Contact Button */}
                   <motion.div

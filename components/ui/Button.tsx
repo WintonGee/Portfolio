@@ -8,6 +8,7 @@ interface ButtonProps {
   variant?: "primary" | "secondary" | "outline";
   size?: "sm" | "md" | "lg";
   href?: string;
+  download?: string;
   onClick?: () => void;
   className?: string;
   disabled?: boolean;
@@ -19,6 +20,7 @@ export default function Button({
   variant = "primary",
   size = "md",
   href,
+  download,
   onClick,
   className = "",
   disabled = false,
@@ -59,6 +61,7 @@ export default function Button({
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         href={href}
+        download={download}
         target={href.startsWith("mailto:") ? undefined : "_blank"}
         rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
         className={classes}

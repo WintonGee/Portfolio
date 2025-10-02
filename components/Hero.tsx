@@ -217,8 +217,12 @@ export default function Hero() {
             >
               {/* Enhanced Button Layout */}
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <Button href="/resume/AIML_Resume_WintonGee.pdf" size="lg">
-                  View Resume
+                <Button
+                  href="/resume/AIML_Resume_WintonGee.pdf"
+                  size="lg"
+                  download="Winton_Gee_Resume.pdf"
+                >
+                  Download Resume
                 </Button>
                 <Button
                   href="https://linkedin.com/in/wintongee"
