@@ -15,6 +15,7 @@ export interface Project {
     github?: string;
     demo?: string;
     caseStudy?: string;
+    report?: string;
   };
   status: "completed" | "in-progress" | "archived";
   featured: boolean;

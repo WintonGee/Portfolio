@@ -1,5 +1,194 @@
 [
   {
+    "id": "portfolio",
+    "title": "AI-Powered Portfolio Website",
+    "description": "A modern, responsive portfolio website showcasing AI/ML engineering skills with interactive hover cards, real-time chatbot integration, and advanced animations. Built with Next.js, TypeScript, and AI-powered features including Google Gemini integration for intelligent responses.",
+    "imageUrl": "/images/projects/portfolio/portfolio-hero.png",
+    "tags": [
+      "Portfolio Website",
+      "AI Integration",
+      "Interactive UI",
+      "Next.js",
+      "TypeScript",
+      "Chatbot"
+    ],
+    "technologies": [
+      {
+        "category": "frontend",
+        "name": "Next.js"
+      },
+      {
+        "category": "frontend",
+        "name": "TypeScript"
+      },
+      {
+        "category": "frontend",
+        "name": "React.js"
+      },
+      {
+        "category": "frontend",
+        "name": "Tailwind CSS"
+      },
+      {
+        "category": "frontend",
+        "name": "HTML/CSS"
+      },
+      {
+        "category": "ai",
+        "name": "Google Gemini AI"
+      },
+      {
+        "category": "ai",
+        "name": "AI Integration"
+      },
+      {
+        "category": "backend",
+        "name": "REST APIs"
+      },
+      {
+        "category": "backend",
+        "name": "Axios"
+      }
+    ],
+    "links": {
+      "live": "https://wintongee.com",
+      "github": "https://github.com/WintonGee/Portfolio",
+      "caseStudy": "/projects/portfolio"
+    },
+    "status": "completed",
+    "featured": true,
+    "date": {
+      "start": "2024-01-01",
+      "end": "2024-12-31"
+    },
+    "metrics": {
+      "performance": "Optimized with Next.js SSR and image optimization",
+      "impact": "Showcases AI/ML skills with interactive hover cards and chatbot",
+      "scale": "Responsive design with advanced animations and AI integration"
+    },
+    "challenges": [
+      "Creating interactive hover cards with skill usage tracking",
+      "Implementing AI-powered chatbot with Google Gemini integration",
+      "Designing responsive layout with complex animations",
+      "Optimizing performance with Next.js and image optimization"
+    ],
+    "solutions": [
+      "Built custom hover card component with portal rendering for z-index management",
+      "Integrated Google Gemini AI for intelligent chatbot responses",
+      "Used Framer Motion for smooth animations and transitions",
+      "Implemented Next.js optimization features and responsive design patterns"
+    ],
+    "learnings": [
+      "Advanced React patterns with portals and custom hooks",
+      "AI integration with modern APIs and real-time responses",
+      "Performance optimization with Next.js and modern web standards",
+      "User experience design with interactive elements and animations"
+    ],
+    "longDescription": "\n## Project Overview\n\nThis AI-powered portfolio website represents a comprehensive showcase of modern web development skills, featuring interactive hover cards, real-time AI chatbot integration, and advanced animations. Built with Next.js and TypeScript, it demonstrates expertise in full-stack development, AI integration, and user experience design.\n\n## Key Features\n\n### Interactive Skill Hover Cards\n\n- **Dynamic Positioning**: Hover cards that appear relative to skill badges with smart positioning\n- **Project Usage Tracking**: Shows exactly where each technology was used in real projects\n- **Proficiency Indicators**: Color-coded badges showing skill levels (Beginner, Intermediate, Advanced, Expert)\n- **Portal Rendering**: Uses React portals to ensure proper z-index layering\n- **Responsive Design**: Adapts to different screen sizes with intelligent positioning\n\n### AI-Powered Chatbot\n\n- **Google Gemini Integration**: Real-time AI responses using Google's advanced language model\n- **Contextual Responses**: AI understands portfolio context and provides relevant information\n- **Floating Interface**: Accessible chatbot button that doesn't interfere with main content\n- **Intelligent Routing**: Seamless integration with Next.js API routes\n\n### Advanced Animations\n\n- **Framer Motion**: Smooth page transitions and element animations\n- **Scroll-triggered Animations**: Elements animate as they come into view\n- **Hover Effects**: Interactive elements with sophisticated hover states\n- **Performance Optimized**: Animations that don't impact page performance\n\n### Modern Tech Stack\n\n- **Next.js 14**: Latest version with App Router and server-side rendering\n- **TypeScript**: Full type safety throughout the application\n- **Tailwind CSS**: Utility-first styling with custom design system\n- **Responsive Design**: Mobile-first approach with breakpoint optimization\n\n## Technical Implementation\n\n### Frontend Architecture\n\n- **Framework**: Next.js 14 with App Router for modern React patterns\n- **Language**: TypeScript for type safety and better developer experience\n- **Styling**: Tailwind CSS with custom color palette and design tokens\n- **Animations**: Framer Motion for smooth, performant animations\n- **Icons**: Heroicons for consistent iconography\n\n### AI Integration\n\n- **Google Gemini AI**: Integration with Google's advanced language model\n- **API Routes**: Next.js API routes for secure AI communication\n- **Real-time Responses**: Streaming responses for better user experience\n- **Context Awareness**: AI understands portfolio content and user queries\n\n### Interactive Components\n\n- **Skill Hover Cards**: Custom component with portal rendering and smart positioning\n- **Floating Chat Button**: Persistent access to AI chatbot\n- **Responsive Navigation**: Mobile-optimized navigation with smooth transitions\n- **Project Showcase**: Dynamic project display with filtering and animations\n\n### Performance Optimization\n\n- **Image Optimization**: Next.js Image component with WebP/AVIF formats\n- **Code Splitting**: Automatic code splitting for optimal loading\n- **SEO Optimization**: Meta tags, structured data, and social media integration\n- **Accessibility**: WCAG compliance with proper ARIA labels and keyboard navigation\n\n## Development Process\n\n### Phase 1: Foundation\n\n- Set up Next.js 14 with TypeScript and Tailwind CSS\n- Implement responsive layout and navigation\n- Create design system with custom color palette\n\n### Phase 2: Interactive Features\n\n- Build skill hover card component with portal rendering\n- Implement AI chatbot with Google Gemini integration\n- Add advanced animations with Framer Motion\n\n### Phase 3: Content & Optimization\n\n- Populate with project data and skill information\n- Optimize images and performance\n- Implement SEO and accessibility features\n\n### Phase 4: Advanced Features\n\n- Add interactive hover cards with project usage tracking\n- Implement floating chat button with AI integration\n- Optimize animations and user experience\n\n## Technical Challenges and Solutions\n\n### Challenge 1: Hover Card Z-Index Issues\n\n**Problem**: Hover cards were appearing behind other elements due to stacking context\n**Solution**: Implemented React portals to render cards directly to document.body, bypassing z-index conflicts\n\n### Challenge 2: AI Integration Complexity\n\n**Problem**: Integrating Google Gemini AI with proper error handling and streaming\n**Solution**: Built robust API routes with fallback responses and proper error boundaries\n\n### Challenge 3: Performance with Animations\n\n**Problem**: Complex animations impacting page performance\n**Solution**: Used Framer Motion's optimization features and reduced motion preferences\n\n### Challenge 4: Responsive Design Complexity\n\n**Problem**: Ensuring consistent experience across all devices\n**Solution**: Mobile-first approach with Tailwind's responsive utilities and custom breakpoints\n\n## Impact and Results\n\n### Technical Achievements\n\n- **Modern Architecture**: Built with latest Next.js and React patterns\n- **AI Integration**: Successfully integrated Google Gemini for intelligent responses\n- **Performance**: Optimized for Core Web Vitals and user experience\n- **Accessibility**: WCAG compliant with proper semantic HTML and ARIA labels\n\n### User Experience\n\n- **Interactive Learning**: Hover cards provide detailed skill information\n- **AI Assistance**: Real-time chatbot for portfolio questions\n- **Smooth Animations**: Professional feel with performant animations\n- **Mobile Optimized**: Consistent experience across all devices\n\n## Future Enhancements\n\n### Advanced AI Features\n\n- **Portfolio Analysis**: AI that can analyze and suggest improvements\n- **Dynamic Content**: AI-generated project descriptions and skill assessments\n- **Personalization**: AI that adapts content based on visitor behavior\n\n### Interactive Elements\n\n- **3D Animations**: WebGL-based animations for enhanced visual appeal\n- **Voice Integration**: Voice commands for chatbot interaction\n- **Real-time Collaboration**: Live portfolio editing and feedback\n\n### Performance Improvements\n\n- **Edge Computing**: Deploy to edge locations for faster global access\n- **Progressive Web App**: Offline functionality and app-like experience\n- **Advanced Caching**: Intelligent caching strategies for optimal performance\n\n## Lessons Learned\n\n### Technical Insights\n\n- **Portal Rendering**: Importance of understanding React's rendering model for complex UIs\n- **AI Integration**: Value of proper error handling and fallback strategies\n- **Performance**: Critical role of optimization in modern web applications\n- **User Experience**: Impact of smooth animations and interactive elements\n\n### Development Process\n\n- **Iterative Design**: Value of building and testing components incrementally\n- **User Testing**: Importance of testing across devices and user scenarios\n- **Documentation**: Need for comprehensive component and API documentation\n- **Version Control**: Benefits of proper Git workflow for feature development\n\n## Project Repository\n\nThe complete source code is available on GitHub: [Portfolio Repository](https://github.com/WintonGee/Portfolio)\n\nLive website: [wintongee.com](https://wintongee.com)\n"
+  },
+  {
+    "id": "trustyfaq",
+    "title": "TrustyFAQ",
+    "description": "AI-powered FAQ management system solving the real problem of team leads being overwhelmed with repetitive questions. Built with semantic search and intelligent responses to provide instant answers, eliminating the need to scroll through traditional FAQ lists.",
+    "imageUrl": "/images/projects/trustyfaq/trustyfaq-front.png",
+    "tags": [
+      "AI-Powered FAQ",
+      "Semantic Search",
+      "Full-Stack",
+      "Next.js",
+      "FastAPI",
+      "Supabase"
+    ],
+    "technologies": [
+      {
+        "category": "frontend",
+        "name": "Next.js"
+      },
+      {
+        "category": "frontend",
+        "name": "TypeScript"
+      },
+      {
+        "category": "frontend",
+        "name": "Tailwind CSS"
+      },
+      {
+        "category": "frontend",
+        "name": "React.js"
+      },
+      {
+        "category": "backend",
+        "name": "FastAPI"
+      },
+      {
+        "category": "backend",
+        "name": "Python"
+      },
+      {
+        "category": "backend",
+        "name": "Supabase"
+      },
+      {
+        "category": "backend",
+        "name": "PostgreSQL"
+      },
+      {
+        "category": "backend",
+        "name": "SQL"
+      },
+      {
+        "category": "backend",
+        "name": "JWT"
+      },
+      {
+        "category": "ai",
+        "name": "Google Gemini AI"
+      },
+      {
+        "category": "ai",
+        "name": "RAG Systems"
+      },
+      {
+        "category": "backend",
+        "name": "REST APIs"
+      }
+    ],
+    "links": {
+      "live": "https://trustyfaq.vercel.app/",
+      "caseStudy": "/projects/trustyfaq"
+    },
+    "status": "in-progress",
+    "featured": true,
+    "date": {
+      "start": "2024-12-01",
+      "end": "2025-03-31"
+    },
+    "metrics": {
+      "performance": "Vector-based semantic search with pgvector",
+      "impact": "Making internal knowledge accessible and trustworthy for teams",
+      "scale": "Multi-tenant SaaS platform with row-level security"
+    },
+    "challenges": [
+      "Solving the UX problem of people not using existing FAQs due to scrolling fatigue",
+      "Implementing semantic search to provide instant, relevant answers without scrolling",
+      "Building AI-powered responses that understand context and provide immediate solutions",
+      "Creating a system that reduces team lead interruptions while improving knowledge access"
+    ],
+    "solutions": [
+      "Designed semantic search with vector embeddings to eliminate the need for scrolling through FAQ lists",
+      "Implemented AI-powered instant responses that understand natural language queries",
+      "Built a modern interface that provides answers immediately as users type",
+      "Created a system that reduces repetitive questions while making knowledge more accessible"
+    ],
+    "learnings": [
+      "Advanced vector database operations with pgvector for semantic search",
+      "Multi-tenant SaaS architecture with proper security isolation",
+      "AI integration for content generation and intelligent responses",
+      "Full-stack development with modern Python and TypeScript frameworks"
+    ],
+    "longDescription": "\n## Project Overview\n\nTrustyFAQ is an AI-powered FAQ management system designed to solve the real problem of team leads being overwhelmed with repetitive questions. The platform combines semantic search capabilities with intelligent AI responses to provide instant answers, eliminating the need to scroll through traditional FAQ lists.\n\n## Problem Statement\n\nDuring my time at Mercor, I observed a critical issue: **team leads were constantly bombarded with FAQ-type questions, even when comprehensive FAQs already existed**. This led me to investigate why people weren't using existing documentation.\n\n### Root Cause Analysis\n\nThe problem wasn't lack of information - it was **user experience friction**:\n\n- **Scrolling Fatigue**: People don't want to scroll through long FAQ lists to find answers\n- **Immediate Gratification**: Team members want instant answers, not search sessions\n- **Context Switching**: Traditional FAQs require users to leave their workflow\n- **Poor Search UX**: Keyword-based search often returns irrelevant results\n- **Information Overload**: Long FAQ documents are overwhelming and hard to navigate\n\n### The Real Impact\n\n- **Team Lead Burnout**: Constant interruptions with repetitive questions\n- **Productivity Loss**: Time spent answering questions that could be self-served\n- **Knowledge Gaps**: Important information exists but isn't easily discoverable\n- **Frustration**: Both question-askers and answer-providers experience friction\n\n## Technical Implementation\n\n### Frontend Architecture\n\n- **Framework**: Next.js 14 with App Router for modern React patterns\n- **Styling**: Tailwind CSS with shadcn/ui component library\n- **State Management**: React Query (TanStack Query) for server state\n- **Animations**: Framer Motion for smooth user interactions\n- **Authentication**: Supabase Auth for secure user management\n- **Hosting**: Vercel for optimal performance and deployment\n\n### Backend Architecture\n\n- **Framework**: FastAPI for high-performance Python API\n- **Database**: Supabase (PostgreSQL) with pgvector extension\n- **Vector Search**: pgvector for semantic similarity search\n- **Task Queue**: Celery with Redis for background processing\n- **Caching**: Redis for improved performance\n- **Hosting**: Render for scalable backend deployment\n\n### AI Integration\n\n- **Language Model**: Google Gemini AI for intelligent responses\n- **Embeddings**: Vector embeddings for semantic search\n- **Content Generation**: AI-powered FAQ content creation and enhancement\n- **Search Intelligence**: Context-aware search results and suggestions\n\n## Key Features\n\n### Semantic Search\n\n- **Vector-Based Search**: Uses pgvector for semantic similarity matching\n- **Intelligent Results**: Finds relevant content even with different wording\n- **Context Awareness**: Understands user intent and provides relevant suggestions\n- **Real-Time Search**: Instant results as users type\n\n### Multi-Tenant Architecture\n\n- **Workspace Isolation**: Secure data separation between organizations\n- **Row Level Security**: Supabase RLS ensures data privacy\n- **Plan Management**: Free and premium tiers with different features\n- **User Management**: Role-based access control and permissions\n\n### AI-Powered Features\n\n- **Intelligent Responses**: AI-generated answers based on existing content\n- **Content Enhancement**: Automatic FAQ improvement suggestions\n- **Smart Categorization**: AI-assisted content organization\n- **Natural Language Processing**: Understanding of user queries and intent\n\n### User Experience\n\n- **Modern Interface**: Clean, intuitive design with shadcn/ui components\n- **Responsive Design**: Optimized for desktop, tablet, and mobile\n- **Real-Time Updates**: Live collaboration and instant updates\n- **Public Access**: FAQ pages are publicly readable for external users\n\n## Technical Architecture\n\n### Database Schema\n\n```sql\n-- Core Tables\nusers - Extended user profiles with plan information\nprofiles - FAQ workspaces/spaces\nfaqs - Individual FAQ entries with vector embeddings\n\n-- Vector Search\nfaqs.embedding - Vector representation of FAQ content\n-- Search using pgvector similarity functions\n```\n\n### API Endpoints\n\n- `GET /api/faqs/search` - Semantic search with vector similarity\n- `POST /api/faqs` - Create new FAQ entries\n- `PUT /api/faqs/:id` - Update existing FAQ content\n- `GET /api/faqs/public/:workspace` - Public FAQ access\n- `POST /api/ai/generate` - AI-powered content generation\n\n### Vector Search Implementation\n\n```python\n# Semantic search using pgvector\nasync def search_faqs(query: str, workspace_id: str):\n    # Generate embedding for search query\n    query_embedding = await generate_embedding(query)\n    \n    # Search using vector similarity\n    results = await db.execute(\n        \"\"\"\n        SELECT *, embedding <=> %s as distance\n        FROM faqs \n        WHERE workspace_id = %s\n        ORDER BY distance\n        LIMIT 10\n        \"\"\",\n        [query_embedding, workspace_id]\n    )\n    return results\n```\n\n## Development Process\n\n### Phase 1: Foundation\n\n- Set up Next.js frontend with Tailwind CSS and shadcn/ui\n- Implement Supabase backend with PostgreSQL and pgvector\n- Create basic FAQ CRUD operations\n- Set up authentication and user management\n\n### Phase 2: AI Integration\n\n- Integrate Google Gemini API for content generation\n- Implement vector embeddings for FAQ content\n- Build semantic search functionality\n- Add AI-powered response generation\n\n### Phase 3: Advanced Features\n\n- Implement multi-tenant architecture with RLS\n- Add plan management and billing integration\n- Create public FAQ pages\n- Optimize search performance and caching\n\n### Phase 4: Production Ready\n\n- Deploy to Vercel (frontend) and Render (backend)\n- Implement monitoring and error tracking\n- Add comprehensive testing\n- Optimize for scale and performance\n\n## Technical Challenges and Solutions\n\n### Challenge 1: Vector Search Performance\n\n**Problem**: Large-scale semantic search with thousands of FAQ entries\n**Solution**: Implemented efficient pgvector indexing and query optimization\n\n### Challenge 2: Multi-Tenant Security\n\n**Problem**: Ensuring data isolation between different organizations\n**Solution**: Used Supabase Row Level Security with workspace-based policies\n\n### Challenge 3: AI Integration Complexity\n\n**Problem**: Integrating Google Gemini API with proper error handling\n**Solution**: Built robust API wrapper with fallback responses and rate limiting\n\n### Challenge 4: Real-Time Search Experience\n\n**Problem**: Providing instant search results as users type\n**Solution**: Implemented debounced search with React Query caching\n\n## Impact and Results\n\n### Technical Achievements\n\n- **Semantic Search**: Implemented vector-based search with pgvector\n- **Multi-Tenant SaaS**: Built secure, scalable architecture\n- **AI Integration**: Successfully integrated Google Gemini for intelligent responses\n- **Modern Stack**: Full-stack application with Next.js and FastAPI\n\n### User Benefits\n\n- **Improved Knowledge Discovery**: Semantic search finds relevant content easily\n- **Reduced Support Load**: Self-service FAQ system reduces repetitive questions\n- **Better Information Quality**: AI assistance helps maintain accurate content\n- **Team Collaboration**: Shared workspace for knowledge management\n\n## Future Enhancements\n\n### Advanced AI Features\n\n- **Content Analysis**: AI-powered content quality assessment\n- **Auto-Categorization**: Intelligent FAQ organization and tagging\n- **Smart Suggestions**: Proactive content recommendations\n- **Multi-Language Support**: AI translation and localization\n\n### Platform Improvements\n\n- **Analytics Dashboard**: Usage analytics and insights\n- **API Integrations**: Connect with popular tools (Slack, Teams, etc.)\n- **Advanced Search**: Filters, facets, and advanced query options\n- **Mobile App**: Native mobile application for on-the-go access\n\n## Lessons Learned\n\n### Technical Insights\n\n- **Vector Databases**: Importance of proper indexing for semantic search performance\n- **Multi-Tenancy**: Critical role of security policies in SaaS applications\n- **AI Integration**: Value of proper error handling and fallback strategies\n- **User Experience**: Impact of real-time search on user satisfaction\n\n### Development Process\n\n- **Iterative Development**: Value of building core features first\n- **User Testing**: Importance of testing with real users early\n- **Documentation**: Need for comprehensive API and setup documentation\n- **Deployment**: Benefits of modern deployment platforms (Vercel, Render)\n\n## Project Repository\n\nThe complete source code is available on GitHub: [TrustyFAQ Repository](https://github.com/WintonGee/TrustyFAQ)\n\nLive application: [trustyfaq.vercel.app](https://trustyfaq.vercel.app/)\n"
+  },
+  {
     "id": "foodmanager",
     "title": "FoodManager (PantryCraft)",
     "description": "A web application that helps users manage their ingredients efficiently and generate AI-powered recipe suggestions based on available items. Built with React.js, MongoDB, and OpenAI API to reduce food waste and simplify meal planning.",

@@ -3,7 +3,9 @@
 import { motion } from "framer-motion";
 import EducationTimeline from "./EducationTimeline";
 import { AnimatedSection, AnimatedCard } from "./ui/AnimatedSection";
+import { SkillHoverCard } from "./ui/SkillHoverCard";
 import { TECHNOLOGIES } from "../data/about-data";
+import { getSkillData } from "../data/skills-data";
 
 // Journey Section Component
 export function JourneySection() {
@@ -105,48 +107,66 @@ export function TechStackSection() {
                               key={`group-${techIndex}`}
                               className="flex gap-2"
                             >
-                              {techItem.map((tech, groupIndex) => (
-                                <motion.div
-                                  key={tech.name}
-                                  initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                                  transition={{
-                                    duration: 0.4,
-                                    delay:
-                                      0.4 +
-                                      categoryIndex * 0.1 +
-                                      techIndex * 0.05 +
-                                      groupIndex * 0.02,
-                                    type: "spring",
-                                    stiffness: 100,
-                                  }}
-                                  viewport={{ once: true }}
-                                  whileHover={{
-                                    scale: 1.08,
-                                    y: -2,
-                                    transition: { duration: 0.2 },
-                                  }}
-                                  className="group/tech cursor-pointer"
-                                >
-                                  <div className="flex items-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-brand-beige/80 to-brand-beige-light/80 text-brand-text text-xs sm:text-sm font-semibold rounded-xl border border-brand-secondary/30 hover:from-brand-primary/15 hover:to-brand-secondary/15 hover:border-brand-primary/50 hover:text-brand-primary hover:shadow-organic transition-all duration-300 backdrop-blur-sm">
-                                    <img
-                                      src={tech.logo}
-                                      alt={`${tech.name} logo`}
-                                      className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 group-hover/tech:scale-110 transition-transform duration-300"
-                                      onError={(e) => {
-                                        e.currentTarget.style.display = "none";
-                                      }}
-                                    />
-                                    <span className="whitespace-nowrap">
-                                      {tech.name}
-                                    </span>
-                                  </div>
-                                </motion.div>
-                              ))}
+                              {techItem.map((tech, groupIndex) => {
+                                const skillData = getSkillData(tech.name);
+                                return (
+                                  <motion.div
+                                    key={tech.name}
+                                    initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                                    transition={{
+                                      duration: 0.4,
+                                      delay:
+                                        0.4 +
+                                        categoryIndex * 0.1 +
+                                        techIndex * 0.05 +
+                                        groupIndex * 0.02,
+                                      type: "spring",
+                                      stiffness: 100,
+                                    }}
+                                    viewport={{ once: true }}
+                                    whileHover={{
+                                      scale: 1.08,
+                                      y: -2,
+                                      transition: { duration: 0.2 },
+                                    }}
+                                    className="group/tech cursor-pointer"
+                                  >
+                                    <SkillHoverCard
+                                      skill={
+                                        skillData || {
+                                          name: tech.name,
+                                          logo: tech.logo,
+                                          description: `${tech.name} technology`,
+                                          category: "frontend",
+                                          proficiency: "intermediate",
+                                          usage: [],
+                                        }
+                                      }
+                                    >
+                                      <div className="flex items-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-brand-beige/80 to-brand-beige-light/80 text-brand-text text-xs sm:text-sm font-semibold rounded-xl border border-brand-secondary/30 hover:from-brand-primary/15 hover:to-brand-secondary/15 hover:border-brand-primary/50 hover:text-brand-primary hover:shadow-organic transition-all duration-300 backdrop-blur-sm">
+                                        <img
+                                          src={tech.logo}
+                                          alt={`${tech.name} logo`}
+                                          className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 group-hover/tech:scale-110 transition-transform duration-300"
+                                          onError={(e) => {
+                                            e.currentTarget.style.display =
+                                              "none";
+                                          }}
+                                        />
+                                        <span className="whitespace-nowrap">
+                                          {tech.name}
+                                        </span>
+                                      </div>
+                                    </SkillHoverCard>
+                                  </motion.div>
+                                );
+                              })}
                             </div>
                           );
                         } else {
                           // Individual technology
+                          const skillData = getSkillData(techItem.name);
                           return (
                             <motion.div
                               key={techItem.name}
@@ -167,19 +187,32 @@ export function TechStackSection() {
                               }}
                               className="group/tech cursor-pointer"
                             >
-                              <div className="flex items-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-brand-beige/80 to-brand-beige-light/80 text-brand-text text-xs sm:text-sm font-semibold rounded-xl border border-brand-secondary/30 hover:from-brand-primary/15 hover:to-brand-secondary/15 hover:border-brand-primary/50 hover:text-brand-primary hover:shadow-organic transition-all duration-300 backdrop-blur-sm">
-                                <img
-                                  src={techItem.logo}
-                                  alt={`${techItem.name} logo`}
-                                  className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 group-hover/tech:scale-110 transition-transform duration-300"
-                                  onError={(e) => {
-                                    e.currentTarget.style.display = "none";
-                                  }}
-                                />
-                                <span className="whitespace-nowrap">
-                                  {techItem.name}
-                                </span>
-                              </div>
+                              <SkillHoverCard
+                                skill={
+                                  skillData || {
+                                    name: techItem.name,
+                                    logo: techItem.logo,
+                                    description: `${techItem.name} technology`,
+                                    category: "frontend",
+                                    proficiency: "intermediate",
+                                    usage: [],
+                                  }
+                                }
+                              >
+                                <div className="flex items-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-brand-beige/80 to-brand-beige-light/80 text-brand-text text-xs sm:text-sm font-semibold rounded-xl border border-brand-secondary/30 hover:from-brand-primary/15 hover:to-brand-secondary/15 hover:border-brand-primary/50 hover:text-brand-primary hover:shadow-organic transition-all duration-300 backdrop-blur-sm">
+                                  <img
+                                    src={techItem.logo}
+                                    alt={`${techItem.name} logo`}
+                                    className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 group-hover/tech:scale-110 transition-transform duration-300"
+                                    onError={(e) => {
+                                      e.currentTarget.style.display = "none";
+                                    }}
+                                  />
+                                  <span className="whitespace-nowrap">
+                                    {techItem.name}
+                                  </span>
+                                </div>
+                              </SkillHoverCard>
                             </motion.div>
                           );
                         }

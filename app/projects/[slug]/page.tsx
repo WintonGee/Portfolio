@@ -3,8 +3,93 @@ import Image from "next/image";
 import Link from "next/link";
 import ProjectCaseStudyClient from "./ProjectCaseStudyClient";
 
-// Project data for FoodManager (PantryCraft)
+// Project data for Portfolio and FoodManager
 const projects = [
+  {
+    slug: "portfolio",
+    title: "AI-Powered Portfolio Website",
+    summary:
+      "A modern, responsive portfolio website showcasing AI/ML engineering skills with interactive hover cards, real-time chatbot integration, and advanced animations. Built with Next.js, TypeScript, and AI-powered features including Google Gemini integration for intelligent responses.",
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "React.js",
+      "Tailwind CSS",
+      "Google Gemini AI",
+      "AI Integration",
+      "REST APIs",
+      "Axios",
+      "HTML/CSS",
+      "Framer Motion",
+    ],
+    problem:
+      "Traditional portfolio websites are static and don't effectively showcase technical skills or provide interactive experiences. Visitors need a way to understand not just what technologies I know, but how I've actually used them in real projects. Additionally, there was a need for an intelligent way to answer questions about my experience and projects.",
+    solution:
+      "I developed a comprehensive portfolio website that combines modern web development with AI integration. The site features interactive hover cards that show exactly where each technology was used, an AI-powered chatbot for intelligent responses, and advanced animations that demonstrate technical proficiency while providing an engaging user experience.",
+    technicalDetails: [
+      "Built with Next.js 14 using App Router for modern React patterns and server-side rendering",
+      "Implemented TypeScript throughout for type safety and better developer experience",
+      "Created custom hover card component with React portals to solve z-index stacking issues",
+      "Integrated Google Gemini AI for intelligent chatbot responses about portfolio content",
+      "Designed responsive layout with Tailwind CSS and custom organic color palette",
+      "Implemented Framer Motion for smooth animations and scroll-triggered effects",
+      "Built skill usage tracking system that maps technologies to specific project implementations",
+      "Created floating chat button with persistent AI assistance",
+      "Optimized performance with Next.js Image component and code splitting",
+      "Implemented SEO optimization with meta tags and structured data",
+      "Added accessibility features with proper ARIA labels and keyboard navigation",
+      "Used React portals for hover card rendering to ensure proper layering",
+    ],
+    outcomes: [
+      "Successfully created an interactive portfolio that demonstrates technical skills in real-time",
+      "Implemented AI chatbot that provides intelligent responses about projects and experience",
+      "Built hover card system that shows exact technology usage across different projects",
+      "Achieved excellent performance scores with Next.js optimization features",
+      "Created responsive design that works seamlessly across all devices",
+      "Demonstrated advanced React patterns including portals, custom hooks, and context",
+      "Integrated modern AI APIs with proper error handling and fallback strategies",
+      "Delivered production-ready application with comprehensive accessibility features",
+      "Showcased full-stack development skills with frontend, backend, and AI integration",
+      "Built scalable architecture that can easily accommodate new projects and skills",
+    ],
+    images: [
+      {
+        src: "/images/projects/portfolio/portfolio-hero.png",
+        alt: "Portfolio Website Hero Section",
+        caption:
+          "The main hero section showcasing the modern design and AI integration",
+      },
+      {
+        src: "/images/projects/portfolio/portfolio-journey.png",
+        alt: "Interactive Journey Timeline",
+        caption:
+          "Interactive journey timeline showing professional and academic progression with filtering capabilities",
+      },
+    ],
+    liveUrl: "https://wintongee.com",
+    githubUrl: "https://github.com/WintonGee/Portfolio",
+    duration: "3 months",
+    teamSize: "1 person",
+    role: "Full-stack Developer & AI Engineer",
+    codeImplementation: {
+      aiIntegration: {
+        model: "Google Gemini AI",
+        features: [
+          "Context-aware responses about portfolio content",
+          "Intelligent project recommendations",
+          "Real-time chat interface",
+          "Fallback error handling",
+        ],
+        prompt: `You are an AI assistant for Winton Gee's portfolio website. You help visitors learn about his projects, skills, and experience. Provide helpful, accurate information about his work in AI/ML engineering, web development, and software engineering. Be conversational and professional.`,
+        maxTokens: 1000,
+        temperature: 0.7,
+      },
+      apiEndpoint: "/api/chat",
+      errorHandling:
+        "Comprehensive error handling with fallback responses and user feedback",
+      caching: "Next.js built-in caching with ISR for optimal performance",
+    },
+  },
   {
     slug: "foodmanager",
     title: "FoodManager (PantryCraft)",
@@ -91,6 +176,94 @@ const projects = [
       apiEndpoint: "/api/recipes/suggest",
       errorHandling: "Comprehensive error handling with fallback responses",
       caching: "Redis caching for frequently requested recipe combinations",
+    },
+  },
+  {
+    slug: "trustyfaq",
+    title: "TrustyFAQ",
+    summary:
+      "AI-powered FAQ management system solving the real problem of team leads being overwhelmed with repetitive questions. Built with semantic search and intelligent responses to provide instant answers, eliminating the need to scroll through traditional FAQ lists.",
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "React.js",
+      "Tailwind CSS",
+      "FastAPI",
+      "Python",
+      "Supabase",
+      "PostgreSQL",
+      "SQL",
+      "JWT",
+      "Google Gemini AI",
+      "RAG Systems",
+      "REST APIs",
+      "pgvector",
+      "Celery",
+      "Redis",
+    ],
+    problem:
+      "During my time at Mercor, I observed team leads constantly being bombarded with FAQ-type questions, even when comprehensive FAQs already existed. The root issue wasn't lack of information - it was user experience friction. People don't want to scroll through long FAQ lists, they want immediate answers. Traditional keyword search often returns irrelevant results, and the context switching required to find answers disrupts workflow.",
+    solution:
+      "I designed TrustyFAQ as an AI-powered FAQ management system that eliminates scrolling fatigue through semantic search and intelligent responses. The system uses vector embeddings to understand user intent and provides instant, relevant answers as users type. This reduces team lead interruptions while making knowledge more accessible through natural language queries.",
+    technicalDetails: [
+      "Built Next.js 14 frontend with App Router and shadcn/ui components for modern UI",
+      "Implemented FastAPI backend with automatic documentation and type hints",
+      "Integrated Supabase with PostgreSQL and pgvector extension for vector search",
+      "Created semantic search using vector embeddings for similarity matching",
+      "Implemented Google Gemini AI for intelligent content generation and responses",
+      "Built multi-tenant architecture with Supabase Row Level Security",
+      "Added Celery task queue with Redis for background processing and caching",
+      "Designed real-time search with debounced queries and React Query caching",
+      "Created workspace isolation for secure multi-tenant data access",
+      "Implemented AI-powered content enhancement and smart categorization",
+      "Built responsive design optimized for desktop, tablet, and mobile",
+      "Added public FAQ pages for external access and sharing",
+    ],
+    outcomes: [
+      "Successfully implemented vector-based semantic search that eliminates scrolling through FAQ lists",
+      "Built AI-powered system that provides instant answers to natural language queries",
+      "Created multi-tenant SaaS platform with secure data isolation between organizations",
+      "Implemented intelligent content generation using Google Gemini AI",
+      "Achieved high-performance search with pgvector and optimized database queries",
+      "Built modern, responsive interface that works seamlessly across all devices",
+      "Demonstrated full-stack development with modern Python and TypeScript frameworks",
+      "Created system that reduces repetitive questions while improving knowledge accessibility",
+    ],
+    images: [
+      {
+        src: "/images/projects/trustyfaq/trustyfaq-front.png",
+        alt: "TrustyFAQ Main Interface",
+        caption:
+          "The main TrustyFAQ interface showing the modern design and search functionality",
+      },
+      {
+        src: "/images/projects/trustyfaq/trustyfaq-demo.png",
+        alt: "TrustyFAQ Demo Interface",
+        caption:
+          "Demo interface showcasing the AI-powered search and response capabilities",
+      },
+    ],
+    liveUrl: "https://trustyfaq.vercel.app/",
+    duration: "4 months",
+    teamSize: "1 person",
+    role: "Full-stack Developer & Product Designer",
+    codeImplementation: {
+      aiIntegration: {
+        model: "Google Gemini AI",
+        features: [
+          "Content generation and enhancement",
+          "Intelligent response generation",
+          "Semantic search with vector embeddings",
+          "Context-aware search results",
+        ],
+        prompt: `You are an intelligent FAQ assistant. Based on the following FAQ content and user query, provide a helpful, accurate response. If the query doesn't match the FAQ content, suggest related topics or ask for clarification.`,
+        maxTokens: 300,
+        temperature: 0.3,
+      },
+      apiEndpoint: "/api/faqs/search",
+      errorHandling:
+        "Comprehensive error handling with fallback responses and rate limiting",
+      caching: "Redis caching for search results and AI responses",
     },
   },
 ];

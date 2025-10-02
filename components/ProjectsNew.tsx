@@ -44,33 +44,6 @@ function ProjectItem({ project, index }: ProjectItemProps) {
               height={400}
               className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-            {/* Overlay content */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <div className="flex gap-4">
-                {project.links.live && (
-                  <a
-                    href={project.links.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-6 py-3 bg-brand-beige text-brand-text font-semibold rounded-lg hover:bg-brand-beige-light transition-colors duration-200"
-                  >
-                    Live Demo
-                  </a>
-                )}
-                {project.links.github && (
-                  <a
-                    href={project.links.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-6 py-3 bg-brand-primary text-brand-beige font-semibold rounded-lg hover:bg-brand-primary-dark transition-colors duration-200"
-                  >
-                    View Code
-                  </a>
-                )}
-              </div>
-            </div>
           </div>
 
           {/* Floating accent */}
@@ -151,6 +124,30 @@ function ProjectItem({ project, index }: ProjectItemProps) {
                   Case Study
                 </Button>
               </Link>
+            )}
+
+            {project.links.report && (
+              <Button
+                href={project.links.report}
+                variant="outline"
+                size="md"
+                className="text-sm sm:text-base border-2 border-brand-secondary/30"
+              >
+                <svg
+                  className="w-4 h-4 sm:w-5 sm:h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
+                </svg>
+                Project Report
+              </Button>
             )}
 
             {project.links.live && (
