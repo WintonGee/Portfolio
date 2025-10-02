@@ -276,7 +276,7 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
         viewport={{ once: true }}
         className="text-center mb-12"
       >
-        <h2 className="text-5xl font-bold text-brand-text mb-6">
+        <h2 className="text-heading-xl text-brand-text mb-6">
           My <span className="gradient-text">Journey</span>
         </h2>
 

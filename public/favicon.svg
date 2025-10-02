@@ -6,5 +6,5 @@
   <circle cx="16" cy="16" r="14" fill="none" stroke="#6B7B3F" stroke-width="0.5" opacity="0.3"/>
   
   <!-- WG initials in brand beige with better positioning -->
-  <text x="16" y="21" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" text-anchor="middle" fill="#F5F5DC" letter-spacing="-0.5px">WG</text>
+  <text x="16" y="21" font-family="Plus Jakarta Sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="800" text-anchor="middle" fill="#F5F5DC" letter-spacing="-0.5px">WG</text>
 </svg>

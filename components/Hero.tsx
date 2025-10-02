@@ -193,8 +193,8 @@ export default function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.6 }}
               >
-                <span className="font-serif">AI/ML</span>{" "}
-                <span className="gradient-text font-serif">Engineer</span>
+                <span className="font-extrabold">AI/ML</span>{" "}
+                <span className="gradient-text font-extrabold">Engineer</span>
               </motion.h1>
 
               {/* Balanced Subheading */}

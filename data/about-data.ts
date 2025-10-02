@@ -47,22 +47,26 @@ export const TECHNOLOGIES = {
     },
   ],
   "Frontend Development": [
-    {
-      name: "TypeScript",
-      logo: "/logos/tech/typescript.svg",
-    },
-    {
-      name: "JavaScript",
-      logo: "/logos/tech/javascript.svg",
-    },
-    {
-      name: "React.js",
-      logo: "/logos/tech/react.svg",
-    },
-    {
-      name: "Next.js",
-      logo: "/logos/tech/nextjs.svg",
-    },
+    [
+      {
+        name: "TypeScript",
+        logo: "/logos/tech/typescript.svg",
+      },
+      {
+        name: "JavaScript",
+        logo: "/logos/tech/javascript.svg",
+      },
+    ],
+    [
+      {
+        name: "React.js",
+        logo: "/logos/tech/react.svg",
+      },
+      {
+        name: "Next.js",
+        logo: "/logos/tech/nextjs.svg",
+      },
+    ],
     {
       name: "Tailwind CSS",
       logo: "/logos/tech/tailwindcss.svg",
@@ -78,18 +82,6 @@ export const TECHNOLOGIES = {
   ],
   "Backend & Database": [
     {
-      name: "Node.js",
-      logo: "/logos/tech/nodejs.svg",
-    },
-    {
-      name: "Express.js",
-      logo: "/logos/tech/express.svg",
-    },
-    {
-      name: "MongoDB",
-      logo: "/logos/tech/mongodb.svg",
-    },
-    {
       name: "Supabase",
       logo: "/logos/tech/supabase.svg",
     },
@@ -98,16 +90,36 @@ export const TECHNOLOGIES = {
       logo: "/logos/tech/sql.svg",
     },
     {
+      name: "FastAPI",
+      logo: "/logos/tech/fastapi.svg",
+    },
+    [
+      {
+        name: "Node.js",
+        logo: "/logos/tech/nodejs.svg",
+      },
+      {
+        name: "Express.js",
+        logo: "/logos/tech/express.svg",
+      },
+    ],
+    {
+      name: "MongoDB",
+      logo: "/logos/tech/mongodb.svg",
+    },
+    {
       name: "JWT Authentication",
       logo: "/logos/tech/jwt.png",
     },
-    {
-      name: "REST APIs",
-      logo: "/logos/tech/restapi.svg",
-    },
-    {
-      name: "Axios",
-      logo: "/logos/tech/axios.svg",
-    },
+    [
+      {
+        name: "REST APIs",
+        logo: "/logos/tech/restapi.svg",
+      },
+      {
+        name: "Axios",
+        logo: "/logos/tech/axios.svg",
+      },
+    ],
   ],
 };

@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import ServiceWorker from "@/components/ServiceWorker";
 import PerformanceMonitor from "@/components/PerformanceMonitor";
 
-const inter = Inter({ subsets: ["latin"] });
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-plus-jakarta-sans",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Winton Gee - AI/ML Engineer",
@@ -70,7 +75,7 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#556B2F" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
       </head>
-      <body className={inter.className}>
+      <body className={plusJakartaSans.className}>
         {children}
         <ServiceWorker />
         <PerformanceMonitor />

@@ -65,7 +65,7 @@ export function TechStackSection() {
               className="text-5xl font-bold text-brand-text mb-6"
             >
               Complete{" "}
-              <span className="gradient-text font-serif">Tech Stack</span>
+              <span className="gradient-text font-extrabold">Tech Stack</span>
             </motion.h3>
           </div>
 
@@ -96,41 +96,94 @@ export function TechStackSection() {
 
                     {/* Technology Badges */}
                     <div className="flex flex-wrap gap-3 justify-center">
-                      {technologies.map((tech, techIndex) => (
-                        <motion.div
-                          key={tech.name}
-                          initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                          whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                          transition={{
-                            duration: 0.4,
-                            delay: 0.4 + categoryIndex * 0.1 + techIndex * 0.05,
-                            type: "spring",
-                            stiffness: 100,
-                          }}
-                          viewport={{ once: true }}
-                          whileHover={{
-                            scale: 1.08,
-                            y: -2,
-                            transition: { duration: 0.2 },
-                          }}
-                          className="group/tech cursor-pointer"
-                        >
-                          <div className="flex items-center gap-2.5 px-4 py-2.5 bg-gradient-to-r from-brand-beige/80 to-brand-beige-light/80 text-brand-text text-sm font-semibold rounded-xl border border-brand-secondary/30 hover:from-brand-primary/15 hover:to-brand-secondary/15 hover:border-brand-primary/50 hover:text-brand-primary hover:shadow-organic transition-all duration-300 backdrop-blur-sm">
-                            <img
-                              src={tech.logo}
-                              alt={`${tech.name} logo`}
-                              className="w-5 h-5 flex-shrink-0 group-hover/tech:scale-110 transition-transform duration-300"
-                              onError={(e) => {
-                                // Fallback to a default icon if logo fails to load
-                                e.currentTarget.style.display = "none";
+                      {technologies.map((techItem, techIndex) => {
+                        // Handle grouped technologies (arrays) and individual technologies
+                        if (Array.isArray(techItem)) {
+                          // Grouped technologies - render them in a connected row
+                          return (
+                            <div
+                              key={`group-${techIndex}`}
+                              className="flex gap-2"
+                            >
+                              {techItem.map((tech, groupIndex) => (
+                                <motion.div
+                                  key={tech.name}
+                                  initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                                  transition={{
+                                    duration: 0.4,
+                                    delay:
+                                      0.4 +
+                                      categoryIndex * 0.1 +
+                                      techIndex * 0.05 +
+                                      groupIndex * 0.02,
+                                    type: "spring",
+                                    stiffness: 100,
+                                  }}
+                                  viewport={{ once: true }}
+                                  whileHover={{
+                                    scale: 1.08,
+                                    y: -2,
+                                    transition: { duration: 0.2 },
+                                  }}
+                                  className="group/tech cursor-pointer"
+                                >
+                                  <div className="flex items-center gap-2.5 px-4 py-2.5 bg-gradient-to-r from-brand-beige/80 to-brand-beige-light/80 text-brand-text text-sm font-semibold rounded-xl border border-brand-secondary/30 hover:from-brand-primary/15 hover:to-brand-secondary/15 hover:border-brand-primary/50 hover:text-brand-primary hover:shadow-organic transition-all duration-300 backdrop-blur-sm">
+                                    <img
+                                      src={tech.logo}
+                                      alt={`${tech.name} logo`}
+                                      className="w-5 h-5 flex-shrink-0 group-hover/tech:scale-110 transition-transform duration-300"
+                                      onError={(e) => {
+                                        e.currentTarget.style.display = "none";
+                                      }}
+                                    />
+                                    <span className="whitespace-nowrap">
+                                      {tech.name}
+                                    </span>
+                                  </div>
+                                </motion.div>
+                              ))}
+                            </div>
+                          );
+                        } else {
+                          // Individual technology
+                          return (
+                            <motion.div
+                              key={techItem.name}
+                              initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                              transition={{
+                                duration: 0.4,
+                                delay:
+                                  0.4 + categoryIndex * 0.1 + techIndex * 0.05,
+                                type: "spring",
+                                stiffness: 100,
                               }}
-                            />
-                            <span className="whitespace-nowrap">
-                              {tech.name}
-                            </span>
-                          </div>
-                        </motion.div>
-                      ))}
+                              viewport={{ once: true }}
+                              whileHover={{
+                                scale: 1.08,
+                                y: -2,
+                                transition: { duration: 0.2 },
+                              }}
+                              className="group/tech cursor-pointer"
+                            >
+                              <div className="flex items-center gap-2.5 px-4 py-2.5 bg-gradient-to-r from-brand-beige/80 to-brand-beige-light/80 text-brand-text text-sm font-semibold rounded-xl border border-brand-secondary/30 hover:from-brand-primary/15 hover:to-brand-secondary/15 hover:border-brand-primary/50 hover:text-brand-primary hover:shadow-organic transition-all duration-300 backdrop-blur-sm">
+                                <img
+                                  src={techItem.logo}
+                                  alt={`${techItem.name} logo`}
+                                  className="w-5 h-5 flex-shrink-0 group-hover/tech:scale-110 transition-transform duration-300"
+                                  onError={(e) => {
+                                    e.currentTarget.style.display = "none";
+                                  }}
+                                />
+                                <span className="whitespace-nowrap">
+                                  {techItem.name}
+                                </span>
+                              </div>
+                            </motion.div>
+                          );
+                        }
+                      })}
                     </div>
                   </div>
 

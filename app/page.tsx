@@ -81,7 +81,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-5xl font-bold text-brand-text mb-12">
+            <h2 className="text-heading-xl text-brand-text mb-12">
               Ask Me <span className="gradient-text">Anything</span>
             </h2>
           </motion.div>
