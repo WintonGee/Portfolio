@@ -1,0 +1,22 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- HTML5 logo on the left -->
+  <g transform="translate(1, 4)">
+    <!-- HTML5 shield -->
+    <path d="M0 0h8l-0.6 5.4L4 6l-3.4-0.6L0 0z" fill="#E34F26"/>
+    <path d="M1 1h6l-0.5 4.4L4 5.5l-2.5-0.1L1 1z" fill="#F16529"/>
+    <path d="M4 2v3.5l1.4-0.2L5.5 2H4z" fill="#EBEBEB"/>
+    <path d="M4 2v3.5l-1.4-0.2L2.5 2H4z" fill="#EBEBEB"/>
+  </g>
+  
+  <!-- CSS3 logo on the right -->
+  <g transform="translate(15, 4)">
+    <!-- CSS3 shield -->
+    <path d="M0 0h8l-0.6 5.4L4 6l-3.4-0.6L0 0z" fill="#1572B6"/>
+    <path d="M1 1h6l-0.5 4.4L4 5.5l-2.5-0.1L1 1z" fill="#33A9DC"/>
+    <path d="M4 2v3.5l1.4-0.2L5.5 2H4z" fill="#EBEBEB"/>
+    <path d="M4 2v3.5l-1.4-0.2L2.5 2H4z" fill="#EBEBEB"/>
+  </g>
+  
+  <!-- HTML/CSS text in the center -->
+  <text x="12" y="14" font-family="Arial, sans-serif" font-size="4" font-weight="bold" text-anchor="middle" fill="#1F2937">HTML/CSS</text>
+</svg>
