@@ -13,7 +13,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="h-screen flex items-center bg-gradient-to-br from-brand-beige via-brand-beige-light to-brand-beige-dark relative overflow-hidden pt-20"
+      className="h-screen flex items-center bg-gradient-to-br from-brand-beige via-brand-beige-light to-brand-beige-dark relative overflow-hidden pt-24"
     >
       {/* Enhanced Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -64,14 +64,14 @@ export default function Hero() {
       </div>
 
       {/* Main Container with Perfect Spacing */}
-      <div className="container mx-auto px-8 py-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center max-w-7xl mx-auto">
+      <div className="container mx-auto px-8 py-4 pb-16 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
           {/* Left Column - Enhanced Personal Section */}
           <motion.div
             initial={{ opacity: 0, x: -60 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="flex flex-col items-center lg:items-start space-y-12"
+            className="flex flex-col items-center lg:items-start space-y-10"
           >
             {/* Professional Photo with Enhanced Styling */}
             <motion.div
@@ -156,13 +156,11 @@ export default function Hero() {
                 transition={{ duration: 0.8, delay: 0.8 }}
                 className="text-lg text-brand-text-light max-w-md leading-relaxed"
               >
-                What draws me to AI? We're at the cutting edge of what's
-                possible, reshaping how we solve problems and interact with the
-                world. I'm passionate about pushing beyond today's limitations
-                to build tomorrow's solutions.
+                Currently building AI solutions at Mercor, specializing in
+                intelligent systems powered by modern frameworks and APIs.
               </motion.p>
 
-              {/* Enhanced Location with Alumni Status */}
+              {/* Enhanced Location */}
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -174,26 +172,6 @@ export default function Hero() {
                   <span className="text-base font-medium">
                     San Francisco, CA
                   </span>
-                </div>
-                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-sm text-brand-text-light">
-                  <a
-                    href="https://www.calpoly.edu"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-3 py-1 bg-brand-beige-light rounded-full border border-brand-secondary/30 hover:bg-gradient-to-r hover:from-brand-primary/10 hover:to-brand-secondary/10 hover:text-brand-primary hover:border-brand-primary transition-all duration-300 cursor-pointer hover:scale-105"
-                    aria-label="Visit Cal Poly website"
-                  >
-                    Cal Poly Alumni
-                  </a>
-                  <a
-                    href="https://www.ccsf.edu"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-3 py-1 bg-brand-beige-light rounded-full border border-brand-secondary/30 hover:bg-gradient-to-r hover:from-brand-primary/10 hover:to-brand-secondary/10 hover:text-brand-primary hover:border-brand-primary transition-all duration-300 cursor-pointer hover:scale-105"
-                    aria-label="Visit CCSF website"
-                  >
-                    CCSF Alumni
-                  </a>
                 </div>
               </motion.div>
             </motion.div>
@@ -230,11 +208,9 @@ export default function Hero() {
                   Building Intelligent Systems
                 </h2>
                 <p className="text-lg text-brand-text-light max-w-2xl leading-relaxed">
-                  With expertise in Python, TypeScript, and modern AI
-                  frameworks, I deliver solutions that solve complex challenges.
-                  Currently partnering with Mercor as an AI/ML Engineer, I
-                  design and implement intelligent systems powered by Gemini and
-                  OpenAI, bringing breakthrough ideas to life.
+                  Delivering AI solutions that solve complex challenges through
+                  modern frameworks, intelligent system design, and cutting-edge
+                  API integrations.
                 </p>
               </motion.div>
             </div>
