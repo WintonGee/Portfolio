@@ -31,7 +31,7 @@ export const TECHNOLOGIES = {
     },
     {
       name: "Google Gemini AI",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/0/0b/Google_Gemini_logo.svg",
+      logo: "/logos/tech/gemini.svg",
     },
     {
       name: "TensorFlow",

@@ -18,13 +18,13 @@
       "purpose": "any maskable"
     },
     {
-      "src": "/logos/default.png",
+      "src": "/logos/companies/default.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/logos/default.png",
+      "src": "/logos/companies/default.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
@@ -47,7 +47,7 @@
       "url": "/resume/AIML_Resume_WintonGee.pdf",
       "icons": [
         {
-          "src": "/logos/default.png",
+          "src": "/logos/companies/default.png",
           "sizes": "96x96"
         }
       ]
@@ -59,7 +59,7 @@
       "url": "mailto:wintongee@gmail.com",
       "icons": [
         {
-          "src": "/logos/default.png",
+          "src": "/logos/companies/default.png",
           "sizes": "96x96"
         }
       ]

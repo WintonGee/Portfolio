@@ -65,17 +65,17 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
   // Helper function to get logo path for institution
   const getLogoPath = (institution: string): string => {
     const logoMap: Record<string, string> = {
-      Mercor: "/logos/mercor.png",
-      "CoChat.io": "/logos/cochat.png",
-      "AfterQuery Experts": "/logos/afterquery.png",
-      "Cal Poly, San Luis Obispo": "/logos/calpoly-mustangs.png",
+      Mercor: "/logos/companies/mercor.png",
+      "CoChat.io": "/logos/companies/cochat.png",
+      "AfterQuery Experts": "/logos/companies/afterquery.png",
+      "Cal Poly, San Luis Obispo": "/logos/companies/calpoly-mustangs.png",
       "California Polytechnic State University, San Luis Obispo":
-        "/logos/calpoly-mustangs.png",
-      "Ricoh USA, Inc.": "/logos/ricoh.png",
-      Tribot: "/logos/tribot.png",
-      Square: "/logos/square.png",
-      LinkedIn: "/logos/linkedin.png",
-      "City College of San Francisco": "/logos/ccsf.png",
+        "/logos/companies/calpoly-mustangs.png",
+      "Ricoh USA, Inc.": "/logos/companies/ricoh.png",
+      Tribot: "/logos/companies/tribot.png",
+      Square: "/logos/companies/square.png",
+      LinkedIn: "/logos/companies/linkedin.png",
+      "City College of San Francisco": "/logos/companies/ccsf.png",
     };
 
     // Try exact match first
@@ -85,25 +85,31 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
 
     // Try partial matches for variations
     const lowerInstitution = institution.toLowerCase();
-    if (lowerInstitution.includes("mercor")) return "/logos/mercor.png";
-    if (lowerInstitution.includes("cochat")) return "/logos/cochat.png";
-    if (lowerInstitution.includes("afterquery")) return "/logos/afterquery.png";
+    if (lowerInstitution.includes("mercor"))
+      return "/logos/companies/mercor.png";
+    if (lowerInstitution.includes("cochat"))
+      return "/logos/companies/cochat.png";
+    if (lowerInstitution.includes("afterquery"))
+      return "/logos/companies/afterquery.png";
     if (
       lowerInstitution.includes("cal poly") ||
       lowerInstitution.includes("calpoly")
     )
-      return "/logos/calpoly-mustangs.png";
-    if (lowerInstitution.includes("ricoh")) return "/logos/ricoh.png";
-    if (lowerInstitution.includes("tribot")) return "/logos/tribot.png";
-    if (lowerInstitution.includes("square")) return "/logos/square.png";
-    if (lowerInstitution.includes("linkedin")) return "/logos/linkedin.png";
+      return "/logos/companies/calpoly-mustangs.png";
+    if (lowerInstitution.includes("ricoh")) return "/logos/companies/ricoh.png";
+    if (lowerInstitution.includes("tribot"))
+      return "/logos/companies/tribot.png";
+    if (lowerInstitution.includes("square"))
+      return "/logos/companies/square.png";
+    if (lowerInstitution.includes("linkedin"))
+      return "/logos/companies/linkedin.png";
     if (
       lowerInstitution.includes("city college") ||
       lowerInstitution.includes("ccsf")
     )
-      return "/logos/ccsf.png";
+      return "/logos/companies/ccsf.png";
 
-    return "/logos/default.png";
+    return "/logos/companies/default.png";
   };
 
   // Custom dot component for timeline points with logos
@@ -155,7 +161,7 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
               alt={`${item?.institution} logo`}
               className="w-full h-full object-cover"
               onError={(e) => {
-                e.currentTarget.src = "/logos/default.png";
+                e.currentTarget.src = "/logos/companies/default.png";
               }}
             />
           </div>
@@ -222,7 +228,7 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
                   alt={`${data.item.institution} logo`}
                   className="w-full h-full object-cover"
                   onError={(e) => {
-                    e.currentTarget.src = "/logos/default.png";
+                    e.currentTarget.src = "/logos/companies/default.png";
                   }}
                 />
               </div>

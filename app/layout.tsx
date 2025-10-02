@@ -66,7 +66,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="Winton Gee" />
-        <link rel="apple-touch-icon" href="/logos/default.png" />
+        <link rel="apple-touch-icon" href="/logos/companies/default.png" />
         <meta name="msapplication-TileColor" content="#556B2F" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
       </head>
