@@ -36,16 +36,25 @@ export default function About() {
                   </h4>
                   <div className="flex flex-wrap gap-2 justify-center">
                     {technologies.map((tech) => (
-                      <motion.span
-                        key={tech}
+                      <motion.div
+                        key={tech.name}
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.3, delay: 0.1 }}
                         viewport={{ once: true }}
-                        className="px-3 py-2 bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10 text-brand-primary text-sm font-medium rounded-full border border-brand-primary/20 hover:from-brand-primary/20 hover:to-brand-secondary/20 hover:border-brand-primary hover:scale-105 transition-all duration-300 cursor-pointer"
+                        className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10 text-brand-primary text-sm font-medium rounded-full border border-brand-primary/20 hover:from-brand-primary/20 hover:to-brand-secondary/20 hover:border-brand-primary hover:scale-105 transition-all duration-300 cursor-pointer"
                       >
-                        {tech}
-                      </motion.span>
+                        <img
+                          src={tech.logo}
+                          alt={`${tech.name} logo`}
+                          className="w-4 h-4 flex-shrink-0"
+                          onError={(e) => {
+                            // Fallback to a default icon if logo fails to load
+                            e.currentTarget.style.display = "none";
+                          }}
+                        />
+                        <span>{tech.name}</span>
+                      </motion.div>
                     ))}
                   </div>
                 </div>
