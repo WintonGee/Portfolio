@@ -7,6 +7,8 @@ import {
   CodeBracketIcon,
   BuildingOfficeIcon,
   MapPinIcon,
+  PhoneIcon,
+  EnvelopeIcon,
 } from "@heroicons/react/24/outline";
 
 export default function Hero() {
@@ -140,39 +142,74 @@ export default function Hero() {
               className="text-center lg:text-left space-y-4 sm:space-y-6 lg:space-y-8"
             >
               {/* Greeting with Enhanced Typography */}
-              <motion.p
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.7 }}
-                className="text-xl sm:text-2xl text-brand-text font-bold tracking-tight"
-              >
-                Hi, I'm Winton 👋
-              </motion.p>
-
-              {/* Enhanced Tagline */}
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.8 }}
-                className="text-base sm:text-lg text-brand-text-light max-w-md leading-relaxed"
-              >
-                Currently building AI solutions at Mercor, specializing in
-                intelligent systems powered by modern frameworks and APIs.
-              </motion.p>
-
-              {/* Enhanced Location */}
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.9 }}
                 className="space-y-3"
               >
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl text-brand-text font-bold tracking-tight">
+                  Hi, I'm Winton 👋
+                </h1>
+
+                {/* Location moved here */}
                 <div className="flex items-center justify-center lg:justify-start gap-3 text-brand-text-light">
                   <MapPinIcon className="w-5 h-5 text-brand-primary" />
                   <span className="text-base font-medium">
                     San Francisco, CA
                   </span>
                 </div>
+              </motion.div>
+
+              {/* Enhanced Tagline */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.8 }}
+                className="text-lg sm:text-xl text-brand-text-light max-w-lg leading-relaxed font-medium"
+              >
+                Currently building AI solutions at{" "}
+                <span className="text-brand-primary font-semibold">Mercor</span>
+                , specializing in intelligent systems powered by modern
+                frameworks and APIs.
+              </motion.p>
+
+              {/* Contact Information - Boxed Style, Email First */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.9 }}
+                className="flex flex-col sm:flex-row items-center lg:items-start gap-3 sm:gap-4"
+              >
+                {/* Email */}
+                <motion.a
+                  href="mailto:wintongee@gmail.com"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="flex items-center gap-3 px-4 py-2 rounded-xl bg-brand-beige-light/50 hover:bg-brand-beige-light border border-brand-secondary/20 hover:border-brand-primary/30 transition-all duration-300 group"
+                >
+                  <div className="p-1.5 rounded-lg bg-brand-primary/10 group-hover:bg-brand-primary/20 transition-colors duration-300">
+                    <EnvelopeIcon className="w-4 h-4 text-brand-primary group-hover:scale-110 transition-transform duration-300" />
+                  </div>
+                  <span className="text-base font-medium text-brand-text-light group-hover:text-brand-text transition-colors duration-300">
+                    wintongee@gmail.com
+                  </span>
+                </motion.a>
+
+                {/* Phone */}
+                <motion.a
+                  href="tel:+14158063004"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="flex items-center gap-3 px-4 py-2 rounded-xl bg-brand-beige-light/50 hover:bg-brand-beige-light border border-brand-secondary/20 hover:border-brand-primary/30 transition-all duration-300 group"
+                >
+                  <div className="p-1.5 rounded-lg bg-brand-primary/10 group-hover:bg-brand-primary/20 transition-colors duration-300">
+                    <PhoneIcon className="w-4 h-4 text-brand-primary group-hover:scale-110 transition-transform duration-300" />
+                  </div>
+                  <span className="text-base font-medium text-brand-text-light group-hover:text-brand-text transition-colors duration-300">
+                    (415) 806-3004
+                  </span>
+                </motion.a>
               </motion.div>
             </motion.div>
           </motion.div>
@@ -188,7 +225,7 @@ export default function Hero() {
             <div className="space-y-4 sm:space-y-6 lg:space-y-8">
               {/* Main Headline with Balanced Typography */}
               <motion.h1
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-brand-text leading-tight tracking-tight"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-brand-text leading-tight tracking-tight"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.6 }}
@@ -202,9 +239,13 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.7 }}
-                className="text-xl sm:text-2xl md:text-3xl font-light text-brand-text-light leading-tight"
+                className="text-2xl sm:text-3xl md:text-4xl font-light text-brand-text-light leading-tight"
               >
-                Building Intelligent Systems
+                Building{" "}
+                <span className="text-brand-primary font-semibold">
+                  Intelligent
+                </span>{" "}
+                Systems
               </motion.h2>
             </div>
 

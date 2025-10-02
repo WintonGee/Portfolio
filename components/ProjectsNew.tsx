@@ -73,9 +73,33 @@ function ProjectItem({ project, index }: ProjectItemProps) {
           }`}
         >
           <div className="space-y-4">
-            <h3 className="text-xl sm:text-2xl font-bold text-brand-text">
-              {project.title}
-            </h3>
+            <div className="flex items-center gap-3">
+              <h3 className="text-xl sm:text-2xl font-bold text-brand-text">
+                {project.title}
+              </h3>
+              {project.status === "in-progress" && (
+                <span className="px-3 py-1 bg-gradient-to-r from-brand-primary/20 to-brand-accent/20 text-brand-primary text-xs font-medium rounded-full border border-brand-primary/30 flex items-center gap-1">
+                  <div className="w-2 h-2 bg-brand-primary rounded-full animate-pulse"></div>
+                  In Progress
+                </span>
+              )}
+              {project.status === "completed" && (
+                <span className="px-3 py-1 bg-gradient-to-r from-brand-secondary/20 to-brand-secondary-light/20 text-brand-text text-xs font-medium rounded-full border border-brand-secondary/30 flex items-center gap-1">
+                  <svg
+                    className="w-3 h-3"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  Completed
+                </span>
+              )}
+            </div>
             <p className="text-base sm:text-lg text-brand-text-light leading-relaxed">
               {project.description}
             </p>
