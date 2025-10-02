@@ -28,27 +28,150 @@ export function SkillHoverCard({
   className = "",
 }: SkillHoverCardProps) {
   const [isVisible, setIsVisible] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [arrowPosition, setArrowPosition] = useState({
+    x: 0,
+    y: 0,
+    isAbove: false,
+  });
   const triggerRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
+
+  const calculatePosition = () => {
+    if (!triggerRef.current || !cardRef.current) return;
+
+    const rect = triggerRef.current.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const padding = 24; // padding from viewport edges
+
+    // Get actual card dimensions with fallback
+    const cardRect = cardRef.current.getBoundingClientRect();
+    const cardWidth = cardRect.width || 400; // fallback width
+    const cardHeight = cardRect.height || 300; // fallback height
+
+    // Standardized positioning - all cards appear in top-left area
+    const maxAllowedWidth = viewportWidth - padding * 2;
+    const effectiveCardWidth = Math.min(cardWidth, maxAllowedWidth);
+
+    // Fixed position in top-left area with comfortable spacing
+    let x = padding + 40; // Add extra spacing from left edge
+    let y = padding + 60; // Add extra spacing from top edge
+    let isAbove = false;
+
+    // Ensure the card doesn't go off-screen with the new positioning
+    x = Math.max(
+      padding,
+      Math.min(x, viewportWidth - effectiveCardWidth - padding)
+    );
+    y = Math.max(padding, Math.min(y, viewportHeight - cardHeight - padding));
+
+    // Calculate arrow position to point to trigger
+    const triggerCenterX = rect.left + rect.width / 2;
+    const triggerCenterY = rect.top + rect.height / 2;
+
+    // Calculate arrow position to point from card to trigger
+    const arrowX = Math.max(
+      20,
+      Math.min(effectiveCardWidth - 20, triggerCenterX - x)
+    );
+    const arrowY = Math.max(20, Math.min(cardHeight - 20, triggerCenterY - y));
+
+    // Debug logging (remove in production)
+    console.log("Card positioning:", {
+      viewport: { width: viewportWidth, height: viewportHeight },
+      card: { width: cardWidth, height: cardHeight },
+      position: { x, y },
+      trigger: { centerX: triggerCenterX, centerY: triggerCenterY },
+      arrow: { x: arrowX, y: arrowY },
+    });
+
+    setPosition({ x, y });
+    setArrowPosition({ x: arrowX, y: arrowY, isAbove });
+  };
 
   useEffect(() => {
     setMounted(true);
-  }, []);
 
-  const handleMouseEnter = () => {
-    if (triggerRef.current) {
-      const rect = triggerRef.current.getBoundingClientRect();
-      setPosition({
-        x: rect.left + rect.width / 2 - 200,
-        y: rect.bottom + 8,
+    // Handle window resize to recalculate position
+    const handleResize = () => {
+      if (isVisible) {
+        // Use requestAnimationFrame to ensure DOM is updated
+        requestAnimationFrame(() => {
+          calculatePosition();
+        });
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [isVisible]);
+
+  // Recalculate position when card becomes visible
+  useEffect(() => {
+    if (isVisible && mounted) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(calculatePosition);
       });
     }
+  }, [isVisible, mounted]);
+
+  // Handle click outside to close expanded view
+  useEffect(() => {
+    if (isExpanded) {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (
+          cardRef.current &&
+          !cardRef.current.contains(event.target as Node)
+        ) {
+          handleCloseExpanded();
+        }
+      };
+
+      document.addEventListener("mousedown", handleClickOutside);
+      return () =>
+        document.removeEventListener("mousedown", handleClickOutside);
+    }
+  }, [isExpanded]);
+
+  const handleMouseEnter = () => {
     setIsVisible(true);
+    // Use requestAnimationFrame to ensure DOM is updated before calculating position
+    requestAnimationFrame(() => {
+      requestAnimationFrame(calculatePosition);
+    });
   };
 
   const handleMouseLeave = () => {
+    if (!isExpanded) {
+      setIsVisible(false);
+    }
+  };
+
+  const handleTriggerClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setIsExpanded(true);
+    setIsVisible(true);
+  };
+
+  const handleCloseExpanded = () => {
+    setIsExpanded(false);
     setIsVisible(false);
+  };
+
+  const handleTouchStart = () => {
+    // For mobile devices, show on touch
+    handleMouseEnter();
+  };
+
+  const handleTouchEnd = () => {
+    // Hide after a delay on mobile
+    setTimeout(() => {
+      setIsVisible(false);
+    }, 2000);
   };
 
   const proficiencyStyle =
@@ -59,6 +182,7 @@ export function SkillHoverCard({
     <AnimatePresence>
       {isVisible && mounted && (
         <motion.div
+          ref={cardRef}
           initial={{ opacity: 0, scale: 0.95, y: -10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: -10 }}
@@ -67,13 +191,18 @@ export function SkillHoverCard({
           style={{
             left: position.x,
             top: position.y,
-            minWidth: "320px",
-            maxWidth: "min(400px, 90vw)",
+            minWidth: "340px",
+            maxWidth: "min(400px, calc(100vw - 128px))",
+            width: "auto",
+            maxHeight: isExpanded ? "90vh" : "500px",
+            overflowY: isExpanded ? "auto" : "hidden",
+            position: "fixed",
+            zIndex: 99999,
           }}
         >
-          <div className="bg-gradient-to-br from-white/95 to-white/90 backdrop-blur-md rounded-2xl p-6 shadow-organic-2xl border border-white/30 w-full">
+          <div className="bg-gradient-to-br from-white/95 to-white/90 backdrop-blur-md rounded-2xl p-8 shadow-organic-2xl border border-white/30 w-full relative overflow-hidden">
             {/* Header */}
-            <div className="flex items-center gap-4 mb-5">
+            <div className="flex items-center gap-4 mb-6">
               <img
                 src={skill.logo}
                 alt={`${skill.name} logo`}
@@ -93,39 +222,82 @@ export function SkillHoverCard({
                     skill.proficiency.slice(1)}
                 </div>
               </div>
+              {isExpanded && (
+                <button
+                  onClick={handleCloseExpanded}
+                  className="text-gray-400 hover:text-gray-600 transition-colors p-1"
+                  aria-label="Close expanded view"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              )}
             </div>
 
             {/* Description */}
-            <p className="text-base text-brand-text-light mb-5 leading-relaxed">
+            <p className="text-base text-brand-text-light mb-6 leading-relaxed break-words">
               {skill.description}
             </p>
 
             {/* Project Usage */}
             {skill.usage.length > 0 && (
-              <div className="space-y-3">
-                {skill.usage.map((usage, index) => (
-                  <div
-                    key={index}
-                    className="bg-gradient-to-r from-brand-beige/50 to-brand-beige-light/50 rounded-lg p-4 border border-brand-secondary/20"
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-brand-primary rounded-full mt-2 flex-shrink-0"></div>
-                      <div className="flex-1">
-                        <h5 className="text-base font-medium text-brand-text mb-2">
-                          {usage.projectTitle}
-                        </h5>
-                        <p className="text-sm text-brand-text-light leading-relaxed">
-                          {usage.usage}
-                        </p>
+              <div className="space-y-4">
+                {skill.usage
+                  .slice(0, isExpanded ? skill.usage.length : 2)
+                  .map((usage, index) => (
+                    <div
+                      key={index}
+                      className="bg-gradient-to-r from-brand-beige/50 to-brand-beige-light/50 rounded-lg p-5 border border-brand-secondary/20"
+                    >
+                      <div className="flex items-start gap-4">
+                        <div className="w-2 h-2 bg-brand-primary rounded-full mt-2 flex-shrink-0"></div>
+                        <div className="flex-1 min-w-0">
+                          <h5 className="text-base font-medium text-brand-text mb-3 break-words">
+                            {usage.projectTitle}
+                          </h5>
+                          <p className="text-sm text-brand-text-light leading-relaxed break-words">
+                            {usage.usage}
+                          </p>
+                        </div>
                       </div>
                     </div>
+                  ))}
+                {!isExpanded && skill.usage.length > 2 && (
+                  <div className="text-center py-2">
+                    <div className="text-2xl text-brand-text-light">...</div>
+                    <div className="text-xs text-brand-text-light mt-1">
+                      Click skill badge to view all {skill.usage.length}{" "}
+                      projects
+                    </div>
                   </div>
-                ))}
+                )}
               </div>
             )}
 
-            {/* Arrow pointer */}
-            <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white/95 rotate-45 border-l border-t border-white/30"></div>
+            {/* Subtle connection indicator */}
+            <div
+              className="absolute pointer-events-none"
+              style={{
+                left: arrowPosition.x - 2,
+                top: arrowPosition.y - 2,
+                width: "4px",
+                height: "4px",
+                background: "rgba(0,0,0,0.1)",
+                borderRadius: "50%",
+                boxShadow: "0 0 4px rgba(0,0,0,0.1)",
+              }}
+            ></div>
           </div>
         </motion.div>
       )}
@@ -138,6 +310,9 @@ export function SkillHoverCard({
         ref={triggerRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onClick={handleTriggerClick}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
         className={className}
       >
         {children}
