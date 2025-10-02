@@ -25,17 +25,23 @@ export const TECHNOLOGIES = {
       name: "Python",
       logo: "/logos/tech/python.svg",
     },
-    {
-      name: "OpenAI API",
-      logo: "/logos/tech/openai.svg",
-    },
-    {
-      name: "Google Gemini AI",
-      logo: "/logos/tech/gemini.svg",
-    },
+    [
+      {
+        name: "OpenAI API",
+        logo: "/logos/tech/openai.svg",
+      },
+      {
+        name: "Google Gemini",
+        logo: "/logos/tech/gemini.svg",
+      },
+    ],
     {
       name: "TensorFlow",
       logo: "/logos/tech/tensorflow.svg",
+    },
+    {
+      name: "OpenCV",
+      logo: "/logos/tech/opencv.svg",
     },
     {
       name: "AI Integration",
@@ -81,14 +87,16 @@ export const TECHNOLOGIES = {
     },
   ],
   "Backend & Database": [
-    {
-      name: "Supabase",
-      logo: "/logos/tech/supabase.svg",
-    },
-    {
-      name: "SQL",
-      logo: "/logos/tech/sql.svg",
-    },
+    [
+      {
+        name: "Supabase",
+        logo: "/logos/tech/supabase.svg",
+      },
+      {
+        name: "PostgreSQL",
+        logo: "/logos/tech/sql.svg",
+      },
+    ],
     {
       name: "FastAPI",
       logo: "/logos/tech/fastapi.svg",

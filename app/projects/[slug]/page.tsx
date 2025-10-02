@@ -179,6 +179,98 @@ const projects = [
     },
   },
   {
+    slug: "cochat",
+    title: "CoChat",
+    summary:
+      "AI-powered digital presence platform that creates personalized chatbots representing individuals or businesses. Built with Next.js, Supabase, and OpenAI to enable natural conversations and voice cloning capabilities for authentic digital interactions.",
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "React.js",
+      "Tailwind CSS",
+      "Supabase",
+      "PostgreSQL",
+      "SQL",
+      "JWT",
+      "OpenAI",
+      "AI Integration",
+      "REST APIs",
+    ],
+    problem:
+      "In today's digital world, maintaining a consistent and engaging online presence is crucial for personal and business success. However, many challenges exist: 24/7 availability, consistent messaging across interactions, scalability for multiple conversations, creating authentic digital interactions, and technical barriers for non-technical users.",
+    solution:
+      "I developed CoChat as an AI-powered digital presence platform that enables individuals and businesses to create personalized chatbots that represent them authentically. The platform combines advanced AI technology with voice cloning capabilities to create digital twins that can engage in natural conversations, always ready to empower personal and business brand growth.",
+    technicalDetails: [
+      "Built Next.js 14 with App Router for modern React patterns and server-side rendering",
+      "Implemented TypeScript throughout for type safety and better developer experience",
+      "Integrated Supabase backend with PostgreSQL and pgvector for vector storage",
+      "Created Supabase Edge Functions for serverless AI processing and response generation",
+      "Implemented OpenAI GPT models for intelligent, contextual responses",
+      "Built voice cloning technology for authentic digital interactions",
+      "Designed multi-tenant architecture with proper data isolation and security",
+      "Created effortless setup process requiring no technical expertise from users",
+      "Implemented vector embeddings for semantic search and context understanding",
+      "Built real-time chat interface with conversation history and context management",
+      "Added voice synthesis and audio processing capabilities",
+      "Created comprehensive user profile management and customization options",
+    ],
+    outcomes: [
+      "Successfully created AI-powered chatbots that authentically represent individuals and businesses",
+      "Implemented voice cloning technology for natural, realistic digital interactions",
+      "Built scalable multi-tenant platform with proper security and data isolation",
+      "Created effortless setup process that handles technical complexity behind the scenes",
+      "Achieved 24/7 digital presence availability for users and businesses",
+      "Implemented advanced AI integration with OpenAI for intelligent responses",
+      "Built modern, responsive interface optimized for all devices",
+      "Created system that maintains consistent brand messaging across all interactions",
+      "Demonstrated full-stack development with Next.js, Supabase, and AI integration",
+      "Delivered production-ready platform with comprehensive user management",
+    ],
+    images: [
+      {
+        src: "/images/projects/cochat/cochat-demo.png",
+        alt: "CoChat Demo Interface",
+        caption:
+          "The main CoChat interface showing AI chatbot conversation and digital presence features",
+      },
+      {
+        src: "/images/projects/cochat/cochat-interface.png",
+        alt: "CoChat Interface",
+        caption:
+          "Detailed view of the CoChat interface showing AI response generation and user profile settings",
+      },
+      {
+        src: "/images/projects/cochat/cochat-overview.png",
+        alt: "CoChat Platform Overview",
+        caption:
+          "Platform overview showing multiple AI profiles, digital presence analytics, and voice cloning features",
+      },
+    ],
+    liveUrl: "https://www.cochat.io/",
+    duration: "6 months",
+    teamSize: "1 person",
+    role: "Full-stack Developer & AI Engineer",
+    codeImplementation: {
+      aiIntegration: {
+        model: "OpenAI GPT Models",
+        features: [
+          "Contextual response generation based on user data",
+          "Voice cloning and synthesis technology",
+          "Semantic search with vector embeddings",
+          "Multi-modal AI interactions",
+        ],
+        prompt: `You are a digital representation of {user_name}. Based on the provided information about {user_name}, respond authentically as them. Maintain their personality, expertise, and communication style while being helpful and engaging.`,
+        maxTokens: 500,
+        temperature: 0.7,
+      },
+      apiEndpoint: "/api/chat",
+      errorHandling:
+        "Comprehensive error handling with fallback responses and user feedback",
+      caching:
+        "Supabase Edge Functions with built-in caching for optimal performance",
+    },
+  },
+  {
     slug: "trustyfaq",
     title: "TrustyFAQ",
     summary:

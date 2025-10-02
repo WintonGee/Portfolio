@@ -56,10 +56,17 @@ export const SKILLS_DATA: Record<string, SkillData> = {
         usage: "AI-powered recipe suggestions based on available ingredients",
         category: "ai",
       },
+      {
+        projectId: "cochat",
+        projectTitle: "CoChat",
+        usage:
+          "AI-powered chatbot responses and voice cloning technology for digital presence",
+        category: "ai",
+      },
     ],
   },
-  "Google Gemini AI": {
-    name: "Google Gemini AI",
+  "Google Gemini": {
+    name: "Google Gemini",
     logo: "/logos/tech/gemini.svg",
     description:
       "Google's advanced AI model for multimodal understanding, text generation, and intelligent content creation.",
@@ -120,6 +127,13 @@ export const SKILLS_DATA: Record<string, SkillData> = {
           "AI chatbot integration with Google Gemini for intelligent portfolio interactions",
         category: "ai",
       },
+      {
+        projectId: "cochat",
+        projectTitle: "CoChat",
+        usage:
+          "Comprehensive AI integration for personalized chatbots and voice cloning technology",
+        category: "ai",
+      },
     ],
   },
   "RAG Systems": {
@@ -142,6 +156,30 @@ export const SKILLS_DATA: Record<string, SkillData> = {
         projectTitle: "TrustyFAQ",
         usage:
           "RAG system for semantic FAQ search with vector embeddings and intelligent responses",
+        category: "ai",
+      },
+      {
+        projectId: "cochat",
+        projectTitle: "CoChat",
+        usage:
+          "RAG system for AI chatbot to provide context-aware responses based on user data and personality",
+        category: "ai",
+      },
+    ],
+  },
+  OpenCV: {
+    name: "OpenCV",
+    logo: "/logos/tech/opencv.svg",
+    description:
+      "Open-source computer vision library for image processing, object detection, and machine learning applications with Python and C++ support.",
+    category: "ai",
+    proficiency: "intermediate",
+    usage: [
+      {
+        projectId: "foodmanager",
+        projectTitle: "FoodManager (PantryCraft)",
+        usage:
+          "Computer vision for ingredient recognition and food image processing",
         category: "ai",
       },
     ],
@@ -168,6 +206,13 @@ export const SKILLS_DATA: Record<string, SkillData> = {
         projectTitle: "TrustyFAQ",
         usage:
           "Type-safe frontend development with React Query and modern patterns",
+        category: "frontend",
+      },
+      {
+        projectId: "cochat",
+        projectTitle: "CoChat",
+        usage:
+          "Type-safe development for AI-powered digital presence platform with advanced patterns",
         category: "frontend",
       },
     ],
@@ -218,6 +263,13 @@ export const SKILLS_DATA: Record<string, SkillData> = {
           "React components with React Query for state management and modern hooks",
         category: "frontend",
       },
+      {
+        projectId: "cochat",
+        projectTitle: "CoChat",
+        usage:
+          "Component-based architecture for AI chatbot interface and digital presence features",
+        category: "frontend",
+      },
     ],
   },
   "Next.js": {
@@ -239,6 +291,13 @@ export const SKILLS_DATA: Record<string, SkillData> = {
         projectId: "trustyfaq",
         projectTitle: "TrustyFAQ",
         usage: "Next.js 14 frontend with App Router and shadcn/ui components",
+        category: "frontend",
+      },
+      {
+        projectId: "cochat",
+        projectTitle: "CoChat",
+        usage:
+          "Next.js 14 with App Router for AI-powered digital presence platform",
         category: "frontend",
       },
     ],
@@ -265,6 +324,13 @@ export const SKILLS_DATA: Record<string, SkillData> = {
           "Modern UI styling with shadcn/ui components and responsive design",
         category: "frontend",
       },
+      {
+        projectId: "cochat",
+        projectTitle: "CoChat",
+        usage:
+          "Modern UI styling for AI chatbot interface and digital presence features",
+        category: "frontend",
+      },
     ],
   },
   "Material-UI": {
@@ -279,6 +345,13 @@ export const SKILLS_DATA: Record<string, SkillData> = {
         projectId: "foodmanager",
         projectTitle: "FoodManager (PantryCraft)",
         usage: "UI component library for consistent design and user experience",
+        category: "frontend",
+      },
+      {
+        projectId: "cochat",
+        projectTitle: "CoChat",
+        usage:
+          "UI component library for AI chatbot interface and digital presence features",
         category: "frontend",
       },
     ],
@@ -324,13 +397,20 @@ export const SKILLS_DATA: Record<string, SkillData> = {
           "PostgreSQL database with pgvector extension for vector search and multi-tenant architecture",
         category: "backend",
       },
+      {
+        projectId: "cochat",
+        projectTitle: "CoChat",
+        usage:
+          "Backend database and authentication for AI-powered digital presence platform",
+        category: "backend",
+      },
     ],
   },
-  SQL: {
-    name: "SQL",
+  PostgreSQL: {
+    name: "PostgreSQL",
     logo: "/logos/tech/sql.svg",
     description:
-      "Structured Query Language for managing and manipulating relational databases with complex queries and data relationships.",
+      "Advanced open-source relational database with extensibility, SQL compliance, and support for complex data types and operations including vector search capabilities.",
     category: "backend",
     proficiency: "advanced",
     usage: [
@@ -338,7 +418,14 @@ export const SKILLS_DATA: Record<string, SkillData> = {
         projectId: "trustyfaq",
         projectTitle: "TrustyFAQ",
         usage:
-          "Complex database queries for FAQ management and vector search operations",
+          "Primary database with pgvector extension for vector search and semantic similarity operations",
+        category: "backend",
+      },
+      {
+        projectId: "cochat",
+        projectTitle: "CoChat",
+        usage:
+          "Database for user profiles, conversations, and AI chatbot data with vector storage and complex queries",
         category: "backend",
       },
     ],
@@ -425,6 +512,13 @@ export const SKILLS_DATA: Record<string, SkillData> = {
         usage: "Secure authentication system for multi-tenant SaaS platform",
         category: "backend",
       },
+      {
+        projectId: "cochat",
+        projectTitle: "CoChat",
+        usage:
+          "Secure authentication for AI chatbot profiles and user management",
+        category: "backend",
+      },
     ],
   },
   "REST APIs": {
@@ -447,6 +541,13 @@ export const SKILLS_DATA: Record<string, SkillData> = {
         projectTitle: "AI-Powered Portfolio Website",
         usage:
           "Next.js API routes for AI chatbot integration and data handling",
+        category: "backend",
+      },
+      {
+        projectId: "cochat",
+        projectTitle: "CoChat",
+        usage:
+          "API architecture for AI chatbot interactions and voice cloning endpoints",
         category: "backend",
       },
     ],
