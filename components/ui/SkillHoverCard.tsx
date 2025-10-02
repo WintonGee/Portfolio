@@ -37,19 +37,17 @@ export function SkillHoverCard({
     PROFICIENCY_STYLES[skill.proficiency as keyof typeof PROFICIENCY_STYLES] ||
     PROFICIENCY_STYLES.beginner;
 
-  // Handle mount for portal
+  // Setup and cleanup
   useEffect(() => {
     setMounted(true);
     return () => {
       setIsOpen(false);
       isHoveringCardRef.current = false;
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
   }, []);
 
-  // Clear any existing timeout
+  // Timeout management
   const clearCloseTimeout = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
@@ -57,20 +55,16 @@ export function SkillHoverCard({
     }
   };
 
-  // Handle hover state changes with proper logic
+  // Hover state handlers
   const handleOpenChange = (open: boolean) => {
     clearCloseTimeout();
     if (open) {
       setIsOpen(true);
-    } else {
-      // Only close if not hovering over the card
-      if (!isHoveringCardRef.current) {
-        setIsOpen(false);
-      }
+    } else if (!isHoveringCardRef.current) {
+      setIsOpen(false);
     }
   };
 
-  // Handle card hover
   const handleCardMouseEnter = () => {
     clearCloseTimeout();
     isHoveringCardRef.current = true;
@@ -78,14 +72,12 @@ export function SkillHoverCard({
 
   const handleCardMouseLeave = () => {
     isHoveringCardRef.current = false;
-    // Close after a small delay to allow moving back to trigger
     timeoutRef.current = setTimeout(() => {
-      if (!isHoveringCardRef.current) {
-        setIsOpen(false);
-      }
+      if (!isHoveringCardRef.current) setIsOpen(false);
     }, 150);
   };
 
+  // Card content
   const cardContent = (
     <AnimatePresence>
       {isOpen && mounted && (
@@ -154,7 +146,7 @@ export function SkillHoverCard({
             {/* Scroll fade indicator */}
             <div className="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-white/80 to-transparent pointer-events-none z-10"></div>
 
-            {/* Subtle connection indicator */}
+            {/* Connection indicator */}
             <div className="absolute top-4 right-4 w-2 h-2 bg-brand-primary/30 rounded-full pointer-events-none"></div>
           </div>
         </motion.div>
@@ -172,16 +164,12 @@ export function SkillHoverCard({
         <HoverCard.Trigger asChild>
           <div className={className}>{children}</div>
         </HoverCard.Trigger>
-
-        {/* Hidden content for Radix UI to manage hover state */}
         <HoverCard.Portal>
           <HoverCard.Content style={{ display: "none" }}>
             <div></div>
           </HoverCard.Content>
         </HoverCard.Portal>
       </HoverCard.Root>
-
-      {/* Custom positioned card */}
       {mounted && createPortal(cardContent, document.body)}
     </>
   );
