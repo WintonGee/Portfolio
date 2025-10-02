@@ -143,11 +143,12 @@ export default function Navbar() {
               Projects
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-primary-light group-hover:w-full transition-all duration-300"></span>
             </motion.button>
+            {/* Chat link - Hidden but functional */}
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => scrollToSection("chat")}
-              className="text-brand-text hover:text-brand-primary font-medium transition-colors duration-200 relative group"
+              className="hidden text-brand-text hover:text-brand-primary font-medium transition-colors duration-200 relative group"
             >
               Chat
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-primary-light group-hover:w-full transition-all duration-300"></span>
@@ -256,12 +257,13 @@ export default function Navbar() {
                     Projects
                   </motion.button>
 
+                  {/* Chat link - Hidden but functional */}
                   <motion.button
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.2 }}
                     onClick={() => scrollToSection("chat")}
-                    className="text-left text-lg font-medium text-brand-text hover:text-brand-primary transition-colors duration-200 py-2"
+                    className="hidden text-left text-lg font-medium text-brand-text hover:text-brand-primary transition-colors duration-200 py-2"
                   >
                     Chat
                   </motion.button>
