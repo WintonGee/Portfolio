@@ -106,7 +106,12 @@ export function SkillHoverCard({
     };
 
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      // Cleanup states on unmount
+      setIsVisible(false);
+      setIsExpanded(false);
+    };
   }, [isVisible]);
 
   // Recalculate position when card becomes visible
@@ -150,6 +155,20 @@ export function SkillHoverCard({
     }
   };
 
+  const handleCardMouseEnter = () => {
+    // Keep card visible when hovering over it
+    if (isExpanded) {
+      setIsVisible(true);
+    }
+  };
+
+  const handleCardMouseLeave = () => {
+    // Only close if not expanded
+    if (!isExpanded) {
+      setIsVisible(false);
+    }
+  };
+
   const handleTriggerClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
@@ -187,20 +206,52 @@ export function SkillHoverCard({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: -10 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
-          className="fixed z-[99999] pointer-events-none"
+          className={`fixed z-[99999] ${
+            isExpanded ? "pointer-events-auto" : "pointer-events-none"
+          }`}
           style={{
             left: position.x,
             top: position.y,
             minWidth: "340px",
             maxWidth: "min(400px, calc(100vw - 128px))",
             width: "auto",
-            maxHeight: isExpanded ? "90vh" : "500px",
+            maxHeight: isExpanded ? "70vh" : "500px",
             overflowY: isExpanded ? "auto" : "hidden",
             position: "fixed",
             zIndex: 99999,
           }}
         >
-          <div className="bg-gradient-to-br from-white/95 to-white/90 backdrop-blur-md rounded-2xl p-8 shadow-organic-2xl border border-white/30 w-full relative overflow-hidden">
+          <div
+            className="bg-gradient-to-br from-white/95 to-white/90 backdrop-blur-md rounded-2xl p-8 shadow-organic-2xl border border-white/30 w-full relative overflow-hidden"
+            onMouseEnter={handleCardMouseEnter}
+            onMouseLeave={handleCardMouseLeave}
+          >
+            {/* Scroll fade indicator for expanded state */}
+            {isExpanded && (
+              <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white/90 to-transparent pointer-events-none z-10"></div>
+            )}
+            {/* Click tip in top right */}
+            {!isExpanded && (
+              <div className="absolute top-4 right-4 z-10">
+                <div className="bg-brand-primary/10 text-brand-primary text-xs px-2 py-1 rounded-full border border-brand-primary/20 flex items-center gap-1">
+                  <svg
+                    className="w-3 h-3"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"
+                    />
+                  </svg>
+                  Click to expand
+                </div>
+              </div>
+            )}
+
             {/* Header */}
             <div className="flex items-center gap-4 mb-6">
               <img
@@ -282,6 +333,28 @@ export function SkillHoverCard({
                     </div>
                   </div>
                 )}
+              </div>
+            )}
+
+            {/* Scroll indicator for expanded state */}
+            {isExpanded && (
+              <div className="absolute bottom-4 right-4 pointer-events-none">
+                <div className="bg-black/20 text-white text-xs px-2 py-1 rounded-full backdrop-blur-sm flex items-center gap-1">
+                  <svg
+                    className="w-3 h-3"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M7 16l-4-4m0 0l4-4m-4 4h18"
+                    />
+                  </svg>
+                  Scroll
+                </div>
               </div>
             )}
 
