@@ -56,13 +56,13 @@ export function TechStackSection() {
       <div className="max-w-5xl mx-auto relative z-10">
         <AnimatedCard delay={0.4} className="pt-6">
           {/* Enhanced Header */}
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 sm:mb-10 lg:mb-12">
             <motion.h3
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true }}
-              className="text-5xl font-bold text-brand-text mb-6"
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-text mb-4 sm:mb-6"
             >
               Complete{" "}
               <span className="gradient-text font-extrabold">Tech Stack</span>
@@ -70,7 +70,7 @@ export function TechStackSection() {
           </div>
 
           {/* Enhanced Grid Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
             {Object.entries(TECHNOLOGIES).map(
               ([category, technologies], categoryIndex) => (
                 <motion.div
@@ -85,17 +85,17 @@ export function TechStackSection() {
                   className="relative group"
                 >
                   {/* Category Card */}
-                  <div className="bg-gradient-to-br from-white/60 to-white/30 backdrop-blur-sm rounded-2xl p-8 shadow-organic-lg border border-white/20 hover:shadow-organic-2xl hover:border-brand-primary/20 transition-all duration-500 group-hover:scale-[1.02] h-full">
+                  <div className="bg-gradient-to-br from-white/60 to-white/30 backdrop-blur-sm rounded-2xl p-4 sm:p-6 lg:p-8 shadow-organic-lg border border-white/20 hover:shadow-organic-2xl hover:border-brand-primary/20 transition-all duration-500 group-hover:scale-[1.02] h-full">
                     {/* Category Header */}
-                    <div className="text-center mb-8">
-                      <h4 className="text-xl font-bold text-brand-text mb-3 group-hover:text-brand-primary transition-colors duration-300">
+                    <div className="text-center mb-6 sm:mb-8">
+                      <h4 className="text-lg sm:text-xl font-bold text-brand-text mb-3 group-hover:text-brand-primary transition-colors duration-300">
                         {category}
                       </h4>
                       <div className="w-16 h-0.5 bg-gradient-to-r from-brand-primary to-brand-secondary mx-auto rounded-full opacity-60 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
 
                     {/* Technology Badges */}
-                    <div className="flex flex-wrap gap-3 justify-center">
+                    <div className="flex flex-wrap gap-2 sm:gap-3 justify-center">
                       {technologies.map((techItem, techIndex) => {
                         // Handle grouped technologies (arrays) and individual technologies
                         if (Array.isArray(techItem)) {
@@ -128,11 +128,11 @@ export function TechStackSection() {
                                   }}
                                   className="group/tech cursor-pointer"
                                 >
-                                  <div className="flex items-center gap-2.5 px-4 py-2.5 bg-gradient-to-r from-brand-beige/80 to-brand-beige-light/80 text-brand-text text-sm font-semibold rounded-xl border border-brand-secondary/30 hover:from-brand-primary/15 hover:to-brand-secondary/15 hover:border-brand-primary/50 hover:text-brand-primary hover:shadow-organic transition-all duration-300 backdrop-blur-sm">
+                                  <div className="flex items-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-brand-beige/80 to-brand-beige-light/80 text-brand-text text-xs sm:text-sm font-semibold rounded-xl border border-brand-secondary/30 hover:from-brand-primary/15 hover:to-brand-secondary/15 hover:border-brand-primary/50 hover:text-brand-primary hover:shadow-organic transition-all duration-300 backdrop-blur-sm">
                                     <img
                                       src={tech.logo}
                                       alt={`${tech.name} logo`}
-                                      className="w-5 h-5 flex-shrink-0 group-hover/tech:scale-110 transition-transform duration-300"
+                                      className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 group-hover/tech:scale-110 transition-transform duration-300"
                                       onError={(e) => {
                                         e.currentTarget.style.display = "none";
                                       }}
@@ -167,11 +167,11 @@ export function TechStackSection() {
                               }}
                               className="group/tech cursor-pointer"
                             >
-                              <div className="flex items-center gap-2.5 px-4 py-2.5 bg-gradient-to-r from-brand-beige/80 to-brand-beige-light/80 text-brand-text text-sm font-semibold rounded-xl border border-brand-secondary/30 hover:from-brand-primary/15 hover:to-brand-secondary/15 hover:border-brand-primary/50 hover:text-brand-primary hover:shadow-organic transition-all duration-300 backdrop-blur-sm">
+                              <div className="flex items-center gap-2 sm:gap-2.5 px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-brand-beige/80 to-brand-beige-light/80 text-brand-text text-xs sm:text-sm font-semibold rounded-xl border border-brand-secondary/30 hover:from-brand-primary/15 hover:to-brand-secondary/15 hover:border-brand-primary/50 hover:text-brand-primary hover:shadow-organic transition-all duration-300 backdrop-blur-sm">
                                 <img
                                   src={techItem.logo}
                                   alt={`${techItem.name} logo`}
-                                  className="w-5 h-5 flex-shrink-0 group-hover/tech:scale-110 transition-transform duration-300"
+                                  className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 group-hover/tech:scale-110 transition-transform duration-300"
                                   onError={(e) => {
                                     e.currentTarget.style.display = "none";
                                   }}

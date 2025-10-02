@@ -140,15 +140,15 @@ export default function Chatbot() {
   return (
     <div className="bg-brand-beige-light rounded-lg shadow-organic-lg overflow-hidden border border-brand-secondary/30">
       {/* Chat Header */}
-      <div className="bg-brand-primary text-brand-beige p-4">
-        <h3 className="text-lg font-semibold">Chat with Winton</h3>
-        <p className="text-brand-beige-light text-sm">
+      <div className="bg-brand-primary text-brand-beige p-3 sm:p-4">
+        <h3 className="text-base sm:text-lg font-semibold">Chat with Winton</h3>
+        <p className="text-brand-beige-light text-xs sm:text-sm">
           Ask me about my work, projects, and experience
         </p>
       </div>
 
       {/* Messages Container */}
-      <div className="h-96 overflow-y-auto p-4 space-y-4">
+      <div className="h-80 sm:h-96 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4">
         {messages.map((message) => (
           <div
             key={message.id}
@@ -157,13 +157,13 @@ export default function Chatbot() {
             }`}
           >
             <div
-              className={`max-w-xs lg:max-w-lg px-4 py-3 rounded-lg shadow-organic ${
+              className={`max-w-xs sm:max-w-sm lg:max-w-lg px-3 sm:px-4 py-2 sm:py-3 rounded-lg shadow-organic ${
                 message.role === "user"
                   ? "bg-brand-primary text-brand-beige"
                   : "bg-brand-secondary text-brand-text"
               }`}
             >
-              <p className="text-sm leading-relaxed whitespace-pre-wrap">
+              <p className="text-xs sm:text-sm leading-relaxed whitespace-pre-wrap">
                 {message.content}
               </p>
               <p className="text-xs opacity-70 mt-2">
@@ -178,7 +178,7 @@ export default function Chatbot() {
 
         {isLoading && (
           <div className="flex justify-start">
-            <div className="bg-brand-secondary text-brand-text px-4 py-2 rounded-lg shadow-organic">
+            <div className="bg-brand-secondary text-brand-text px-3 sm:px-4 py-2 rounded-lg shadow-organic">
               <div className="flex space-x-1">
                 <div className="w-2 h-2 bg-brand-primary rounded-full animate-bounce"></div>
                 <div
@@ -199,8 +199,8 @@ export default function Chatbot() {
 
       {/* Quick Select Options */}
       {messages.length === 1 && (
-        <div className="px-4 pb-4">
-          <p className="text-sm text-brand-text-light mb-3 text-center">
+        <div className="px-3 sm:px-4 pb-3 sm:pb-4">
+          <p className="text-xs sm:text-sm text-brand-text-light mb-3 text-center">
             Or try one of these:
           </p>
           <div className="flex flex-wrap gap-2 justify-center">
@@ -208,7 +208,7 @@ export default function Chatbot() {
               <button
                 key={index}
                 onClick={() => handleQuickSelect(option)}
-                className="px-3 py-2 text-xs bg-brand-beige text-brand-text rounded-full hover:bg-brand-secondary hover:text-brand-text transition-colors duration-200 border border-brand-secondary/50 hover:border-brand-primary hover:shadow-organic"
+                className="px-2 sm:px-3 py-1.5 sm:py-2 text-xs bg-brand-beige text-brand-text rounded-full hover:bg-brand-secondary hover:text-brand-text transition-colors duration-200 border border-brand-secondary/50 hover:border-brand-primary hover:shadow-organic"
               >
                 {option}
               </button>
@@ -220,21 +220,21 @@ export default function Chatbot() {
       {/* Input Form */}
       <form
         onSubmit={handleSubmit}
-        className="p-4 border-t border-brand-secondary/30"
+        className="p-3 sm:p-4 border-t border-brand-secondary/30"
       >
-        <div className="flex space-x-2">
+        <div className="flex space-x-2 sm:space-x-3">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask me about my work, projects, or experience..."
-            className="flex-1 px-3 py-2 border border-brand-secondary/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary bg-brand-beige text-brand-text placeholder-brand-text-light"
+            className="flex-1 px-3 py-2 text-sm border border-brand-secondary/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary bg-brand-beige text-brand-text placeholder-brand-text-light"
             disabled={isLoading}
           />
           <button
             type="submit"
             disabled={!input.trim() || isLoading}
-            className="bg-brand-primary hover:bg-brand-primary-dark disabled:bg-brand-secondary text-brand-beige px-4 py-2 rounded-lg transition-colors font-medium shadow-organic hover:shadow-organic-lg"
+            className="bg-brand-primary hover:bg-brand-primary-dark disabled:bg-brand-secondary text-brand-beige px-3 sm:px-4 py-2 text-sm rounded-lg transition-colors font-medium shadow-organic hover:shadow-organic-lg"
           >
             Send
           </button>

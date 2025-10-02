@@ -130,7 +130,7 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
           transition={{ duration: 0.5, delay: payload.progression * 0.1 }}
           cx={cx}
           cy={cy}
-          r={20}
+          r={isMobile ? 16 : 20}
           fill="white"
           stroke={color}
           strokeWidth={3}
@@ -149,13 +149,17 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.4, delay: payload.progression * 0.1 + 0.2 }}
-          x={cx - 16}
-          y={cy - 16}
-          width={32}
-          height={32}
+          x={cx - (isMobile ? 12 : 16)}
+          y={cy - (isMobile ? 12 : 16)}
+          width={isMobile ? 24 : 32}
+          height={isMobile ? 24 : 32}
           className="pointer-events-none"
         >
-          <div className="w-8 h-8 rounded-full overflow-hidden">
+          <div
+            className={`${
+              isMobile ? "w-6 h-6" : "w-8 h-8"
+            } rounded-full overflow-hidden`}
+          >
             <img
               src={logoPath}
               alt={`${item?.institution} logo`}
@@ -189,11 +193,11 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, delay: payload.progression * 0.1 + 0.3 }}
-          x={cx + 30}
+          x={cx + (isMobile ? 20 : 30)}
           y={cy + 5}
           textAnchor="start"
           className="text-xs font-medium fill-gray-700 pointer-events-none"
-          style={{ fontSize: "11px" }}
+          style={{ fontSize: isMobile ? "9px" : "11px" }}
         >
           {item?.title}
         </motion.text>
@@ -218,11 +222,11 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
       const logoPath = getTooltipLogo(data.item);
 
       return (
-        <div className="bg-brand-beige-light rounded-2xl p-4 shadow-organic-xl border border-brand-secondary/20 max-w-sm">
+        <div className="bg-brand-beige-light rounded-2xl p-3 sm:p-4 shadow-organic-xl border border-brand-secondary/20 max-w-xs sm:max-w-sm">
           <div className="space-y-3">
             {/* Year badge with logo */}
-            <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10 text-brand-primary border border-brand-primary/20">
-              <div className="w-5 h-5 rounded-full overflow-hidden mr-2 flex-shrink-0">
+            <div className="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10 text-brand-primary border border-brand-primary/20">
+              <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full overflow-hidden mr-2 flex-shrink-0">
                 <img
                   src={logoPath}
                   alt={`${data.item.institution} logo`}
@@ -236,25 +240,25 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
             </div>
 
             {/* Title */}
-            <h3 className="text-lg font-bold text-brand-text">
+            <h3 className="text-base sm:text-lg font-bold text-brand-text">
               {data.item.title}
             </h3>
 
             {/* Institution */}
             {data.item.institution && (
-              <p className="text-brand-primary font-medium text-sm">
+              <p className="text-brand-primary font-medium text-xs sm:text-sm">
                 {data.item.institution}
               </p>
             )}
 
             {/* Concise Description */}
-            <p className="text-brand-text-light leading-relaxed text-sm">
+            <p className="text-brand-text-light leading-relaxed text-xs sm:text-sm">
               {getHoverDescription(data.item)}
             </p>
 
             {/* Current status indicator */}
             {data.item.isCurrent && (
-              <div className="flex items-center text-brand-primary text-sm font-medium">
+              <div className="flex items-center text-brand-primary text-xs sm:text-sm font-medium">
                 <div className="w-2 h-2 rounded-full bg-brand-primary mr-2 animate-pulse"></div>
                 Currently Working
               </div>
@@ -274,19 +278,19 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="text-center mb-12"
+        className="text-center mb-8 sm:mb-10 lg:mb-12"
       >
-        <h2 className="text-heading-xl text-brand-text mb-6">
+        <h2 className="text-heading-xl text-brand-text mb-4 sm:mb-6">
           My <span className="gradient-text">Journey</span>
         </h2>
 
         {/* Filter Controls */}
-        <div className="flex justify-center gap-4 mb-8">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 lg:gap-4 mb-6 sm:mb-8">
           {FILTER_OPTIONS.map((filter) => (
             <button
               key={filter.key}
               onClick={() => setFilterCategory(filter.key as any)}
-              className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+              className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${
                 filterCategory === filter.key
                   ? `${filter.color} text-white shadow-organic-lg border-2 border-brand-primary/20`
                   : "bg-brand-beige-light text-brand-text border-2 border-brand-secondary/30 hover:bg-brand-beige-dark hover:border-brand-secondary/50"
@@ -300,7 +304,7 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
 
       {/* Chart Container */}
       <div
-        className="relative bg-gradient-to-br from-brand-beige-light/50 to-brand-beige/50 rounded-2xl p-4 border border-brand-secondary/20"
+        className="relative bg-gradient-to-br from-brand-beige-light/50 to-brand-beige/50 rounded-2xl p-2 sm:p-4 border border-brand-secondary/20"
         style={{
           height: isMobile
             ? `${TIMELINE_CONFIG.CHART_HEIGHT.mobile}px`
@@ -308,7 +312,14 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
         }}
       >
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart margin={{ top: 50, right: 60, left: 20, bottom: 50 }}>
+          <LineChart
+            margin={{
+              top: isMobile ? 30 : 50,
+              right: isMobile ? 30 : 60,
+              left: isMobile ? 10 : 20,
+              bottom: isMobile ? 30 : 50,
+            }}
+          >
             <CartesianGrid
               strokeDasharray="3 3"
               stroke="rgba(107, 114, 128, 0.1)"
@@ -317,7 +328,7 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
               type="number"
               dataKey="year"
               domain={["dataMin - 1", "dataMax + 1"]}
-              tick={{ fontSize: 12, fill: "#6B7280" }}
+              tick={{ fontSize: isMobile ? 10 : 12, fill: "#6B7280" }}
               axisLine={{ stroke: "#6B7280" }}
               tickLine={{ stroke: "#6B7280" }}
               tickFormatter={(value) => Math.round(value).toString()}
@@ -345,7 +356,11 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
                 value: "Timeline (Years)",
                 position: "insideBottom",
                 offset: -10,
-                style: { textAnchor: "middle", fontSize: 14, fill: "#6B7280" },
+                style: {
+                  textAnchor: "middle",
+                  fontSize: isMobile ? 12 : 14,
+                  fill: "#6B7280",
+                },
               }}
             />
             <Tooltip content={<CustomTooltip />} />

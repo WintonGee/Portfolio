@@ -1,19 +1,8 @@
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Axios logo with distinctive blue diagonal bar -->
-  <defs>
-    <linearGradient id="axios-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#5A13F6;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#7C3AED;stop-opacity:1" />
-    </linearGradient>
-  </defs>
-  
-  <!-- Axios text with distinctive A -->
-  <text x="12" y="8" font-family="Arial, sans-serif" font-size="8" font-weight="bold" text-anchor="middle" fill="#1F2937">A</text>
-  <text x="12" y="16" font-family="Arial, sans-serif" font-size="6" font-weight="bold" text-anchor="middle" fill="#1F2937">xios</text>
-  
-  <!-- Blue diagonal bar on the A -->
-  <rect x="8" y="2" width="8" height="1.5" fill="url(#axios-gradient)" transform="rotate(15 12 2.75)"/>
-  
-  <!-- HTTP/API indicator -->
-  <text x="12" y="22" font-family="Arial, sans-serif" font-size="3" font-weight="normal" text-anchor="middle" fill="#6B7280">HTTP</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+   <path
+      fill="#5a29e4" 
+      d="m 34,43.977569 27.379067,-22.912155 0.0385,91.494586 -9.3189,7.74007 -0.15403,-76.091455 z"  />
+   <path
+      fill="#5a29e4" 
+      d="M 96.961687,82.322502 69.582627,105.23466 69.544127,13.74007 78.863017,6 l 0.15403,76.091452 z"  />
 </svg>

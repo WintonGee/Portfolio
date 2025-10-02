@@ -13,7 +13,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="h-screen flex items-center bg-gradient-to-br from-brand-beige via-brand-beige-light to-brand-beige-dark relative overflow-hidden pt-24"
+      className="min-h-screen flex items-center bg-gradient-to-br from-brand-beige via-brand-beige-light to-brand-beige-dark relative overflow-hidden pt-16 sm:pt-20 lg:pt-24"
     >
       {/* Enhanced Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -64,14 +64,14 @@ export default function Hero() {
       </div>
 
       {/* Main Container with Perfect Spacing */}
-      <div className="container mx-auto px-8 py-4 pb-16 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 pb-8 sm:pb-12 lg:pb-16 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center max-w-7xl mx-auto">
           {/* Left Column - Enhanced Personal Section */}
           <motion.div
             initial={{ opacity: 0, x: -60 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="flex flex-col items-center lg:items-start space-y-10"
+            className="flex flex-col items-center lg:items-start space-y-6 sm:space-y-8 lg:space-y-10"
           >
             {/* Professional Photo with Enhanced Styling */}
             <motion.div
@@ -80,12 +80,12 @@ export default function Hero() {
               transition={{ duration: 1, delay: 0.3 }}
               className="relative group"
             >
-              <div className="relative w-64 h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden shadow-organic-2xl ring-4 ring-brand-secondary/20 hover:ring-brand-primary/30 transition-all duration-700">
+              <div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden shadow-organic-2xl ring-4 ring-brand-secondary/20 hover:ring-brand-primary/30 transition-all duration-700">
                 <Image
                   src="/headshot.jpg"
                   alt="Winton Gee - AI/ML Engineer"
-                  width={384}
-                  height={384}
+                  width={320}
+                  height={320}
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700"
                   priority
                 />
@@ -137,14 +137,14 @@ export default function Hero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.5 }}
-              className="text-center lg:text-left space-y-8"
+              className="text-center lg:text-left space-y-4 sm:space-y-6 lg:space-y-8"
             >
               {/* Greeting with Enhanced Typography */}
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.7 }}
-                className="text-2xl text-brand-text font-bold tracking-tight"
+                className="text-xl sm:text-2xl text-brand-text font-bold tracking-tight"
               >
                 Hi, I'm Winton 👋
               </motion.p>
@@ -154,7 +154,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.8 }}
-                className="text-lg text-brand-text-light max-w-md leading-relaxed"
+                className="text-base sm:text-lg text-brand-text-light max-w-md leading-relaxed"
               >
                 Currently building AI solutions at Mercor, specializing in
                 intelligent systems powered by modern frameworks and APIs.
@@ -182,13 +182,13 @@ export default function Hero() {
             initial={{ opacity: 0, x: 60 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.4 }}
-            className="space-y-12"
+            className="space-y-8 sm:space-y-10 lg:space-y-12"
           >
             {/* Enhanced Typography Hierarchy */}
-            <div className="space-y-8">
+            <div className="space-y-4 sm:space-y-6 lg:space-y-8">
               {/* Main Headline with Balanced Typography */}
               <motion.h1
-                className="text-4xl md:text-5xl lg:text-6xl font-bold text-brand-text leading-tight tracking-tight"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-brand-text leading-tight tracking-tight"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.6 }}
@@ -202,7 +202,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.7 }}
-                className="text-2xl md:text-3xl font-light text-brand-text-light leading-tight"
+                className="text-xl sm:text-2xl md:text-3xl font-light text-brand-text-light leading-tight"
               >
                 Building Intelligent Systems
               </motion.h2>
@@ -213,10 +213,10 @@ export default function Hero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.8 }}
-              className="space-y-8"
+              className="space-y-6 sm:space-y-8"
             >
               {/* Enhanced Button Layout */}
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <Button href="/resume/AIML_Resume_WintonGee.pdf" size="lg">
                   View Resume
                 </Button>
@@ -234,7 +234,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.9 }}
-                className="flex items-center justify-center sm:justify-start gap-6"
+                className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6"
               >
                 <a
                   href="https://linkedin.com/in/wintongee"
@@ -264,12 +264,12 @@ export default function Hero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 1.0 }}
-              className="pt-8"
+              className="pt-6 sm:pt-8"
             >
-              <p className="text-base text-brand-text-light mb-6 font-semibold tracking-wide uppercase">
+              <p className="text-sm sm:text-base text-brand-text-light mb-4 sm:mb-6 font-semibold tracking-wide uppercase">
                 Core Expertise
               </p>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-2 sm:gap-3 lg:gap-4 justify-center lg:justify-start">
                 {[
                   "Python",
                   "TypeScript",
@@ -284,7 +284,7 @@ export default function Hero() {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5, delay: 1.1 + index * 0.1 }}
-                    className="px-6 py-3 bg-brand-beige-light text-brand-text text-base font-medium rounded-full shadow-organic border border-brand-secondary/50 hover:bg-gradient-to-r hover:from-brand-primary/10 hover:to-brand-secondary/10 hover:text-brand-primary hover:border-brand-primary hover:shadow-organic-lg transition-all duration-300 cursor-pointer hover:scale-105"
+                    className="px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-3 bg-brand-beige-light text-brand-text text-sm sm:text-base font-medium rounded-full shadow-organic border border-brand-secondary/50 hover:bg-gradient-to-r hover:from-brand-primary/10 hover:to-brand-secondary/10 hover:text-brand-primary hover:border-brand-primary hover:shadow-organic-lg transition-all duration-300 cursor-pointer hover:scale-105"
                   >
                     {tech}
                   </motion.span>

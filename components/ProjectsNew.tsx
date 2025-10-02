@@ -21,10 +21,10 @@ function ProjectItem({ project, index }: ProjectItemProps) {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       viewport={{ once: true }}
-      className="mb-24"
+      className="mb-16 sm:mb-20 lg:mb-24"
     >
       <div
-        className={`grid lg:grid-cols-2 gap-12 items-center ${
+        className={`grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center ${
           !isEven ? "lg:grid-flow-col-dense" : ""
         }`}
       >
@@ -95,21 +95,21 @@ function ProjectItem({ project, index }: ProjectItemProps) {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: index * 0.1 + 0.3 }}
           viewport={{ once: true }}
-          className={`space-y-6 ${
+          className={`space-y-4 sm:space-y-6 ${
             !isEven ? "lg:col-start-1 lg:row-start-1" : ""
           }`}
         >
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-brand-text">
+            <h3 className="text-xl sm:text-2xl font-bold text-brand-text">
               {project.title}
             </h3>
-            <p className="text-lg text-brand-text-light leading-relaxed">
+            <p className="text-base sm:text-lg text-brand-text-light leading-relaxed">
               {project.description}
             </p>
           </div>
 
           {/* Technology Tags */}
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-2 sm:gap-3">
             {project.technologies.map((tech, tagIndex) => (
               <motion.span
                 key={tech.name}
@@ -120,7 +120,7 @@ function ProjectItem({ project, index }: ProjectItemProps) {
                   delay: index * 0.1 + 0.4 + tagIndex * 0.05,
                 }}
                 viewport={{ once: true }}
-                className="px-4 py-2 bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10 text-brand-primary text-sm font-medium rounded-full border border-brand-primary/30"
+                className="px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10 text-brand-primary text-xs sm:text-sm font-medium rounded-full border border-brand-primary/30"
               >
                 {tech.name}
               </motion.span>
@@ -128,12 +128,15 @@ function ProjectItem({ project, index }: ProjectItemProps) {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-wrap gap-4 pt-4">
+          <div className="flex flex-wrap gap-3 sm:gap-4 pt-4">
             {project.links.caseStudy && (
               <Link href={project.links.caseStudy}>
-                <Button size="lg" className="border-2 border-brand-primary/20">
+                <Button
+                  size="md"
+                  className="border-2 border-brand-primary/20 text-sm sm:text-base"
+                >
                   <svg
-                    className="w-5 h-5"
+                    className="w-4 h-4 sm:w-5 sm:h-5"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -151,7 +154,12 @@ function ProjectItem({ project, index }: ProjectItemProps) {
             )}
 
             {project.links.live && (
-              <Button href={project.links.live} variant="outline" size="lg">
+              <Button
+                href={project.links.live}
+                variant="outline"
+                size="md"
+                className="text-sm sm:text-base"
+              >
                 <svg
                   className="w-5 h-5"
                   fill="none"
@@ -170,7 +178,12 @@ function ProjectItem({ project, index }: ProjectItemProps) {
             )}
 
             {project.links.github && (
-              <Button href={project.links.github} variant="outline" size="lg">
+              <Button
+                href={project.links.github}
+                variant="outline"
+                size="md"
+                className="text-sm sm:text-base"
+              >
                 <svg
                   className="w-5 h-5"
                   fill="none"
@@ -205,9 +218,9 @@ export default function ProjectsNew() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="text-center mb-20"
+        className="text-center mb-12 sm:mb-16 lg:mb-20"
       >
-        <h2 className="text-5xl font-bold text-brand-text">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-text">
           Featured <span className="gradient-text">Projects</span>
         </h2>
       </motion.div>
@@ -225,13 +238,13 @@ export default function ProjectsNew() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.3 }}
         viewport={{ once: true }}
-        className="text-center mt-20"
+        className="text-center mt-12 sm:mt-16 lg:mt-20"
       >
-        <div className="glass-effect rounded-2xl p-8 max-w-2xl mx-auto">
-          <h3 className="text-3xl font-bold text-brand-text mb-8">
+        <div className="glass-effect rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto">
+          <h3 className="text-2xl sm:text-3xl font-bold text-brand-text mb-6 sm:mb-8">
             Interested in collaborating?
           </h3>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <Button href="mailto:wintongee@gmail.com" size="lg">
               Get In Touch
             </Button>
