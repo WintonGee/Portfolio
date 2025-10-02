@@ -21,7 +21,7 @@ function ProjectItem({ project, index }: ProjectItemProps) {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       viewport={{ once: true }}
-      className="mb-16 sm:mb-20 lg:mb-24"
+      className=""
     >
       <div
         className={`grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center ${
@@ -247,7 +247,7 @@ export default function ProjectsNew() {
       </motion.div>
 
       {/* Projects List */}
-      <div className="space-y-8">
+      <div className="space-y-16 sm:space-y-20 lg:space-y-24">
         {projects.map((project, index) => (
           <ProjectItem key={project.id} project={project} index={index} />
         ))}
