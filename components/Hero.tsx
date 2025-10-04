@@ -4,12 +4,11 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Button from "./ui/Button";
 import {
-  CodeBracketIcon,
-  BuildingOfficeIcon,
   MapPinIcon,
   PhoneIcon,
   EnvelopeIcon,
 } from "@heroicons/react/24/outline";
+import { FaLinkedin, FaGithub } from "react-icons/fa";
 
 export default function Hero() {
   return (
@@ -169,7 +168,14 @@ export default function Hero() {
                 className="text-lg sm:text-xl text-brand-text-light max-w-lg leading-relaxed font-medium"
               >
                 Currently building AI solutions at{" "}
-                <span className="text-brand-primary font-semibold">Mercor</span>
+                <a
+                  href="https://mercor.io"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-brand-primary font-semibold hover:text-brand-secondary transition-colors duration-300 hover:underline"
+                >
+                  Mercor
+                </a>
                 , specializing in intelligent systems powered by modern
                 frameworks and APIs.
               </motion.p>
@@ -284,7 +290,7 @@ export default function Hero() {
                   className="group flex items-center gap-2 text-brand-text-light hover:text-brand-primary transition-all duration-300 hover:scale-105"
                   aria-label="Visit LinkedIn profile"
                 >
-                  <BuildingOfficeIcon className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
+                  <FaLinkedin className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
                   <span className="text-base font-medium">LinkedIn</span>
                 </a>
                 <a
@@ -294,7 +300,7 @@ export default function Hero() {
                   className="group flex items-center gap-2 text-brand-text-light hover:text-brand-primary transition-all duration-300 hover:scale-105"
                   aria-label="Visit GitHub profile"
                 >
-                  <CodeBracketIcon className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
+                  <FaGithub className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
                   <span className="text-base font-medium">GitHub</span>
                 </a>
               </motion.div>
