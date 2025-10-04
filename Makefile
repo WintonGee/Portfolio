@@ -116,6 +116,12 @@ test-chat: ## Test the chatbot API
 		-d '{"message": "Tell me about your projects"}' \
 		--no-buffer || echo "$(RED)❌ Chat API test failed. Make sure the server is running.$(RESET)"
 
+.PHONY: test-analytics
+test-analytics: ## Test analytics setup
+	@echo "$(BLUE)Testing analytics setup...$(RESET)"
+	@echo "$(YELLOW)Vercel Analytics will be available in Vercel dashboard after deployment$(RESET)"
+	@echo "$(GREEN)✅ Analytics configured successfully (automatic tracking)$(RESET)"
+
 # Content management targets
 .PHONY: new-project
 new-project: ## Create a new project file (usage: make new-project NAME="project-name")

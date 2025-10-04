@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import ServiceWorker from "@/components/ServiceWorker";
-import PerformanceMonitor from "@/components/PerformanceMonitor";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -79,7 +80,8 @@ export default function RootLayout({
       <body className={plusJakartaSans.className}>
         {children}
         <ServiceWorker />
-        <PerformanceMonitor />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
