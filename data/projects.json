@@ -285,7 +285,7 @@
   {
     "id": "foodmanager",
     "title": "FoodManager (PantryCraft)",
-    "description": "A web application that helps users manage their ingredients efficiently and generate AI-powered recipe suggestions based on available items. Built with React.js, MongoDB, and OpenAI API to reduce food waste and simplify meal planning.",
+    "description": "A web application that helps users manage their ingredients efficiently and generate AI-powered recipe suggestions based on available items. Built with React.js, MongoDB, and OpenAI to reduce food waste and simplify meal planning.",
     "imageUrl": "/images/projects/foodmanager/foodmanager-cover.png",
     "tags": [
       "Web Development",
@@ -322,7 +322,7 @@
       },
       {
         "category": "ai",
-        "name": "OpenAI API"
+        "name": "OpenAI"
       },
       {
         "category": "backend",
@@ -350,7 +350,7 @@
       "scale": "Full-stack web application with database integration"
     },
     "challenges": [
-      "Integrating OpenAI API for intelligent recipe suggestions",
+      "Integrating OpenAI for intelligent recipe suggestions",
       "Designing intuitive user interface for ingredient management",
       "Implementing responsive design for mobile and desktop",
       "Database schema design for flexible ingredient storage"

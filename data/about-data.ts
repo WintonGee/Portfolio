@@ -27,7 +27,7 @@ export const TECHNOLOGIES = {
     },
     [
       {
-        name: "OpenAI API",
+        name: "OpenAI",
         logo: "/logos/tech/openai.svg",
       },
       {

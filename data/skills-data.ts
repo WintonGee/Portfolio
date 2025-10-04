@@ -42,8 +42,8 @@ export const SKILLS_DATA: Record<string, SkillData> = {
       },
     ],
   },
-  "OpenAI API": {
-    name: "OpenAI API",
+  OpenAI: {
+    name: "OpenAI",
     logo: "/logos/tech/openai.svg",
     description:
       "Integration with OpenAI's GPT models for natural language processing, content generation, and intelligent automation.",

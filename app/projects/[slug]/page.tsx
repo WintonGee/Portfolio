@@ -94,14 +94,14 @@ const projects = [
     slug: "foodmanager",
     title: "FoodManager (PantryCraft)",
     summary:
-      "A web application that helps users manage their ingredients efficiently and generate AI-powered recipe suggestions based on available items. Built with React.js, MongoDB, and OpenAI API to reduce food waste and simplify meal planning.",
+      "A web application that helps users manage their ingredients efficiently and generate AI-powered recipe suggestions based on available items. Built with React.js, MongoDB, and OpenAI to reduce food waste and simplify meal planning.",
     technologies: [
       "React.js",
       "Material-UI",
       "Node.js",
       "Express.js",
       "MongoDB",
-      "OpenAI API",
+      "OpenAI",
       "JavaScript",
       "Axios",
     ],

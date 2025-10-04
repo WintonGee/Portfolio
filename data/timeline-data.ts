@@ -25,7 +25,7 @@ export const timelineData: TimelineItem[] = [
     year: "March 2025 - April 2025",
     title: "Software Engineer",
     description:
-      "Trained and refined AI models to improve their backend code generation capabilities using Python and LLMs. Developed and evaluated backend code generation in Python and Java for three top foundational model labs, increasing model reliability.",
+      "Trained and refined AI models to improve their backend code generation capabilities using Python and LLMs.",
     institution: "AfterQuery Experts",
     category: "professional",
     type: "Contract",
