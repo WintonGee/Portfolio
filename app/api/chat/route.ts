@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import { StreamingTextResponse } from "ai";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { readFileSync } from "fs";
+import { readFileSync, existsSync } from "fs";
 import { join } from "path";
 
 // Load environment variables
@@ -27,6 +27,21 @@ interface EmbeddingData {
 
 async function loadEmbeddings(): Promise<EmbeddingData[]> {
   try {
+    // Try to load chatbot-specific embeddings first
+    const chatbotEmbeddingsPath = join(
+      process.cwd(),
+      "data",
+      "chatbot-embeddings.json"
+    );
+    if (existsSync(chatbotEmbeddingsPath)) {
+      const chatbotEmbeddingsData = readFileSync(
+        chatbotEmbeddingsPath,
+        "utf-8"
+      );
+      return JSON.parse(chatbotEmbeddingsData);
+    }
+
+    // Fallback to general embeddings
     const embeddingsPath = join(process.cwd(), "data", "embeddings.json");
     const embeddingsData = readFileSync(embeddingsPath, "utf-8");
     return JSON.parse(embeddingsData);
@@ -40,7 +55,10 @@ async function getRelevantContext(
   genAI: GoogleGenerativeAI,
   userMessage: string,
   embeddings: EmbeddingData[]
-): Promise<string> {
+): Promise<{
+  context: string;
+  sources: Array<{ title: string; filePath: string; similarity: number }>;
+}> {
   try {
     // Generate embedding for user message
     const model = genAI.getGenerativeModel({ model: "text-embedding-004" });
@@ -61,10 +79,20 @@ async function getRelevantContext(
     // Combine relevant content
     const context = relevantItems.map((item) => item.content).join("\n\n");
 
-    return context;
+    // Extract source information
+    const sources = relevantItems.map((item) => ({
+      title: item.metadata.title,
+      filePath: item.metadata.filePath,
+      similarity: item.similarity,
+    }));
+
+    return { context, sources };
   } catch (error) {
     console.error("Error getting relevant context:", error);
-    return "Portfolio information not available.";
+    return {
+      context: "Portfolio information not available.",
+      sources: [],
+    };
   }
 }
 
@@ -92,7 +120,7 @@ export async function POST(request: NextRequest) {
 
     // Load embeddings and get relevant context
     const embeddings = await loadEmbeddings();
-    const relevantContext = await getRelevantContext(
+    const { context: relevantContext, sources } = await getRelevantContext(
       genAI,
       message,
       embeddings
@@ -100,16 +128,26 @@ export async function POST(request: NextRequest) {
 
     // Create prompt with context
     const prompt = `
-You are Winton Gee, and you are responding directly to someone who is asking you questions about your work and experience. Use the following context about yourself to answer questions accurately and personally.
+You are Winton Gee, an AI/ML Engineer currently working at Mercor. You are responding directly to someone asking questions about your work and experience.
+
+IMPORTANT INSTRUCTIONS:
+- ONLY use information provided in the context below
+- Be conversational, friendly, and professional
+- Structure your responses clearly with good formatting
+- Use first person ("I", "my", "me") naturally
+- Provide specific details when available
+- If you don't know something, say "I don't have that information readily available"
+- DO NOT make up or assume any information not explicitly provided
+- Be honest about what you know and don't know
+- Use proper formatting with bullet points, bold text, or paragraphs when appropriate
+- Make responses engaging and informative
 
 Context about Winton:
 ${relevantContext}
 
 User question: ${message}
 
-Respond as if you are Winton speaking directly to the person. Use first person ("I", "my", "me") and be conversational, friendly, and authentic. Share your experiences, projects, and skills as if you're having a personal conversation. If the user asks about something not covered in the context, politely let them know and suggest what information you can share about your work and experience.
-
-Keep your response natural, engaging, and personal. Focus on your skills, projects, and experience when relevant.
+Respond as Winton, using only the information provided in the context. Structure your response clearly and provide specific details when available. If the question is about something not covered in the context, politely explain that you don't have that specific information available and suggest what you can share instead.
 `;
 
     // Generate response using Gemini
@@ -128,6 +166,10 @@ Keep your response natural, engaging, and personal. Focus on your skills, projec
               )
             );
           }
+          // Send sources information at the end
+          controller.enqueue(
+            encoder.encode(`data: ${JSON.stringify({ sources: sources })}\n\n`)
+          );
           controller.enqueue(encoder.encode("data: [DONE]\n\n"));
           controller.close();
         } catch (error) {
@@ -157,4 +199,3 @@ Keep your response natural, engaging, and personal. Focus on your skills, projec
     return new Response("Internal Server Error", { status: 500 });
   }
 }
-

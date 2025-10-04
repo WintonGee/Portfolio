@@ -1,0 +1,19 @@
+{
+  "totalEmbeddings": 2,
+  "categories": [
+    "personal"
+  ],
+  "generatedAt": "2025-10-04T06:18:23.059Z",
+  "files": [
+    {
+      "path": "data/chatbot/personal/basic-info.md",
+      "category": "personal",
+      "title": "basic-info"
+    },
+    {
+      "path": "data/chatbot/personal/education.md",
+      "category": "personal",
+      "title": "education"
+    }
+  ]
+}

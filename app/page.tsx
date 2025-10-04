@@ -63,14 +63,14 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* Chatbot Section - Hidden but functional */}
+      {/* Chatbot Section */}
       <motion.section
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
         id="chat"
-        className="hidden relative py-16 sm:py-24 lg:py-32 bg-gradient-to-b from-brand-beige to-brand-beige-light"
+        className="relative py-16 sm:py-24 lg:py-32 bg-gradient-to-b from-brand-beige to-brand-beige-light"
       >
         {/* Section divider */}
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-secondary/60 to-transparent"></div>
@@ -99,10 +99,8 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* Floating Chat Button - Hidden but functional */}
-      <div className="hidden">
-        <FloatingChatButton />
-      </div>
+      {/* Floating Chat Button */}
+      <FloatingChatButton />
     </main>
   );
 }
