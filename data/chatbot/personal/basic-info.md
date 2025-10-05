@@ -2,13 +2,9 @@
 
 I'm Winton Gee, an AI/ML Engineer currently working at Mercor in San Francisco, CA. I specialize in building intelligent systems with modern frameworks and APIs.
 
-## Contact Information
+## About Me
 
-- **Email**: wintongee@gmail.com
-- **Phone**: (415) 806-3004
-- **LinkedIn**: https://linkedin.com/in/wintongee
-- **GitHub**: https://github.com/wintongee
-- **Portfolio**: https://wintongee.com
+I'm an AI/ML Engineer with a strong foundation in computer science and data science, currently building intelligent systems at Mercor. I specialize in developing AI solutions with modern frameworks and APIs, with a focus on ethical AI development and intelligent system architecture.
 
 ## Current Status
 

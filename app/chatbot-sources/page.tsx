@@ -8,6 +8,12 @@ interface SourceFile {
   content: string;
   title: string;
   category: string;
+  lastModified: string;
+  size: number;
+  lines: number;
+  words: number;
+  description: string;
+  tags: string[];
 }
 
 export default function ChatbotSources() {
@@ -23,28 +29,27 @@ export default function ChatbotSources() {
   const [isCopying, setIsCopying] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  useEffect(() => {
-    // Load all markdown files from the chatbot data directory
-    const loadSources = async () => {
-      try {
-        setError(null);
-        const response = await fetch("/api/chatbot-sources");
-        if (response.ok) {
-          const data = await response.json();
-          setSources(data);
-        } else {
-          setError(
-            `Failed to load sources: ${response.status} ${response.statusText}`
-          );
-        }
-      } catch (error) {
-        console.error("Error loading sources:", error);
-        setError("Failed to load chatbot sources. Please try again later.");
-      } finally {
-        setLoading(false);
+  const loadSources = async () => {
+    try {
+      setError(null);
+      const response = await fetch("/api/chatbot-sources");
+      if (response.ok) {
+        const data = await response.json();
+        setSources(data);
+      } else {
+        setError(
+          `Failed to load sources: ${response.status} ${response.statusText}`
+        );
       }
-    };
+    } catch (error) {
+      console.error("Error loading sources:", error);
+      setError("Failed to load chatbot sources. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     loadSources();
   }, []);
 
@@ -72,6 +77,7 @@ export default function ChatbotSources() {
   const categories = Array.from(
     new Set(sources.map((source) => source.category))
   );
+
   const filteredSources = sources.filter((source) => {
     const matchesCategory =
       selectedCategory === "all" || source.category === selectedCategory;
@@ -79,7 +85,11 @@ export default function ChatbotSources() {
       searchQuery === "" ||
       source.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       source.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      source.path.toLowerCase().includes(searchQuery.toLowerCase());
+      source.path.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      source.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      source.tags.some((tag) =>
+        tag.toLowerCase().includes(searchQuery.toLowerCase())
+      );
     return matchesCategory && matchesSearch;
   });
 
@@ -346,6 +356,30 @@ export default function ChatbotSources() {
 
               {/* Card Content */}
               <div className="p-4 flex-1 flex flex-col">
+                {/* Description */}
+                <div className="mb-3">
+                  <p className="text-sm text-brand-text-light/80 italic">
+                    {source.description}
+                  </p>
+                </div>
+
+                {/* Tags */}
+                <div className="mb-3 flex flex-wrap gap-1">
+                  {source.tags.slice(0, 3).map((tag, tagIndex) => (
+                    <span
+                      key={tagIndex}
+                      className="text-xs bg-gradient-to-r from-brand-primary/20 to-brand-secondary/20 text-brand-primary-dark px-2 py-1 rounded-full border border-brand-primary/30"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                  {source.tags.length > 3 && (
+                    <span className="text-xs text-brand-text-light/60 px-2 py-1">
+                      +{source.tags.length - 3} more
+                    </span>
+                  )}
+                </div>
+
                 <div className="prose prose-sm max-w-none text-brand-text-light flex-1 flex flex-col">
                   <div className="whitespace-pre-wrap text-sm leading-relaxed bg-brand-beige/30 p-3 rounded-lg border border-brand-secondary/20 flex-1 h-full flex flex-col justify-start">
                     {source.content.length > 300
@@ -359,12 +393,19 @@ export default function ChatbotSources() {
                   <div className="flex items-center gap-3">
                     <span className="flex items-center gap-1">
                       <span className="w-1 h-1 bg-brand-primary/60 rounded-full"></span>
-                      {source.content.length} chars
+                      {source.words} words
                     </span>
                     <span className="flex items-center gap-1">
                       <span className="w-1 h-1 bg-brand-secondary/60 rounded-full"></span>
-                      {source.content.split("\n").length} lines
+                      {source.lines} lines
                     </span>
+                    <span className="flex items-center gap-1">
+                      <span className="w-1 h-1 bg-brand-primary/40 rounded-full"></span>
+                      {(source.size / 1024).toFixed(1)} KB
+                    </span>
+                  </div>
+                  <div className="text-xs text-brand-text-light/50">
+                    {new Date(source.lastModified).toLocaleDateString()}
                   </div>
                 </div>
               </div>

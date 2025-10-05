@@ -1,10 +1,18 @@
 {
-  "totalEmbeddings": 2,
+  "totalEmbeddings": 5,
   "categories": [
-    "personal"
+    "contact",
+    "personal",
+    "professional",
+    "skills"
   ],
-  "generatedAt": "2025-10-04T06:18:23.059Z",
+  "generatedAt": "2025-10-05T20:28:25.977Z",
   "files": [
+    {
+      "path": "data/chatbot/contact/availability.md",
+      "category": "contact",
+      "title": "availability"
+    },
     {
       "path": "data/chatbot/personal/basic-info.md",
       "category": "personal",
@@ -14,6 +22,16 @@
       "path": "data/chatbot/personal/education.md",
       "category": "personal",
       "title": "education"
+    },
+    {
+      "path": "data/chatbot/professional/summary.md",
+      "category": "professional",
+      "title": "summary"
+    },
+    {
+      "path": "data/chatbot/skills/technical.md",
+      "category": "skills",
+      "title": "technical"
     }
   ]
 }
