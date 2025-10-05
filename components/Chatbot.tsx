@@ -22,8 +22,7 @@ export default function Chatbot() {
     {
       id: "1",
       role: "assistant",
-      content:
-        "Hi there! I'm Winton, and I'm excited to chat with you about my work, projects, and experience. Feel free to ask me anything!",
+      content: "Hi! I'm Winton. Ask me about my work, projects, or experience.",
       timestamp: new Date(),
     },
   ]);
