@@ -117,7 +117,7 @@ const nextConfig = {
   },
 
   // Optimize build performance
-  outputFileTracing: true,
+  outputFileTracing: false,
 
   // Enable static optimization
   trailingSlash: false,
