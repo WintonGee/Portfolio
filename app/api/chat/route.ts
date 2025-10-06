@@ -59,7 +59,29 @@ async function loadEmbeddings(): Promise<EmbeddingData[]> {
       console.log("Files in public directory:", publicFiles);
     }
 
-    // Try the public directory first (for Vercel deployment)
+    // Try the API directory first (for Vercel deployment)
+    const apiPath = join(
+      process.cwd(),
+      "app",
+      "api",
+      "chatbot-embeddings.json"
+    );
+    console.log("Looking for embeddings in API directory at:", apiPath);
+    console.log("API file exists:", existsSync(apiPath));
+
+    if (existsSync(apiPath)) {
+      console.log("Loading embeddings from API directory:", apiPath);
+      const embeddingsData = readFileSync(apiPath, "utf-8");
+      const parsed = JSON.parse(embeddingsData);
+      console.log(
+        "Successfully loaded",
+        parsed.length,
+        "embeddings from API directory"
+      );
+      return parsed;
+    }
+
+    // Try the public directory (alternative for Vercel deployment)
     const publicPath = join(process.cwd(), "public", "chatbot-embeddings.json");
     console.log("Looking for embeddings in public at:", publicPath);
     console.log("Public file exists:", existsSync(publicPath));

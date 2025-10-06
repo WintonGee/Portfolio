@@ -113,15 +113,8 @@ const nextConfig = {
   // Enable SWC minification
   swcMinify: true,
 
-  // Enable file tracing but exclude problematic directories
-  outputFileTracing: true,
-  outputFileTracingExcludes: {
-    "*": [
-      "node_modules/@swc/core-*",
-      "node_modules/@next/swc-*",
-      "node_modules/next/dist/compiled/@next/swc-*",
-    ],
-  },
+  // Disable build traces collection to prevent micromatch stack overflow
+  outputFileTracing: false,
 
   // Enable static optimization
   trailingSlash: false,
