@@ -74,7 +74,6 @@ const nextConfig = {
       );
     }
 
-
     // Simplified bundle optimization to prevent micromatch issues
     if (!dev && !isServer) {
       config.optimization.splitChunks = {

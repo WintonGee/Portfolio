@@ -29,7 +29,7 @@ async function loadEmbeddings(): Promise<EmbeddingData[]> {
   try {
     // Debug: Log current working directory and available files
     console.log("Current working directory:", process.cwd());
-    
+
     // Try multiple possible paths for embeddings
     const possiblePaths = [
       join(process.cwd(), "data", "chatbot-embeddings.json"),
@@ -42,7 +42,7 @@ async function loadEmbeddings(): Promise<EmbeddingData[]> {
     for (const path of possiblePaths) {
       console.log("Looking for embeddings at:", path);
       console.log("File exists:", existsSync(path));
-      
+
       if (existsSync(path)) {
         console.log("Loading embeddings from:", path);
         const embeddingsData = readFileSync(path, "utf-8");
