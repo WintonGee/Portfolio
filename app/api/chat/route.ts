@@ -43,8 +43,16 @@ async function loadEmbeddings(): Promise<EmbeddingData[]> {
 
     // Fallback to general embeddings
     const embeddingsPath = join(process.cwd(), "data", "embeddings.json");
-    const embeddingsData = readFileSync(embeddingsPath, "utf-8");
-    return JSON.parse(embeddingsData);
+    if (existsSync(embeddingsPath)) {
+      const embeddingsData = readFileSync(embeddingsPath, "utf-8");
+      return JSON.parse(embeddingsData);
+    }
+
+    // If neither file exists, return empty array
+    console.warn(
+      "No embeddings files found. Chatbot will work without context."
+    );
+    return [];
   } catch (error) {
     console.error("Error loading embeddings:", error);
     return [];
@@ -60,6 +68,14 @@ async function getRelevantContext(
   sources: Array<{ title: string; filePath: string; similarity: number }>;
 }> {
   try {
+    // If no embeddings available, return empty context
+    if (!embeddings || embeddings.length === 0) {
+      return {
+        context: "Portfolio information not available.",
+        sources: [],
+      };
+    }
+
     // Generate embedding for user message
     const model = genAI.getGenerativeModel({ model: "text-embedding-004" });
     const userEmbedding = await model.embedContent(userMessage);
