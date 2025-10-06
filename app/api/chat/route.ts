@@ -3,6 +3,7 @@ import { StreamingTextResponse } from "ai";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { readFileSync, existsSync } from "fs";
 import { join } from "path";
+import { EMBEDDINGS_DATA } from "../../../lib/embeddings";
 
 // Load environment variables
 import { config } from "dotenv";
@@ -13,115 +14,26 @@ interface EmbeddingData {
   content: string;
   metadata: {
     title: string;
-    description: string;
-    tags: string[];
-    date: string;
-    featured?: boolean;
-    liveUrl?: string;
-    githubUrl?: string;
-    imageUrl?: string;
+    category: string;
     filePath: string;
+    type: string;
+    lastUpdated: string;
   };
   embedding: number[];
 }
 
 async function loadEmbeddings(): Promise<EmbeddingData[]> {
   try {
-    // Debug: Log current working directory and available files
-    console.log("Current working directory:", process.cwd());
-
-    // List all files in the root directory for debugging
-    try {
-      const fs = require("fs");
-      const rootFiles = fs.readdirSync(process.cwd());
-      console.log("Files in root directory:", rootFiles);
-    } catch (error) {
-      console.log("Error reading root directory:", error);
-    }
-
-    // Check if data directory exists (same as chatbot-sources API)
-    const dataDir = join(process.cwd(), "data");
-    console.log("Data directory exists:", existsSync(dataDir));
-
-    if (existsSync(dataDir)) {
-      const fs = require("fs");
-      const dataFiles = fs.readdirSync(dataDir);
-      console.log("Files in data directory:", dataFiles);
-    }
-
-    // Check if public directory exists
-    const publicDir = join(process.cwd(), "public");
-    console.log("Public directory exists:", existsSync(publicDir));
-
-    if (existsSync(publicDir)) {
-      const fs = require("fs");
-      const publicFiles = fs.readdirSync(publicDir);
-      console.log("Files in public directory:", publicFiles);
-    }
-
-    // Try the API directory first (for Vercel deployment)
-    const apiPath = join(
-      process.cwd(),
-      "app",
-      "api",
-      "chatbot-embeddings.json"
+    // Use embedded data (always available)
+    console.log("Loading embedded embeddings data...");
+    console.log(
+      "Successfully loaded",
+      EMBEDDINGS_DATA.length,
+      "embeddings from embedded data"
     );
-    console.log("Looking for embeddings in API directory at:", apiPath);
-    console.log("API file exists:", existsSync(apiPath));
-
-    if (existsSync(apiPath)) {
-      console.log("Loading embeddings from API directory:", apiPath);
-      const embeddingsData = readFileSync(apiPath, "utf-8");
-      const parsed = JSON.parse(embeddingsData);
-      console.log(
-        "Successfully loaded",
-        parsed.length,
-        "embeddings from API directory"
-      );
-      return parsed;
-    }
-
-    // Try the public directory (alternative for Vercel deployment)
-    const publicPath = join(process.cwd(), "public", "chatbot-embeddings.json");
-    console.log("Looking for embeddings in public at:", publicPath);
-    console.log("Public file exists:", existsSync(publicPath));
-
-    if (existsSync(publicPath)) {
-      console.log("Loading embeddings from public directory:", publicPath);
-      const embeddingsData = readFileSync(publicPath, "utf-8");
-      const parsed = JSON.parse(embeddingsData);
-      console.log(
-        "Successfully loaded",
-        parsed.length,
-        "embeddings from public"
-      );
-      return parsed;
-    }
-
-    // Fallback to data directory (for local development)
-    const embeddingsPath = join(
-      process.cwd(),
-      "data",
-      "chatbot-embeddings.json"
-    );
-    console.log("Looking for embeddings at:", embeddingsPath);
-    console.log("File exists:", existsSync(embeddingsPath));
-
-    if (existsSync(embeddingsPath)) {
-      console.log("Loading embeddings from:", embeddingsPath);
-      const embeddingsData = readFileSync(embeddingsPath, "utf-8");
-      const parsed = JSON.parse(embeddingsData);
-      console.log("Successfully loaded", parsed.length, "embeddings");
-      return parsed;
-    }
-
-    // If no file exists, return empty array
-    console.warn(
-      "No embeddings files found. Chatbot will work without context."
-    );
-    return [];
+    return EMBEDDINGS_DATA;
   } catch (error) {
-    console.error("Error loading embeddings:", error);
+    console.error("Error loading embedded embeddings:", error);
     return [];
   }
 }
