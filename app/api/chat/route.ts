@@ -30,6 +30,15 @@ async function loadEmbeddings(): Promise<EmbeddingData[]> {
     // Debug: Log current working directory and available files
     console.log("Current working directory:", process.cwd());
 
+    // List all files in the root directory for debugging
+    try {
+      const fs = require("fs");
+      const rootFiles = fs.readdirSync(process.cwd());
+      console.log("Files in root directory:", rootFiles);
+    } catch (error) {
+      console.log("Error reading root directory:", error);
+    }
+
     // Check if data directory exists (same as chatbot-sources API)
     const dataDir = join(process.cwd(), "data");
     console.log("Data directory exists:", existsSync(dataDir));
@@ -38,6 +47,16 @@ async function loadEmbeddings(): Promise<EmbeddingData[]> {
       const fs = require("fs");
       const dataFiles = fs.readdirSync(dataDir);
       console.log("Files in data directory:", dataFiles);
+    }
+
+    // Check if public directory exists
+    const publicDir = join(process.cwd(), "public");
+    console.log("Public directory exists:", existsSync(publicDir));
+
+    if (existsSync(publicDir)) {
+      const fs = require("fs");
+      const publicFiles = fs.readdirSync(publicDir);
+      console.log("Files in public directory:", publicFiles);
     }
 
     // Try the public directory first (for Vercel deployment)
