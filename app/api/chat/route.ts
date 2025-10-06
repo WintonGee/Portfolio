@@ -30,24 +30,31 @@ async function loadEmbeddings(): Promise<EmbeddingData[]> {
     // Debug: Log current working directory and available files
     console.log("Current working directory:", process.cwd());
 
-    // Try multiple possible paths for embeddings
-    const possiblePaths = [
-      join(process.cwd(), "data", "chatbot-embeddings.json"),
-      join(process.cwd(), "data", "embeddings.json"),
-      join(process.cwd(), "public", "chatbot-embeddings.json"),
-      join(process.cwd(), ".next", "server", "data", "chatbot-embeddings.json"),
-      join(process.cwd(), ".next", "server", "data", "embeddings.json"),
-    ];
+    // Check if data directory exists (same as chatbot-sources API)
+    const dataDir = join(process.cwd(), "data");
+    console.log("Data directory exists:", existsSync(dataDir));
 
-    for (const path of possiblePaths) {
-      console.log("Looking for embeddings at:", path);
-      console.log("File exists:", existsSync(path));
+    if (existsSync(dataDir)) {
+      const fs = require("fs");
+      const dataFiles = fs.readdirSync(dataDir);
+      console.log("Files in data directory:", dataFiles);
+    }
 
-      if (existsSync(path)) {
-        console.log("Loading embeddings from:", path);
-        const embeddingsData = readFileSync(path, "utf-8");
-        return JSON.parse(embeddingsData);
-      }
+    // Try the same path that works for chatbot-sources API
+    const embeddingsPath = join(
+      process.cwd(),
+      "data",
+      "chatbot-embeddings.json"
+    );
+    console.log("Looking for embeddings at:", embeddingsPath);
+    console.log("File exists:", existsSync(embeddingsPath));
+
+    if (existsSync(embeddingsPath)) {
+      console.log("Loading embeddings from:", embeddingsPath);
+      const embeddingsData = readFileSync(embeddingsPath, "utf-8");
+      const parsed = JSON.parse(embeddingsData);
+      console.log("Successfully loaded", parsed.length, "embeddings");
+      return parsed;
     }
 
     // If no file exists, return empty array
