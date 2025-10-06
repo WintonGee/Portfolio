@@ -147,7 +147,7 @@ const nextConfig = {
         "./data/chatbot/professional/tribot-software-developer.md",
         "./data/chatbot/professional/trustyfaq-project.md",
         "./data/chatbot/skills/detailed-skills.md",
-        "./data/chatbot/skills/technical.md"
+        "./data/chatbot/skills/technical.md",
       ],
     },
   },
