@@ -127,7 +127,28 @@ const nextConfig = {
     // Include data folder in serverless function bundle
     outputFileTracingIncludes: {
       "/api/chat": ["./data/chatbot-embeddings.json"],
-      "/api/chatbot-sources": ["./data/**/*"],
+      "/api/chatbot-sources": [
+        "./data/chatbot/contact/availability.md",
+        "./data/chatbot/personal/basic-info.md",
+        "./data/chatbot/personal/education.md",
+        "./data/chatbot/professional/achievements.md",
+        "./data/chatbot/professional/afterquery-software-engineer.md",
+        "./data/chatbot/professional/ai-ethics-research.md",
+        "./data/chatbot/professional/cochat-founder.md",
+        "./data/chatbot/professional/cochat-project.md",
+        "./data/chatbot/professional/foodmanager-project.md",
+        "./data/chatbot/professional/linkedin-apprentice.md",
+        "./data/chatbot/professional/mercor-ai-engineer.md",
+        "./data/chatbot/professional/portfolio-project.md",
+        "./data/chatbot/professional/projects.md",
+        "./data/chatbot/professional/ricoh-software-engineer-intern.md",
+        "./data/chatbot/professional/square-apprentice.md",
+        "./data/chatbot/professional/summary.md",
+        "./data/chatbot/professional/tribot-software-developer.md",
+        "./data/chatbot/professional/trustyfaq-project.md",
+        "./data/chatbot/skills/detailed-skills.md",
+        "./data/chatbot/skills/technical.md"
+      ],
     },
   },
 };
