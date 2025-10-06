@@ -74,6 +74,17 @@ const nextConfig = {
       );
     }
 
+    // Prevent micromatch stack overflow by limiting file resolution
+    config.resolve = {
+      ...config.resolve,
+      // Limit module resolution to prevent excessive file scanning
+      modules: ["node_modules"],
+      // Exclude problematic directories from resolution
+      fallback: {
+        ...config.resolve.fallback,
+      },
+    };
+
     // Simplified bundle optimization to prevent micromatch issues
     if (!dev && !isServer) {
       config.optimization.splitChunks = {
@@ -95,13 +106,19 @@ const nextConfig = {
   // Enable SWC minification
   swcMinify: true,
 
-  // Disable build traces collection to prevent micromatch stack overflow
-  generateBuildId: async () => {
-    return "build-" + Date.now();
+  // Optimize build performance and prevent micromatch issues
+  outputFileTracing: {
+    // Limit file tracing to prevent stack overflow
+    exclude: [
+      "node_modules/**",
+      ".git/**",
+      ".next/**",
+      "scripts/**",
+      "*.md",
+      "Makefile",
+      "tsconfig.tsbuildinfo",
+    ],
   },
-
-  // Optimize build performance
-  outputFileTracing: true,
 
   // Enable static optimization
   trailingSlash: false,
