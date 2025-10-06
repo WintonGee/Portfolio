@@ -123,6 +123,12 @@ test-analytics: ## Test analytics setup
 	@echo "$(GREEN)✅ Analytics configured successfully (automatic tracking)$(RESET)"
 
 # Content management targets
+.PHONY: generate-chatbot-embeddings
+generate-chatbot-embeddings: ## Generate embeddings for chatbot data
+	@echo "$(BLUE)Generating chatbot embeddings...$(RESET)"
+	@node scripts/generate-chatbot-embeddings.js
+	@echo "$(GREEN)✅ Chatbot embeddings generated$(RESET)"
+
 .PHONY: new-project
 new-project: ## Create a new project file (usage: make new-project NAME="project-name")
 	@if [ -z "$(NAME)" ]; then \

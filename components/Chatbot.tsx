@@ -1,12 +1,20 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { motion } from "framer-motion";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface Message {
   id: string;
   role: "user" | "assistant";
   content: string;
   timestamp: Date;
+  sources?: Array<{
+    title: string;
+    filePath: string;
+    similarity: number;
+  }>;
 }
 
 export default function Chatbot() {
@@ -14,14 +22,18 @@ export default function Chatbot() {
     {
       id: "1",
       role: "assistant",
-      content:
-        "Hi there! I'm Winton, and I'm excited to chat with you about my work, projects, and experience. Feel free to ask me anything!",
+      content: "Hi! I'm Winton. Ask me about my work, projects, or experience.",
       timestamp: new Date(),
     },
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [sourcesButtonClicked, setSourcesButtonClicked] = useState(false);
+  const [expandedSources, setExpandedSources] = useState<Set<string>>(
+    new Set()
+  );
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
 
   const quickSelectOptions = [
     "Tell me about your AI/ML experience",
@@ -30,11 +42,38 @@ export default function Chatbot() {
   ];
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    // Use setTimeout to ensure the DOM has updated
+    setTimeout(() => {
+      if (messagesContainerRef.current) {
+        messagesContainerRef.current.scrollTo({
+          top: messagesContainerRef.current.scrollHeight,
+          behavior: "smooth",
+        });
+      }
+    }, 100);
   };
 
   const handleQuickSelect = (option: string) => {
     setInput(option);
+  };
+
+  const handleSourcesClick = () => {
+    setSourcesButtonClicked(true);
+    window.open("/chatbot-sources", "_blank");
+    // Reset the visual feedback after a short delay
+    setTimeout(() => setSourcesButtonClicked(false), 300);
+  };
+
+  const toggleSourcesExpansion = (messageId: string) => {
+    setExpandedSources((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(messageId)) {
+        newSet.delete(messageId);
+      } else {
+        newSet.add(messageId);
+      }
+      return newSet;
+    });
   };
 
   useEffect(() => {
@@ -82,6 +121,7 @@ export default function Chatbot() {
         role: "assistant",
         content: "",
         timestamp: new Date(),
+        sources: [], // Initialize sources array
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
@@ -115,6 +155,17 @@ export default function Chatbot() {
                         : msg
                     )
                   );
+                  // Scroll to bottom after each content update
+                  scrollToBottom();
+                }
+                if (parsed.sources) {
+                  setMessages((prev) =>
+                    prev.map((msg) =>
+                      msg.id === assistantMessage.id
+                        ? { ...msg, sources: parsed.sources }
+                        : msg
+                    )
+                  );
                 }
               } catch (e) {
                 // Ignore parsing errors for incomplete chunks
@@ -141,54 +192,353 @@ export default function Chatbot() {
     <div className="bg-brand-beige-light rounded-lg shadow-organic-lg overflow-hidden border border-brand-secondary/30">
       {/* Chat Header */}
       <div className="bg-brand-primary text-brand-beige p-3 sm:p-4">
-        <h3 className="text-base sm:text-lg font-semibold">Chat with Winton</h3>
-        <p className="text-brand-beige-light text-xs sm:text-sm">
-          Ask me about my work, projects, and experience
-        </p>
+        <div className="flex justify-between items-start">
+          <div>
+            <h3 className="text-base sm:text-lg font-semibold">
+              Chat with Winton
+            </h3>
+            <p className="text-brand-beige-light text-xs sm:text-sm">
+              Ask me about my work, projects, and experience
+            </p>
+          </div>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleSourcesClick}
+            className={`text-xs px-3 py-1.5 rounded-full transition-all duration-300 border font-medium relative group ${
+              sourcesButtonClicked
+                ? "bg-gradient-to-r from-brand-primary/40 to-brand-primary/50 border-brand-primary/60 text-brand-beige shadow-organic-lg scale-95"
+                : "bg-gradient-to-r from-brand-secondary/20 to-brand-secondary/30 hover:from-brand-secondary/30 hover:to-brand-secondary/40 text-brand-beige border-brand-secondary/30 hover:border-brand-secondary/50 shadow-organic hover:shadow-organic-lg"
+            }`}
+            title="See the information sources used by this chatbot"
+          >
+            Sources
+            {/* Tooltip */}
+            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-brand-primary text-brand-beige text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap z-50">
+              View knowledge sources
+              <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-brand-primary"></div>
+            </div>
+          </motion.button>
+        </div>
       </div>
 
       {/* Messages Container */}
-      <div className="h-80 sm:h-96 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4">
+      <div
+        ref={messagesContainerRef}
+        className="h-80 sm:h-96 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4"
+      >
         {messages.map((message) => (
           <div
             key={message.id}
             className={`flex ${
               message.role === "user" ? "justify-end" : "justify-start"
-            }`}
+            } gap-3`}
           >
-            <div
-              className={`max-w-xs sm:max-w-sm lg:max-w-lg px-3 sm:px-4 py-2 sm:py-3 rounded-lg shadow-organic ${
-                message.role === "user"
-                  ? "bg-brand-primary text-brand-beige"
-                  : "bg-brand-secondary text-brand-text"
-              }`}
-            >
-              <p className="text-xs sm:text-sm leading-relaxed whitespace-pre-wrap">
-                {message.content}
-              </p>
-              <p className="text-xs opacity-70 mt-2">
-                {message.timestamp.toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
-              </p>
+            {/* Avatar for assistant messages */}
+            {message.role === "assistant" && (
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-brand-primary/20 shadow-sm">
+                  <img
+                    src="/headshot.jpg"
+                    alt="Winton Gee"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+            )}
+
+            <div className="flex flex-col max-w-xs sm:max-w-sm lg:max-w-lg">
+              {/* Message bubble */}
+              <div
+                className={`px-3 sm:px-4 py-2 sm:py-3 rounded-lg shadow-organic ${
+                  message.role === "user"
+                    ? "bg-brand-primary text-white"
+                    : "bg-brand-secondary text-brand-text"
+                }`}
+              >
+                <div className="text-xs sm:text-sm leading-relaxed">
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                      // Custom styling for better UX
+                      ul: ({ children }) => (
+                        <ul className="list-disc ml-4 space-y-1">{children}</ul>
+                      ),
+                      ol: ({ children }) => (
+                        <ol className="list-decimal ml-4 space-y-1">
+                          {children}
+                        </ol>
+                      ),
+                      li: ({ children }) => (
+                        <li
+                          className={
+                            message.role === "user"
+                              ? "text-white"
+                              : "text-brand-text"
+                          }
+                        >
+                          {children}
+                        </li>
+                      ),
+                      strong: ({ children }) => (
+                        <strong
+                          className={`font-semibold ${
+                            message.role === "user"
+                              ? "text-white"
+                              : "text-brand-text"
+                          }`}
+                        >
+                          {children}
+                        </strong>
+                      ),
+                      p: ({ children }) => (
+                        <p
+                          className={`mb-2 last:mb-0 ${
+                            message.role === "user"
+                              ? "text-white"
+                              : "text-brand-text"
+                          }`}
+                        >
+                          {children}
+                        </p>
+                      ),
+                      h1: ({ children }) => (
+                        <h1
+                          className={`text-lg font-bold mb-2 ${
+                            message.role === "user"
+                              ? "text-white"
+                              : "text-brand-text"
+                          }`}
+                        >
+                          {children}
+                        </h1>
+                      ),
+                      h2: ({ children }) => (
+                        <h2
+                          className={`text-base font-bold mb-2 ${
+                            message.role === "user"
+                              ? "text-white"
+                              : "text-brand-text"
+                          }`}
+                        >
+                          {children}
+                        </h2>
+                      ),
+                      h3: ({ children }) => (
+                        <h3
+                          className={`text-sm font-bold mb-1 ${
+                            message.role === "user"
+                              ? "text-white"
+                              : "text-brand-text"
+                          }`}
+                        >
+                          {children}
+                        </h3>
+                      ),
+                    }}
+                  >
+                    {message.content}
+                  </ReactMarkdown>
+                </div>
+              </div>
+
+              {/* Timestamp and sender label */}
+              <div
+                className={`flex items-center gap-2 mt-1 ${
+                  message.role === "user" ? "justify-end" : "justify-start"
+                }`}
+              >
+                <span className="text-xs text-brand-text-light/60">
+                  {message.role === "user" ? "You" : "Winton"}
+                </span>
+                <span className="text-xs text-brand-text-light/40">
+                  {message.timestamp.toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </span>
+              </div>
+
+              {/* Sources for assistant messages - ChatGPT style */}
+              {message.role === "assistant" &&
+                message.sources &&
+                message.sources.length > 0 && (
+                  <div className="mt-3">
+                    {/* Collapsed Sources Indicator */}
+                    {!expandedSources.has(message.id) && (
+                      <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => toggleSourcesExpansion(message.id)}
+                        className="flex items-center gap-1.5 text-xs text-brand-text-light/50 hover:text-brand-text-light/70 px-2 py-1 rounded-md hover:bg-brand-secondary/5 transition-all duration-200 group"
+                      >
+                        <svg
+                          className="w-2.5 h-2.5 text-brand-text-light/40 group-hover:text-brand-text-light/60 transition-colors duration-200"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                          />
+                        </svg>
+                        <span className="font-medium">
+                          {message.sources.length} source
+                          {message.sources.length > 1 ? "s" : ""}
+                        </span>
+                        <svg
+                          className="w-2.5 h-2.5 text-brand-text-light/40 group-hover:text-brand-text-light/60 transition-all duration-200"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 9l-7 7-7-7"
+                          />
+                        </svg>
+                      </motion.button>
+                    )}
+
+                    {/* Expanded Sources */}
+                    <motion.div
+                      initial={false}
+                      animate={{
+                        height: expandedSources.has(message.id) ? "auto" : 0,
+                        opacity: expandedSources.has(message.id) ? 1 : 0,
+                      }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      {expandedSources.has(message.id) && (
+                        <div className="mt-1.5 space-y-1">
+                          {/* Collapse button */}
+                          <motion.button
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            onClick={() => toggleSourcesExpansion(message.id)}
+                            className="flex items-center gap-1.5 text-xs text-brand-text-light/50 hover:text-brand-text-light/70 px-2 py-1 rounded-md hover:bg-brand-secondary/5 transition-all duration-200 group"
+                          >
+                            <svg
+                              className="w-2.5 h-2.5 text-brand-text-light/40 group-hover:text-brand-text-light/60 transition-all duration-200 rotate-180"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M19 9l-7 7-7-7"
+                              />
+                            </svg>
+                            <span className="font-medium">Hide sources</span>
+                          </motion.button>
+
+                          {/* Sources list */}
+                          <div className="space-y-1">
+                            {message.sources.map((source, index) => (
+                              <motion.button
+                                key={index}
+                                whileHover={{ scale: 1.01, y: -0.5 }}
+                                whileTap={{ scale: 0.99 }}
+                                onClick={() =>
+                                  window.open("/chatbot-sources", "_blank")
+                                }
+                                className="w-full text-left bg-white/30 hover:bg-white/50 border border-brand-secondary/10 hover:border-brand-secondary/30 rounded-md p-2 transition-all duration-200 shadow-sm hover:shadow-md group"
+                                title={`View source: ${
+                                  source.title
+                                } (${Math.round(
+                                  source.similarity * 100
+                                )}% match)`}
+                              >
+                                <div className="flex items-center justify-between gap-2">
+                                  <div className="flex items-center gap-2 flex-1 min-w-0">
+                                    <div className="flex-shrink-0">
+                                      <svg
+                                        className="w-3 h-3 text-brand-text-light/50 group-hover:text-brand-primary transition-colors duration-200"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                      >
+                                        <path
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          strokeWidth={2}
+                                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                                        />
+                                      </svg>
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                      <h4 className="text-xs font-medium text-brand-text group-hover:text-brand-primary transition-colors duration-200 truncate">
+                                        {source.title}
+                                      </h4>
+                                      <p className="text-xs text-brand-text-light/60">
+                                        {Math.round(source.similarity * 100)}%
+                                        match
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <div className="flex-shrink-0">
+                                    <svg
+                                      className="w-3 h-3 text-brand-text-light/40 group-hover:text-brand-primary group-hover:translate-x-0.5 transition-all duration-200"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      viewBox="0 0 24 24"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                      />
+                                    </svg>
+                                  </div>
+                                </div>
+                              </motion.button>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </motion.div>
+                  </div>
+                )}
             </div>
           </div>
         ))}
 
         {isLoading && (
-          <div className="flex justify-start">
+          <div className="flex justify-start gap-3">
+            <div className="flex-shrink-0">
+              <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-brand-primary/20 shadow-sm">
+                <img
+                  src="/headshot.jpg"
+                  alt="Winton Gee"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
             <div className="bg-brand-secondary text-brand-text px-3 sm:px-4 py-2 rounded-lg shadow-organic">
-              <div className="flex space-x-1">
-                <div className="w-2 h-2 bg-brand-primary rounded-full animate-bounce"></div>
-                <div
-                  className="w-2 h-2 bg-brand-primary rounded-full animate-bounce"
-                  style={{ animationDelay: "0.1s" }}
-                ></div>
-                <div
-                  className="w-2 h-2 bg-brand-primary rounded-full animate-bounce"
-                  style={{ animationDelay: "0.2s" }}
-                ></div>
+              <div className="flex items-center gap-2">
+                <div className="flex space-x-1">
+                  <div className="w-2 h-2 bg-brand-primary rounded-full animate-bounce"></div>
+                  <div
+                    className="w-2 h-2 bg-brand-primary rounded-full animate-bounce"
+                    style={{ animationDelay: "0.1s" }}
+                  ></div>
+                  <div
+                    className="w-2 h-2 bg-brand-primary rounded-full animate-bounce"
+                    style={{ animationDelay: "0.2s" }}
+                  ></div>
+                </div>
+                <span className="text-xs text-brand-text-light/70 animate-pulse">
+                  Thinking...
+                </span>
               </div>
             </div>
           </div>
@@ -199,19 +549,21 @@ export default function Chatbot() {
 
       {/* Quick Select Options */}
       {messages.length === 1 && (
-        <div className="px-3 sm:px-4 pb-3 sm:pb-4">
-          <p className="text-xs sm:text-sm text-brand-text-light mb-3 text-center">
-            Or try one of these:
+        <div className="px-4 sm:px-6 pb-4 sm:pb-6 bg-gradient-to-r from-brand-beige-light/30 to-brand-beige/30">
+          <p className="text-sm text-brand-text-light mb-4 text-center font-medium">
+            Try asking about:
           </p>
-          <div className="flex flex-wrap gap-2 justify-center">
+          <div className="flex flex-wrap gap-3 justify-center max-w-2xl mx-auto">
             {quickSelectOptions.map((option, index) => (
-              <button
+              <motion.button
                 key={index}
                 onClick={() => handleQuickSelect(option)}
-                className="px-2 sm:px-3 py-1.5 sm:py-2 text-xs bg-brand-beige text-brand-text rounded-full hover:bg-brand-secondary hover:text-brand-text transition-colors duration-200 border border-brand-secondary/50 hover:border-brand-primary hover:shadow-organic"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-4 py-3 text-sm bg-white text-brand-text rounded-xl hover:bg-brand-secondary hover:text-brand-text transition-all duration-200 border-2 border-brand-secondary/30 hover:border-brand-primary hover:shadow-organic-lg whitespace-nowrap font-medium shadow-sm"
               >
                 {option}
-              </button>
+              </motion.button>
             ))}
           </div>
         </div>
@@ -220,24 +572,37 @@ export default function Chatbot() {
       {/* Input Form */}
       <form
         onSubmit={handleSubmit}
-        className="p-3 sm:p-4 border-t border-brand-secondary/30"
+        className="p-4 sm:p-6 border-t border-brand-secondary/30 bg-gradient-to-r from-brand-beige-light/50 to-brand-beige/50"
       >
-        <div className="flex space-x-2 sm:space-x-3">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask me about my work, projects, or experience..."
-            className="flex-1 px-3 py-2 text-sm border border-brand-secondary/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary bg-brand-beige text-brand-text placeholder-brand-text-light"
-            disabled={isLoading}
-          />
-          <button
+        <div className="flex space-x-3 max-w-2xl mx-auto">
+          <div className="flex-1 relative">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Ask me about my work, projects, or experience..."
+              className="w-full px-4 py-3 text-sm sm:text-base border-2 border-brand-secondary/40 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-primary/30 focus:border-brand-primary bg-white text-brand-text placeholder-brand-text-light/70 shadow-sm hover:shadow-md transition-all duration-200"
+              disabled={isLoading}
+            />
+            {/* Input focus indicator */}
+            <div className="absolute inset-0 rounded-xl border-2 border-transparent pointer-events-none transition-all duration-200 focus-within:border-brand-primary/20"></div>
+          </div>
+          <motion.button
             type="submit"
             disabled={!input.trim() || isLoading}
-            className="bg-brand-primary hover:bg-brand-primary-dark disabled:bg-brand-secondary text-brand-beige px-3 sm:px-4 py-2 text-sm rounded-lg transition-colors font-medium shadow-organic hover:shadow-organic-lg"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="bg-gradient-to-r from-brand-primary to-brand-primary-light hover:from-brand-primary-dark hover:to-brand-primary disabled:from-brand-secondary disabled:to-brand-secondary text-brand-beige px-6 py-3 text-sm font-semibold rounded-xl transition-all duration-200 shadow-organic hover:shadow-organic-lg disabled:opacity-50 disabled:cursor-not-allowed min-w-[80px]"
           >
-            Send
-          </button>
+            {isLoading ? (
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 border-2 border-brand-beige/30 border-t-brand-beige rounded-full animate-spin"></div>
+                <span>Sending...</span>
+              </div>
+            ) : (
+              "Send"
+            )}
+          </motion.button>
         </div>
       </form>
     </div>
