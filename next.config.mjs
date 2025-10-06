@@ -126,8 +126,11 @@ const nextConfig = {
     },
     // Include data folder in Vercel deployment
     outputFileTracingIncludes: {
-      "/api/chat": ["./data/**/*"],
-      "/api/chatbot-sources": ["./data/**/*"],
+      "/api/chat": ["./data/chatbot-embeddings.json", "./data/embeddings.json"],
+      "/api/chatbot-sources": [
+        "./data/chatbot-embeddings.json",
+        "./data/embeddings.json",
+      ],
     },
   },
 };
