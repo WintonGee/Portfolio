@@ -1,12 +1,12 @@
 {
-  "totalEmbeddings": 5,
+  "totalEmbeddings": 20,
   "categories": [
     "contact",
     "personal",
     "professional",
     "skills"
   ],
-  "generatedAt": "2025-10-05T20:28:25.977Z",
+  "generatedAt": "2025-10-05T21:10:27.773Z",
   "files": [
     {
       "path": "data/chatbot/contact/availability.md",
@@ -24,9 +24,84 @@
       "title": "education"
     },
     {
+      "path": "data/chatbot/professional/achievements.md",
+      "category": "professional",
+      "title": "achievements"
+    },
+    {
+      "path": "data/chatbot/professional/afterquery-software-engineer.md",
+      "category": "professional",
+      "title": "afterquery-software-engineer"
+    },
+    {
+      "path": "data/chatbot/professional/ai-ethics-research.md",
+      "category": "professional",
+      "title": "ai-ethics-research"
+    },
+    {
+      "path": "data/chatbot/professional/cochat-founder.md",
+      "category": "professional",
+      "title": "cochat-founder"
+    },
+    {
+      "path": "data/chatbot/professional/cochat-project.md",
+      "category": "professional",
+      "title": "cochat-project"
+    },
+    {
+      "path": "data/chatbot/professional/foodmanager-project.md",
+      "category": "professional",
+      "title": "foodmanager-project"
+    },
+    {
+      "path": "data/chatbot/professional/linkedin-apprentice.md",
+      "category": "professional",
+      "title": "linkedin-apprentice"
+    },
+    {
+      "path": "data/chatbot/professional/mercor-ai-engineer.md",
+      "category": "professional",
+      "title": "mercor-ai-engineer"
+    },
+    {
+      "path": "data/chatbot/professional/portfolio-project.md",
+      "category": "professional",
+      "title": "portfolio-project"
+    },
+    {
+      "path": "data/chatbot/professional/projects.md",
+      "category": "professional",
+      "title": "projects"
+    },
+    {
+      "path": "data/chatbot/professional/ricoh-software-engineer-intern.md",
+      "category": "professional",
+      "title": "ricoh-software-engineer-intern"
+    },
+    {
+      "path": "data/chatbot/professional/square-apprentice.md",
+      "category": "professional",
+      "title": "square-apprentice"
+    },
+    {
       "path": "data/chatbot/professional/summary.md",
       "category": "professional",
       "title": "summary"
+    },
+    {
+      "path": "data/chatbot/professional/tribot-software-developer.md",
+      "category": "professional",
+      "title": "tribot-software-developer"
+    },
+    {
+      "path": "data/chatbot/professional/trustyfaq-project.md",
+      "category": "professional",
+      "title": "trustyfaq-project"
+    },
+    {
+      "path": "data/chatbot/skills/detailed-skills.md",
+      "category": "skills",
+      "title": "detailed-skills"
     },
     {
       "path": "data/chatbot/skills/technical.md",

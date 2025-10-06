@@ -1,4 +1,4 @@
-# Technical Skills & Qualifications
+# Technical Overview
 
 ## Core Competencies
 
@@ -7,34 +7,16 @@
 - **Data Science**: Statistical analysis and data processing
 - **System Design**: Intelligent system architecture and implementation
 
-## Programming Languages
+## Technology Categories
 
-- **Python**: Primary language for AI/ML and data science
-- **JavaScript/TypeScript**: Web development and frontend frameworks
-- **SQL**: Database design and query optimization
-- **Additional**: Experience with multiple programming paradigms
+- **AI/ML**: Python, TensorFlow, OpenAI, Google Gemini, RAG Systems
+- **Frontend**: TypeScript, React.js, Next.js, Tailwind CSS, Material-UI
+- **Backend**: Node.js, FastAPI, Express.js, PostgreSQL, MongoDB
+- **Cloud**: AWS Lambda, Vercel, Render, Supabase
 
-## Frameworks & Technologies
+## Development Approach
 
-- **AI/ML**: TensorFlow, scikit-learn, modern ML frameworks
-- **Web Development**: React, Next.js, Node.js
-- **APIs**: RESTful API development and integration
-- **Databases**: SQL and NoSQL database systems
-
-## Education & Certifications
-
-- **B.S. Computer Science** - California Polytechnic State University, San Luis Obispo
-- **A.S. Data Science and Mathematics** - City College of San Francisco
-- **Advanced AI Studies** - City College of San Francisco
-
-## Professional Experience
-
-- **Current**: AI/ML Engineer at Mercor
-- **Research**: AI Ethics Research at Cal Poly SLO
-- **Projects**: Multiple AI/ML projects and intelligent systems
-
-## Additional Information
-
-- **Research Experience**: AI Ethics Research at Cal Poly SLO
-- **Project Portfolio**: Multiple AI/ML projects and intelligent systems
-- **Continuous Learning**: Advanced AI studies and modern technology implementations
+- **Modern Practices**: Using latest frameworks and development methodologies
+- **Performance Focus**: Building optimized, scalable solutions
+- **Security**: Implementing secure authentication and data protection
+- **User-Centric**: Creating intuitive interfaces and seamless experiences

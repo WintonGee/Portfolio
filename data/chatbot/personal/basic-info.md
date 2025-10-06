@@ -1,11 +1,16 @@
-# Basic Information
-
-I'm Winton Gee, an AI/ML Engineer currently working at Mercor in San Francisco, CA. I specialize in building intelligent systems with modern frameworks and APIs.
+# Personal Background
 
 ## About Me
 
-I'm an AI/ML Engineer with a strong foundation in computer science and data science, currently building intelligent systems at Mercor. I specialize in developing AI solutions with modern frameworks and APIs, with a focus on ethical AI development and intelligent system architecture.
+I'm Winton Gee, an AI/ML Engineer with a strong foundation in computer science and data science. I specialize in developing AI solutions with modern frameworks and APIs, with a focus on ethical AI development and intelligent system architecture.
 
-## Current Status
+## Personal Philosophy
 
-I'm currently building AI solutions at Mercor, where I focus on developing intelligent systems powered by modern frameworks and APIs. I'm based in San Francisco, CA and available for professional opportunities.
+I believe in the power of AI to solve real-world problems while maintaining ethical standards. My approach combines technical excellence with responsible AI development, focusing on creating systems that are both powerful and fair. I'm passionate about building AI solutions that enhance human capabilities rather than replace them.
+
+## Interests & Values
+
+- **Ethical AI Development**: Committed to responsible AI practices and fairness
+- **Continuous Learning**: Always exploring new technologies and methodologies
+- **Problem-Solving**: Using technology to address real-world challenges
+- **Collaboration**: Working with teams to build innovative solutions

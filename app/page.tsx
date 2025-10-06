@@ -6,6 +6,7 @@ import Hero from "@/components/Hero";
 import { JourneySection, TechStackSection } from "@/components/About";
 import ProjectsNew from "@/components/ProjectsNew";
 import Chatbot from "@/components/Chatbot";
+import CollaborationCTA from "@/components/CollaborationCTA";
 import FloatingChatButton from "@/components/FloatingChatButton";
 
 export default function Home() {
@@ -95,6 +96,41 @@ export default function Home() {
             className="max-w-4xl mx-auto px-2 sm:px-0"
           >
             <Chatbot />
+          </motion.div>
+        </div>
+      </motion.section>
+
+      {/* Collaboration CTA Section */}
+      <motion.section
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        className="relative py-16 sm:py-24 lg:py-32 bg-gradient-to-b from-brand-beige-light to-brand-beige"
+      >
+        {/* Section divider */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-secondary/60 to-transparent"></div>
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="text-center mb-12 sm:mb-16"
+          >
+            <h2 className="text-heading-xl text-brand-text mb-8 sm:mb-12">
+              Let's <span className="gradient-text">Collaborate</span>
+            </h2>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="max-w-6xl mx-auto"
+          >
+            <CollaborationCTA />
           </motion.div>
         </div>
       </motion.section>

@@ -1,30 +1,19 @@
-# Professional Summary
+# Professional Overview
 
-## Current Role
+## Career Focus
 
-**AI/ML Engineer at Mercor** (Current)
-
-- Building intelligent systems with modern frameworks and APIs
-- Focused on developing AI solutions for enterprise applications
-- Based in San Francisco, CA
-
-## Key Qualifications
-
-- **Education**: B.S. Computer Science from Cal Poly SLO, specialized in AI/ML
-- **Experience**: AI/ML Engineer with expertise in modern frameworks
-- **Location**: San Francisco, CA
-- **Availability**: Open to new opportunities
-
-## Technical Focus Areas
-
-- Machine Learning and AI systems
-- Modern web frameworks and APIs
-- Intelligent system development
-- Enterprise AI solutions
+I'm an AI/ML Engineer specializing in building intelligent systems with modern frameworks and APIs. My work focuses on developing AI solutions for enterprise applications while maintaining ethical standards and responsible AI practices.
 
 ## Professional Interests
 
-- AI/ML engineering roles
-- Intelligent systems development
-- Modern technology implementations
-- Enterprise AI applications
+- **AI/ML Engineering**: Building intelligent systems and AI-powered applications
+- **Full-Stack Development**: Creating complete solutions from frontend to backend
+- **Ethical AI**: Developing responsible AI systems that benefit society
+- **Innovation**: Exploring new technologies and methodologies
+
+## Key Strengths
+
+- **Technical Leadership**: Leading AI/ML projects from concept to deployment
+- **Problem-Solving**: Using technology to address real-world challenges
+- **Collaboration**: Working effectively with cross-functional teams
+- **Continuous Learning**: Staying current with latest AI/ML technologies

@@ -71,8 +71,11 @@ async function getRelevantContext(
       return { ...item, similarity };
     });
 
-    // Sort by similarity and take top 3 most relevant
-    const relevantItems = similarities
+    // Filter out low similarity items and sort by similarity
+    const filteredSimilarities = similarities.filter(
+      (item) => item.similarity > 0.1
+    );
+    const relevantItems = filteredSimilarities
       .sort((a, b) => b.similarity - a.similarity)
       .slice(0, 3);
 

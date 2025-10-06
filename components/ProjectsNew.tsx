@@ -252,33 +252,6 @@ export default function ProjectsNew() {
           <ProjectItem key={project.id} project={project} index={index} />
         ))}
       </div>
-
-      {/* Call to Action */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.3 }}
-        viewport={{ once: true }}
-        className="text-center mt-12 sm:mt-16 lg:mt-20"
-      >
-        <div className="glass-effect rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto">
-          <h3 className="text-2xl sm:text-3xl font-bold text-brand-text mb-6 sm:mb-8">
-            Interested in collaborating?
-          </h3>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-            <Button href="mailto:wintongee@gmail.com" size="lg">
-              Get In Touch
-            </Button>
-            <Button
-              href="https://github.com/wintongee"
-              variant="secondary"
-              size="lg"
-            >
-              View All Projects
-            </Button>
-          </div>
-        </div>
-      </motion.div>
     </div>
   );
 }
