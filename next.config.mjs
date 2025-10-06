@@ -74,6 +74,7 @@ const nextConfig = {
       );
     }
 
+
     // Simplified bundle optimization to prevent micromatch issues
     if (!dev && !isServer) {
       config.optimization.splitChunks = {
@@ -101,7 +102,7 @@ const nextConfig = {
   },
 
   // Optimize build performance
-  outputFileTracing: true,
+  outputFileTracing: false,
 
   // Enable static optimization
   trailingSlash: false,
@@ -123,14 +124,6 @@ const nextConfig = {
           as: "*.js",
         },
       },
-    },
-    // Include data folder in Vercel deployment
-    outputFileTracingIncludes: {
-      "/api/chat": ["./data/chatbot-embeddings.json", "./data/embeddings.json"],
-      "/api/chatbot-sources": [
-        "./data/chatbot-embeddings.json",
-        "./data/embeddings.json",
-      ],
     },
   },
 };
