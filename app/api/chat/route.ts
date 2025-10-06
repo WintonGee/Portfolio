@@ -27,28 +27,25 @@ interface EmbeddingData {
 
 async function loadEmbeddings(): Promise<EmbeddingData[]> {
   try {
-    // Try to load chatbot-specific embeddings first
-    const chatbotEmbeddingsPath = join(
-      process.cwd(),
-      "data",
-      "chatbot-embeddings.json"
-    );
-    if (existsSync(chatbotEmbeddingsPath)) {
-      const chatbotEmbeddingsData = readFileSync(
-        chatbotEmbeddingsPath,
-        "utf-8"
-      );
-      return JSON.parse(chatbotEmbeddingsData);
+    // Try multiple possible paths for embeddings
+    const possiblePaths = [
+      join(process.cwd(), "data", "chatbot-embeddings.json"),
+      join(process.cwd(), "data", "embeddings.json"),
+      join(process.cwd(), ".next", "server", "data", "chatbot-embeddings.json"),
+      join(process.cwd(), ".next", "server", "data", "embeddings.json"),
+      join(process.cwd(), "..", "data", "chatbot-embeddings.json"),
+      join(process.cwd(), "..", "data", "embeddings.json"),
+    ];
+
+    for (const path of possiblePaths) {
+      if (existsSync(path)) {
+        console.log(`Loading embeddings from: ${path}`);
+        const embeddingsData = readFileSync(path, "utf-8");
+        return JSON.parse(embeddingsData);
+      }
     }
 
-    // Fallback to general embeddings
-    const embeddingsPath = join(process.cwd(), "data", "embeddings.json");
-    if (existsSync(embeddingsPath)) {
-      const embeddingsData = readFileSync(embeddingsPath, "utf-8");
-      return JSON.parse(embeddingsData);
-    }
-
-    // If neither file exists, return empty array
+    // If no file exists, return empty array
     console.warn(
       "No embeddings files found. Chatbot will work without context."
     );

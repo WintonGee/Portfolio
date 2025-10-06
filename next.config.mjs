@@ -74,6 +74,22 @@ const nextConfig = {
       );
     }
 
+    // Copy data folder to build output for server-side access
+    if (isServer) {
+      const CopyPlugin = require("copy-webpack-plugin");
+      config.plugins.push(
+        new CopyPlugin({
+          patterns: [
+            {
+              from: "data",
+              to: "data",
+              noErrorOnMissing: true,
+            },
+          ],
+        })
+      );
+    }
+
     // Simplified bundle optimization to prevent micromatch issues
     if (!dev && !isServer) {
       config.optimization.splitChunks = {
@@ -101,7 +117,7 @@ const nextConfig = {
   },
 
   // Optimize build performance
-  outputFileTracing: false,
+  outputFileTracing: true,
 
   // Enable static optimization
   trailingSlash: false,
