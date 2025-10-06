@@ -101,7 +101,7 @@ const nextConfig = {
   },
 
   // Optimize build performance
-  outputFileTracing: false,
+  outputFileTracing: true,
 
   // Enable static optimization
   trailingSlash: false,
@@ -123,6 +123,11 @@ const nextConfig = {
           as: "*.js",
         },
       },
+    },
+    // Include data folder in Vercel deployment
+    outputFileTracingIncludes: {
+      "/api/chat": ["./data/**/*"],
+      "/api/chatbot-sources": ["./data/**/*"],
     },
   },
 };

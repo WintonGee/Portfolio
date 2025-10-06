@@ -27,13 +27,20 @@ interface EmbeddingData {
 
 async function loadEmbeddings(): Promise<EmbeddingData[]> {
   try {
+    // Debug: Log current working directory and available files
+    console.log("Current working directory:", process.cwd());
+
     // Try to load chatbot-specific embeddings first
     const chatbotEmbeddingsPath = join(
       process.cwd(),
       "data",
       "chatbot-embeddings.json"
     );
+    console.log("Looking for embeddings at:", chatbotEmbeddingsPath);
+    console.log("File exists:", existsSync(chatbotEmbeddingsPath));
+
     if (existsSync(chatbotEmbeddingsPath)) {
+      console.log("Loading chatbot embeddings from:", chatbotEmbeddingsPath);
       const chatbotEmbeddingsData = readFileSync(
         chatbotEmbeddingsPath,
         "utf-8"
@@ -43,7 +50,11 @@ async function loadEmbeddings(): Promise<EmbeddingData[]> {
 
     // Fallback to general embeddings (only if it exists)
     const embeddingsPath = join(process.cwd(), "data", "embeddings.json");
+    console.log("Looking for fallback embeddings at:", embeddingsPath);
+    console.log("Fallback file exists:", existsSync(embeddingsPath));
+
     if (existsSync(embeddingsPath)) {
+      console.log("Loading fallback embeddings from:", embeddingsPath);
       const embeddingsData = readFileSync(embeddingsPath, "utf-8");
       return JSON.parse(embeddingsData);
     }
