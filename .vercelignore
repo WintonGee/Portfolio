@@ -44,7 +44,6 @@ Makefile
 *.md
 
 # Scripts and development tools
-scripts/
 tsconfig.tsbuildinfo
 
 # Large data files that aren't needed in production
