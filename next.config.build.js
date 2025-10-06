@@ -74,24 +74,6 @@ const nextConfig = {
       );
     }
 
-    // Prevent micromatch stack overflow by limiting file resolution
-    config.resolve = {
-      ...config.resolve,
-      // Limit module resolution to prevent excessive file scanning
-      modules: ["node_modules"],
-      // Exclude problematic directories from resolution
-      fallback: {
-        ...config.resolve.fallback,
-      },
-    };
-
-    // Simplified webpack configuration to prevent micromatch issues
-    config.watchOptions = {
-      ignored: /node_modules/,
-      aggregateTimeout: 300,
-      poll: false,
-    };
-
     // Simplified bundle optimization to prevent micromatch issues
     if (!dev && !isServer) {
       config.optimization.splitChunks = {

@@ -50,6 +50,14 @@ tsconfig.tsbuildinfo
 # Large data files that aren't needed in production
 data/chatbot-embeddings.json
 public/chatbot-embeddings.json
+data/chatbot-embeddings-summary.json
 
 # Content files that are large
 content/projects/foodmanager/Senior Project Report - PantryCraft.pdf
+
+# Additional files that might cause build issues
+*.log
+*.tmp
+*.temp
+.cache/
+.turbo/
