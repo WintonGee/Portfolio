@@ -1,10 +1,7 @@
 {
   "functions": {
     "app/api/chat/route.ts": {
-      "includeFiles": [
-        "public/chatbot-embeddings.json",
-        "data/chatbot-embeddings.json"
-      ]
+      "includeFiles": "public/chatbot-embeddings.json,data/chatbot-embeddings.json"
     }
   }
 }
