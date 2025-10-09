@@ -67,9 +67,6 @@ export default function ChatSidebar({
         <h3 className="text-lg font-semibold text-brand-beige">
           Quick Questions
         </h3>
-        <p className="text-sm text-brand-beige-light/90 mt-1">
-          Select a topic to explore
-        </p>
       </div>
 
       {/* Scrollable Categories Container */}
