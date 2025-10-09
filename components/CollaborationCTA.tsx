@@ -74,8 +74,7 @@ export default function CollaborationCTA() {
             {/* Content */}
             <div className="text-center lg:text-left">
               <p className="text-lg text-brand-text-light mb-8 leading-relaxed">
-                Let's discuss how my AI/ML expertise can bring your vision to
-                life.
+                Let's discuss how I can bring your vision to life.
               </p>
             </div>
 

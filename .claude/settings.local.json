@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Read(//Users/wintongee/Desktop/**)"
+      "Read(//Users/wintongee/Desktop/**)",
+      "WebSearch",
+      "WebFetch(domain:www.awwwards.com)"
     ],
     "deny": [],
     "ask": []

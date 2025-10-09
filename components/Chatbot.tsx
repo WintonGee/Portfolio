@@ -353,7 +353,7 @@ export default function Chatbot() {
       {/* Chat Header */}
       <div className="bg-brand-primary text-brand-beige p-4 flex-shrink-0">
         <div className="flex justify-between items-center gap-4">
-          <h3 className="text-lg font-semibold">Chat with Winton</h3>
+          <h3 className="text-lg font-semibold">Winton Gee</h3>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

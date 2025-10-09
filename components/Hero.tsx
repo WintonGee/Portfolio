@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Button from "./ui/Button";
+import Typewriter from "./ui/Typewriter";
 import {
   MapPinIcon,
   PhoneIcon,
@@ -232,8 +233,14 @@ export default function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.6 }}
               >
-                <span className="font-extrabold">AI/ML</span>{" "}
-                <span className="gradient-text font-extrabold">Engineer</span>
+                <span className="font-extrabold">AI </span>
+                <Typewriter
+                  words={["Engineer", "Founder", "Builder", "Innovator", "Developer"]}
+                  typingSpeed={120}
+                  deletingSpeed={80}
+                  delayBetweenWords={2500}
+                  className="gradient-text font-extrabold"
+                />
               </motion.h1>
 
               {/* Balanced Subheading */}
@@ -268,11 +275,12 @@ export default function Hero() {
                   Download Resume
                 </Button>
                 <Button
-                  href="https://linkedin.com/in/wintongee"
+                  href="mailto:wintongee@gmail.com"
                   variant="secondary"
                   size="lg"
                 >
-                  Let's Connect
+                  <EnvelopeIcon className="w-5 h-5 mr-2" />
+                  Let's Chat
                 </Button>
               </div>
 
@@ -331,7 +339,11 @@ export default function Hero() {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5, delay: 1.1 + index * 0.1 }}
-                    className="px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-3 bg-brand-beige-light text-brand-text text-sm sm:text-base font-medium rounded-full shadow-organic border border-brand-secondary/50 hover:bg-gradient-to-r hover:from-brand-primary/10 hover:to-brand-secondary/10 hover:text-brand-primary hover:border-brand-primary hover:shadow-organic-lg transition-all duration-300 cursor-pointer hover:scale-105"
+                    whileHover={{
+                      scale: 1.08,
+                      boxShadow: "0 0 20px rgba(51, 102, 85, 0.4), 0 0 40px rgba(51, 102, 85, 0.2)",
+                    }}
+                    className="relative px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-3 bg-brand-beige-light text-brand-text text-sm sm:text-base font-medium rounded-full shadow-organic border border-brand-secondary/50 hover:bg-gradient-to-r hover:from-brand-primary/15 hover:to-brand-secondary/15 hover:text-brand-primary hover:border-brand-primary transition-all duration-300 cursor-pointer"
                   >
                     {tech}
                   </motion.span>
