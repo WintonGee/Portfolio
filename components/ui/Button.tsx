@@ -2,6 +2,9 @@
 
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
+import { useMagneticEffect } from "@/hooks/useMagneticEffect";
+
+const SPRING_CONFIG = { type: "spring" as const, stiffness: 150, damping: 15, mass: 0.1 };
 
 interface ButtonProps {
   children: ReactNode;
@@ -26,6 +29,8 @@ export default function Button({
   disabled = false,
   type = "button",
 }: ButtonProps) {
+  const { ref, handleMouseMove, handleMouseLeave, animateProps } = useMagneticEffect();
+
   const baseClasses =
     "font-semibold rounded-xl transition-all duration-300 hover:scale-105 transform";
 
@@ -55,32 +60,33 @@ export default function Button({
     </>
   );
 
-  if (href) {
-    return (
-      <motion.a
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        href={href}
-        download={download}
-        target={href.startsWith("mailto:") ? undefined : "_blank"}
-        rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
-        className={classes}
-      >
-        {buttonContent}
-      </motion.a>
-    );
-  }
+  const MotionComponent = href ? motion.a : motion.button;
+  const componentProps = href
+    ? {
+        href,
+        download,
+        target: href.startsWith("mailto:") ? undefined : "_blank",
+        rel: href.startsWith("mailto:") ? undefined : "noopener noreferrer",
+      }
+    : {
+        onClick,
+        disabled,
+        type,
+      };
 
   return (
-    <motion.button
+    <MotionComponent
+      ref={ref as any}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      animate={animateProps}
+      transition={SPRING_CONFIG}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      onClick={onClick}
-      disabled={disabled}
-      type={type}
       className={classes}
+      {...componentProps}
     >
       {buttonContent}
-    </motion.button>
+    </MotionComponent>
   );
 }

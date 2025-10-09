@@ -63,7 +63,7 @@ export default function ChatSidebar({
       className="w-full h-full bg-brand-beige-light rounded-lg border border-brand-secondary/30 shadow-organic overflow-hidden flex flex-col"
     >
       {/* Sidebar Header */}
-      <div className="bg-gradient-to-r from-brand-primary to-brand-primary-light p-4 border-b border-brand-primary-dark/20 flex-shrink-0">
+      <div className="bg-brand-primary p-4 border-b border-brand-secondary/30 flex-shrink-0">
         <h3 className="text-lg font-semibold text-brand-beige">
           Quick Questions
         </h3>
@@ -78,12 +78,12 @@ export default function ChatSidebar({
           return (
             <div
               key={categoryIndex}
-              className="bg-white rounded-lg border border-brand-secondary/20 shadow-sm overflow-hidden"
+              className="bg-gradient-to-br from-white to-brand-beige/20 rounded-lg border border-brand-secondary/25 shadow-sm overflow-hidden"
             >
               {/* Category Header - Clickable to expand/collapse */}
               <motion.button
                 onClick={() => toggleCategory(categoryIndex)}
-                whileHover={{ backgroundColor: "rgba(210, 180, 140, 0.08)" }}
+                whileHover={{ backgroundColor: "rgba(210, 180, 140, 0.15)" }}
                 whileTap={{ scale: 0.99 }}
                 className="w-full px-4 py-3 flex items-center justify-between gap-3 transition-colors duration-200 group"
               >
@@ -128,7 +128,7 @@ export default function ChatSidebar({
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     className="overflow-hidden"
                   >
-                    <div className="px-3 pb-3 space-y-2 border-t border-brand-secondary/10">
+                    <div className="px-3 pb-3 space-y-2 border-t border-brand-secondary/15 bg-gradient-to-b from-transparent to-brand-beige/10">
                       {categoryData.questions.map((item, questionIndex) => (
                         <motion.button
                           key={questionIndex}
@@ -141,13 +141,13 @@ export default function ChatSidebar({
                           }}
                           whileHover={{ scale: 1.01, x: 2 }}
                           whileTap={{ scale: 0.98 }}
-                          className="w-full text-left px-3 py-2.5 mt-2 bg-brand-beige-light/50 hover:bg-brand-secondary/15 border border-brand-secondary/0 hover:border-brand-primary/30 rounded-md transition-all duration-200 group"
+                          className="w-full text-left px-3 py-2.5 mt-2 bg-gradient-to-r from-brand-beige-light/60 to-brand-secondary/10 hover:from-brand-secondary/20 hover:to-brand-secondary/25 border border-brand-secondary/20 hover:border-brand-secondary/40 rounded-md transition-all duration-200 group shadow-sm hover:shadow-md"
                           title={item.question}
                         >
                           <div className="flex items-start gap-2.5">
                             {/* Dot indicator instead of icon for cleaner look */}
                             <div className="flex-shrink-0 mt-1.5">
-                              <div className="w-1.5 h-1.5 rounded-full bg-brand-primary group-hover:bg-brand-primary-dark transition-colors duration-200"></div>
+                              <div className="w-1.5 h-1.5 rounded-full bg-brand-secondary group-hover:bg-brand-primary-dark transition-colors duration-200"></div>
                             </div>
 
                             {/* Question Label - Short display text */}

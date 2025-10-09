@@ -6,6 +6,9 @@ import Link from "next/link";
 import { getAllProjects } from "@/lib/content";
 import { Project } from "@/types/project";
 import Button from "./ui/Button";
+import { use3DTilt } from "@/hooks/use3DTilt";
+
+const TILT_SPRING_CONFIG = { type: "spring" as const, stiffness: 100, damping: 15 };
 
 interface ProjectItemProps {
   project: Project;
@@ -14,6 +17,7 @@ interface ProjectItemProps {
 
 function ProjectItem({ project, index }: ProjectItemProps) {
   const isEven = index % 2 === 0;
+  const { ref: imageRef, handleMouseMove, handleMouseLeave, rotation } = use3DTilt();
 
   return (
     <motion.div
@@ -35,8 +39,20 @@ function ProjectItem({ project, index }: ProjectItemProps) {
           transition={{ duration: 0.6, delay: index * 0.1 + 0.2 }}
           viewport={{ once: true }}
           className={`relative group ${!isEven ? "lg:col-start-2" : ""}`}
+          style={{ perspective: "1000px" }}
         >
-          <div className="relative aspect-video w-full overflow-hidden rounded-2xl shadow-organic-2xl">
+          <motion.div
+            ref={imageRef}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            animate={{
+              rotateX: rotation.x,
+              rotateY: rotation.y,
+            }}
+            transition={TILT_SPRING_CONFIG}
+            className="relative aspect-video w-full overflow-hidden rounded-2xl shadow-organic-2xl"
+            style={{ transformStyle: "preserve-3d" }}
+          >
             <Image
               src={project.imageUrl}
               alt={project.title}
@@ -44,22 +60,7 @@ function ProjectItem({ project, index }: ProjectItemProps) {
               height={400}
               className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
             />
-          </div>
-
-          {/* Floating accent */}
-          <motion.div
-            animate={{
-              y: [0, -10, 0],
-              rotate: [0, 5, 0],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: index * 0.5,
-            }}
-            className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full opacity-20"
-          />
+          </motion.div>
         </motion.div>
 
         {/* Project Content */}
