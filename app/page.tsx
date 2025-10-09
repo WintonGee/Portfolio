@@ -93,7 +93,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
-            className="max-w-4xl mx-auto px-2 sm:px-0"
+            className="max-w-7xl mx-auto px-2 sm:px-4"
           >
             <Chatbot />
           </motion.div>

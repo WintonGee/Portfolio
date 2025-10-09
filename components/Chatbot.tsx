@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import ChatSidebar, { QuestionCategory } from "./ChatSidebar";
 
 interface Message {
   id: string;
@@ -28,17 +29,66 @@ export default function Chatbot() {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [sourcesButtonClicked, setSourcesButtonClicked] = useState(false);
   const [expandedSources, setExpandedSources] = useState<Set<string>>(
     new Set()
   );
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
 
-  const quickSelectOptions = [
-    "Tell me about your AI/ML experience",
-    "What projects have you worked on?",
-    "What technologies do you use?",
+  // Categorized questions for sidebar - Interview-focused
+  const questionCategories: QuestionCategory[] = [
+    {
+      category: "Availability & Logistics",
+      questions: [
+        { label: "Work Authorization", question: "What is your work authorization status?" },
+        { label: "Location & Relocation", question: "Where are you based and are you open to relocation?" },
+        { label: "Remote Work", question: "Are you open to remote work opportunities?" },
+        { label: "Career Goals", question: "What are you looking for in your next role?" },
+      ],
+    },
+    {
+      category: "Education & Research",
+      questions: [
+        { label: "Cal Poly SLO", question: "What did you study at Cal Poly San Luis Obispo?" },
+        { label: "City College SF", question: "Tell me about your studies at City College of San Francisco" },
+        { label: "AI Ethics Research", question: "What was your AI Ethics research at Cal Poly about?" },
+        { label: "Advanced AI Studies", question: "Why did you pursue advanced AI studies after your bachelor's?" },
+      ],
+    },
+    {
+      category: "Professional Experience",
+      questions: [
+        { label: "Mercor - AI Engineer", question: "What is your current role at Mercor as an AI Engineer?" },
+        { label: "CoChat - Founder", question: "Tell me about founding CoChat and your role as Founder" },
+        { label: "AfterQuery - Software Engineer", question: "What did you do at AfterQuery Experts as a Software Engineer?" },
+        { label: "Ricoh - Software Engineer Intern", question: "Tell me about your Software Engineer internship at Ricoh" },
+        { label: "Tribot - Software Developer", question: "What did you do as a Software Developer at Tribot?" },
+        { label: "LinkedIn - Apprentice", question: "What did you learn from your apprenticeship at LinkedIn?" },
+        { label: "Square - Apprentice", question: "What was your apprenticeship experience like at Square?" },
+      ],
+    },
+    {
+      category: "Projects & Startups",
+      questions: [
+        { label: "TrustyFAQ Problem", question: "What problem does TrustyFAQ solve for team leads?" },
+        { label: "Semantic Search", question: "How does semantic search work in TrustyFAQ?" },
+        { label: "CoChat Founding", question: "Tell me about CoChat and how you founded it" },
+        { label: "Voice Cloning Tech", question: "How does voice cloning technology work in CoChat?" },
+        { label: "FoodManager AI", question: "What is FoodManager and what AI features did you build?" },
+        { label: "Portfolio RAG System", question: "How did you implement the RAG system in your portfolio?" },
+      ],
+    },
+    {
+      category: "Technical Deep-Dive",
+      questions: [
+        { label: "pgvector Choice", question: "Why did you choose pgvector for vector search?" },
+        { label: "Design Trade-offs", question: "What trade-offs did you consider when designing TrustyFAQ?" },
+        { label: "Testing Approach", question: "How do you approach testing in your applications?" },
+        { label: "Error Handling", question: "How do you handle errors in your AI integrations?" },
+        { label: "Performance Optimization", question: "How do you optimize applications for production performance?" },
+        { label: "Hardest Problem", question: "What's the most challenging technical problem you've solved?" },
+      ],
+    },
   ];
 
   const scrollToBottom = () => {
@@ -53,15 +103,112 @@ export default function Chatbot() {
     }, 100);
   };
 
-  const handleQuickSelect = (option: string) => {
-    setInput(option);
+  // Handler for sidebar question selection with auto-submit
+  const handleQuestionSelect = async (question: string) => {
+    if (isLoading) return;
+
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      role: "user",
+      content: question,
+      timestamp: new Date(),
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
+    setInput("");
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message: question }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to get response");
+      }
+
+      const reader = response.body?.getReader();
+      if (!reader) {
+        throw new Error("No response body");
+      }
+
+      const assistantMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        role: "assistant",
+        content: "",
+        timestamp: new Date(),
+        sources: [],
+      };
+
+      setMessages((prev) => [...prev, assistantMessage]);
+
+      const decoder = new TextDecoder();
+      let done = false;
+
+      while (!done) {
+        const { value, done: readerDone } = await reader.read();
+        done = readerDone;
+
+        if (value) {
+          const chunk = decoder.decode(value);
+          const lines = chunk.split("\n");
+
+          for (const line of lines) {
+            if (line.startsWith("data: ")) {
+              const data = line.slice(6);
+              if (data === "[DONE]") {
+                done = true;
+                break;
+              }
+
+              try {
+                const parsed = JSON.parse(data);
+                if (parsed.content) {
+                  setMessages((prev) =>
+                    prev.map((msg) =>
+                      msg.id === assistantMessage.id
+                        ? { ...msg, content: msg.content + parsed.content }
+                        : msg
+                    )
+                  );
+                  scrollToBottom();
+                }
+                if (parsed.sources) {
+                  setMessages((prev) =>
+                    prev.map((msg) =>
+                      msg.id === assistantMessage.id
+                        ? { ...msg, sources: parsed.sources }
+                        : msg
+                    )
+                  );
+                }
+              } catch (e) {
+                // Ignore parsing errors for incomplete chunks
+              }
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        role: "assistant",
+        content: "Sorry, I encountered an error. Please try again later.",
+        timestamp: new Date(),
+      };
+      setMessages((prev) => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleSourcesClick = () => {
-    setSourcesButtonClicked(true);
     window.open("/chatbot-sources", "_blank");
-    // Reset the visual feedback after a short delay
-    setTimeout(() => setSourcesButtonClicked(false), 300);
   };
 
   const toggleSourcesExpansion = (messageId: string) => {
@@ -189,35 +336,32 @@ export default function Chatbot() {
   };
 
   return (
-    <div className="bg-brand-beige-light rounded-lg shadow-organic-lg overflow-hidden border border-brand-secondary/30">
+    <div className="flex gap-4 w-full h-[600px]">
+      {/* Sidebar - Hidden on mobile, visible on tablet and up */}
+      <div className="hidden lg:block w-80 flex-shrink-0">
+        <div className="sticky top-4 h-full">
+          <ChatSidebar
+            categories={questionCategories}
+            onQuestionSelect={handleQuestionSelect}
+          />
+        </div>
+      </div>
+
+      {/* Main Chat Component */}
+      <div className="flex-1 min-w-0 h-full">
+        <div className="bg-brand-beige-light rounded-lg shadow-organic-lg overflow-hidden border border-brand-secondary/30 h-full flex flex-col">
       {/* Chat Header */}
-      <div className="bg-brand-primary text-brand-beige p-3 sm:p-4">
-        <div className="flex justify-between items-start">
-          <div>
-            <h3 className="text-base sm:text-lg font-semibold">
-              Chat with Winton
-            </h3>
-            <p className="text-brand-beige-light text-xs sm:text-sm">
-              Ask me about my work, projects, and experience
-            </p>
-          </div>
+      <div className="bg-brand-primary text-brand-beige p-4 flex-shrink-0">
+        <div className="flex justify-between items-center gap-4">
+          <h3 className="text-lg font-semibold">Chat with Winton</h3>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleSourcesClick}
-            className={`text-xs px-3 py-1.5 rounded-full transition-all duration-300 border font-medium relative group ${
-              sourcesButtonClicked
-                ? "bg-gradient-to-r from-brand-primary/40 to-brand-primary/50 border-brand-primary/60 text-brand-beige shadow-organic-lg scale-95"
-                : "bg-gradient-to-r from-brand-secondary/20 to-brand-secondary/30 hover:from-brand-secondary/30 hover:to-brand-secondary/40 text-brand-beige border-brand-secondary/30 hover:border-brand-secondary/50 shadow-organic hover:shadow-organic-lg"
-            }`}
-            title="See the information sources used by this chatbot"
+            className="text-xs px-3 py-1.5 rounded-full bg-brand-secondary/20 hover:bg-brand-secondary/30 border border-brand-secondary/30 hover:border-brand-secondary/50 text-brand-beige font-medium transition-all duration-200 shadow-sm hover:shadow-organic"
+            title="View knowledge sources"
           >
             Sources
-            {/* Tooltip */}
-            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-brand-primary text-brand-beige text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap z-50">
-              View knowledge sources
-              <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-brand-primary"></div>
-            </div>
           </motion.button>
         </div>
       </div>
@@ -225,7 +369,7 @@ export default function Chatbot() {
       {/* Messages Container */}
       <div
         ref={messagesContainerRef}
-        className="h-80 sm:h-96 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4"
+        className="flex-1 overflow-y-auto p-4 space-y-4"
       >
         {messages.map((message) => (
           <div
@@ -247,16 +391,16 @@ export default function Chatbot() {
               </div>
             )}
 
-            <div className="flex flex-col max-w-xs sm:max-w-sm lg:max-w-lg">
+            <div className="flex flex-col max-w-lg">
               {/* Message bubble */}
               <div
-                className={`px-3 sm:px-4 py-2 sm:py-3 rounded-lg shadow-organic ${
+                className={`px-4 py-3 rounded-lg shadow-organic ${
                   message.role === "user"
                     ? "bg-brand-primary text-white"
                     : "bg-brand-secondary text-brand-text"
                 }`}
               >
-                <div className="text-xs sm:text-sm leading-relaxed">
+                <div className="text-sm leading-relaxed">
                   <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     components={{
@@ -342,22 +486,17 @@ export default function Chatbot() {
                 </div>
               </div>
 
-              {/* Timestamp and sender label */}
-              <div
-                className={`flex items-center gap-2 mt-1 ${
-                  message.role === "user" ? "justify-end" : "justify-start"
+              {/* Timestamp - subtle and minimal */}
+              <span
+                className={`text-xs text-brand-text-light/40 mt-1 block ${
+                  message.role === "user" ? "text-right" : "text-left"
                 }`}
               >
-                <span className="text-xs text-brand-text-light/60">
-                  {message.role === "user" ? "You" : "Winton"}
-                </span>
-                <span className="text-xs text-brand-text-light/40">
-                  {message.timestamp.toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                </span>
-              </div>
+                {message.timestamp.toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </span>
 
               {/* Sources for assistant messages - ChatGPT style */}
               {message.role === "assistant" &&
@@ -523,7 +662,7 @@ export default function Chatbot() {
                 />
               </div>
             </div>
-            <div className="bg-brand-secondary text-brand-text px-3 sm:px-4 py-2 rounded-lg shadow-organic">
+            <div className="bg-brand-secondary text-brand-text px-4 py-3 rounded-lg shadow-organic">
               <div className="flex items-center gap-2">
                 <div className="flex space-x-1">
                   <div className="w-2 h-2 bg-brand-primary rounded-full animate-bounce"></div>
@@ -536,9 +675,7 @@ export default function Chatbot() {
                     style={{ animationDelay: "0.2s" }}
                   ></div>
                 </div>
-                <span className="text-xs text-brand-text-light/70 animate-pulse">
-                  Thinking...
-                </span>
+                <span className="text-sm text-brand-text-light/70">Thinking...</span>
               </div>
             </div>
           </div>
@@ -547,57 +684,30 @@ export default function Chatbot() {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Quick Select Options */}
-      {messages.length === 1 && (
-        <div className="px-4 sm:px-6 pb-4 sm:pb-6 bg-gradient-to-r from-brand-beige-light/30 to-brand-beige/30">
-          <p className="text-sm text-brand-text-light mb-4 text-center font-medium">
-            Try asking about:
-          </p>
-          <div className="flex flex-wrap gap-3 justify-center max-w-2xl mx-auto">
-            {quickSelectOptions.map((option, index) => (
-              <motion.button
-                key={index}
-                onClick={() => handleQuickSelect(option)}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-4 py-3 text-sm bg-white text-brand-text rounded-xl hover:bg-brand-secondary hover:text-brand-text transition-all duration-200 border-2 border-brand-secondary/30 hover:border-brand-primary hover:shadow-organic-lg whitespace-nowrap font-medium shadow-sm"
-              >
-                {option}
-              </motion.button>
-            ))}
-          </div>
-        </div>
-      )}
-
       {/* Input Form */}
       <form
         onSubmit={handleSubmit}
-        className="p-4 sm:p-6 border-t border-brand-secondary/30 bg-gradient-to-r from-brand-beige-light/50 to-brand-beige/50"
+        className="p-4 border-t border-brand-secondary/30 flex-shrink-0"
       >
-        <div className="flex space-x-3 max-w-2xl mx-auto">
-          <div className="flex-1 relative">
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask me about my work, projects, or experience..."
-              className="w-full px-4 py-3 text-sm sm:text-base border-2 border-brand-secondary/40 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-primary/30 focus:border-brand-primary bg-white text-brand-text placeholder-brand-text-light/70 shadow-sm hover:shadow-md transition-all duration-200"
-              disabled={isLoading}
-            />
-            {/* Input focus indicator */}
-            <div className="absolute inset-0 rounded-xl border-2 border-transparent pointer-events-none transition-all duration-200 focus-within:border-brand-primary/20"></div>
-          </div>
+        <div className="flex gap-3">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Ask a question..."
+            className="flex-1 px-4 py-3 text-sm border-2 border-brand-secondary/40 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary/30 focus:border-brand-primary bg-white text-brand-text placeholder-brand-text-light/60 transition-all duration-200"
+            disabled={isLoading}
+          />
           <motion.button
             type="submit"
             disabled={!input.trim() || isLoading}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="bg-gradient-to-r from-brand-primary to-brand-primary-light hover:from-brand-primary-dark hover:to-brand-primary disabled:from-brand-secondary disabled:to-brand-secondary text-brand-beige px-6 py-3 text-sm font-semibold rounded-xl transition-all duration-200 shadow-organic hover:shadow-organic-lg disabled:opacity-50 disabled:cursor-not-allowed min-w-[80px]"
+            className="bg-brand-primary hover:bg-brand-primary-dark disabled:bg-brand-secondary/50 text-brand-beige px-6 py-3 text-sm font-semibold rounded-lg transition-all duration-200 shadow-organic hover:shadow-organic-lg disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? (
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 border-2 border-brand-beige/30 border-t-brand-beige rounded-full animate-spin"></div>
-                <span>Sending...</span>
               </div>
             ) : (
               "Send"
@@ -605,6 +715,8 @@ export default function Chatbot() {
           </motion.button>
         </div>
       </form>
+        </div>
+      </div>
     </div>
   );
 }
