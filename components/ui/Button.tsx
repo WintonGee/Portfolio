@@ -81,7 +81,15 @@ export default function Button({
       onMouseLeave={handleMouseLeave}
       animate={animateProps}
       transition={SPRING_CONFIG}
-      whileHover={{ scale: 1.05 }}
+      whileHover={
+        variant === "primary"
+          ? {
+              scale: 1.05,
+              boxShadow:
+                "0 8px 30px rgba(85, 107, 47, 0.35), 0 0 20px rgba(107, 123, 63, 0.25)",
+            }
+          : { scale: 1.05 }
+      }
       whileTap={{ scale: 0.95 }}
       className={classes}
       {...componentProps}

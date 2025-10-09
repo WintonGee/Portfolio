@@ -275,11 +275,12 @@ export default function Hero() {
                   Download Resume
                 </Button>
                 <Button
-                  href="https://linkedin.com/in/wintongee"
+                  href="mailto:wintongee@gmail.com"
                   variant="secondary"
                   size="lg"
                 >
-                  Let's Connect
+                  <EnvelopeIcon className="w-5 h-5 mr-2" />
+                  Let's Chat
                 </Button>
               </div>
 
