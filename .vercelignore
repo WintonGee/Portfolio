@@ -37,11 +37,10 @@ Thumbs.db
 .git/
 .gitignore
 
-# Documentation and development files
+# Documentation and development files (but NOT data/chatbot markdown files)
 README.md
 CHATBOT_TESTING.md
 Makefile
-*.md
 
 # Scripts and development tools
 tsconfig.tsbuildinfo
