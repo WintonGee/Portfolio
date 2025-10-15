@@ -15,6 +15,9 @@ interface SourceFile {
   tags: string[];
 }
 
+// Cache the result for 1 hour (3600 seconds)
+export const revalidate = 3600;
+
 export async function GET() {
   try {
     const chatbotDir = join(process.cwd(), "data", "chatbot");

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 
 interface SourceFile {
@@ -28,6 +28,7 @@ export default function ChatbotSources() {
   const [copySuccess, setCopySuccess] = useState(false);
   const [isCopying, setIsCopying] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
 
   const loadSources = async () => {
     try {
@@ -53,6 +54,15 @@ export default function ChatbotSources() {
     loadSources();
   }, []);
 
+  // Debounce search query
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
   // Handle ESC key to close modal
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
@@ -74,24 +84,27 @@ export default function ChatbotSources() {
     };
   }, [showModal]);
 
-  const categories = Array.from(
-    new Set(sources.map((source) => source.category))
+  const categories = useMemo(
+    () => Array.from(new Set(sources.map((source) => source.category))),
+    [sources]
   );
 
-  const filteredSources = sources.filter((source) => {
-    const matchesCategory =
-      selectedCategory === "all" || source.category === selectedCategory;
-    const matchesSearch =
-      searchQuery === "" ||
-      source.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      source.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      source.path.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      source.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      source.tags.some((tag) =>
-        tag.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    return matchesCategory && matchesSearch;
-  });
+  const filteredSources = useMemo(() => {
+    return sources.filter((source) => {
+      const matchesCategory =
+        selectedCategory === "all" || source.category === selectedCategory;
+      const matchesSearch =
+        debouncedSearchQuery === "" ||
+        source.title.toLowerCase().includes(debouncedSearchQuery.toLowerCase()) ||
+        source.content.toLowerCase().includes(debouncedSearchQuery.toLowerCase()) ||
+        source.path.toLowerCase().includes(debouncedSearchQuery.toLowerCase()) ||
+        source.description.toLowerCase().includes(debouncedSearchQuery.toLowerCase()) ||
+        source.tags.some((tag) =>
+          tag.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
+        );
+      return matchesCategory && matchesSearch;
+    });
+  }, [sources, selectedCategory, debouncedSearchQuery]);
 
   const openModal = (source: SourceFile) => {
     setSelectedSource(source);
@@ -172,35 +185,10 @@ export default function ChatbotSources() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-brand-beige via-brand-beige-light to-brand-beige-dark relative overflow-hidden">
-      {/* Enhanced Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          animate={{
-            y: [0, -30, 0],
-            x: [0, 15, 0],
-            rotate: [0, 360, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute top-16 right-16 w-40 h-40 bg-gradient-to-r from-brand-primary/15 to-brand-secondary/15 rounded-full blur-2xl"
-        />
-        <motion.div
-          animate={{
-            y: [0, 20, 0],
-            x: [0, -12, 0],
-            rotate: [0, -360, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 3,
-          }}
-          className="absolute bottom-24 left-16 w-32 h-32 bg-gradient-to-r from-brand-secondary/15 to-brand-primary/15 rounded-full blur-2xl"
-        />
+      {/* Enhanced Background Elements - Optimized with CSS */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-16 right-16 w-40 h-40 bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10 rounded-full blur-3xl opacity-70" />
+        <div className="absolute bottom-24 left-16 w-32 h-32 bg-gradient-to-r from-brand-secondary/10 to-brand-primary/10 rounded-full blur-3xl opacity-70" />
       </div>
 
       {/* Navigation Header */}
@@ -241,9 +229,9 @@ export default function ChatbotSources() {
       <div className="bg-brand-primary text-brand-beige py-16 relative z-10">
         <div className="container mx-auto px-4">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4 }}
             className="text-center"
           >
             <h1 className="text-3xl sm:text-4xl font-bold mb-4">
@@ -261,9 +249,9 @@ export default function ChatbotSources() {
       <div className="container mx-auto px-4 py-12 relative z-10">
         {/* Search Bar */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
           className="mb-6"
         >
           <div className="max-w-md mx-auto">
@@ -292,9 +280,9 @@ export default function ChatbotSources() {
 
         {/* Category Filter */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
           className="mb-8"
         >
           <div className="flex flex-wrap gap-2 justify-center">
@@ -333,11 +321,11 @@ export default function ChatbotSources() {
           {filteredSources.map((source, index) => (
             <motion.div
               key={source.path}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ y: -8, scale: 1.02 }}
-              className="bg-gradient-to-br from-brand-beige-light to-brand-beige rounded-xl shadow-organic-lg hover:shadow-2xl border border-brand-secondary/30 overflow-hidden hover:border-brand-primary/30 transition-all duration-300 group relative flex flex-col min-h-[400px] hover:-translate-y-2 hover:scale-[1.02]"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, delay: Math.min(index * 0.05, 0.3) }}
+              className="bg-gradient-to-br from-brand-beige-light to-brand-beige rounded-xl shadow-organic-lg hover:shadow-2xl border border-brand-secondary/30 overflow-hidden hover:border-brand-primary/30 transition-all duration-300 group relative flex flex-col min-h-[400px] will-change-transform"
+              style={{ transform: 'translateZ(0)' }}
             >
               {/* Card Header with Gradient */}
               <div className="bg-gradient-to-r from-brand-primary/5 to-brand-secondary/5 p-4 border-b border-brand-secondary/20">
@@ -427,8 +415,8 @@ export default function ChatbotSources() {
 
         {filteredSources.length === 0 && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             className="text-center py-16"
           >
             <div className="bg-brand-beige-light rounded-xl shadow-organic-lg border border-brand-secondary/30 p-8 max-w-md mx-auto">
@@ -437,14 +425,14 @@ export default function ChatbotSources() {
                 No sources found
               </h3>
               <p className="text-brand-text-light mb-4">
-                {searchQuery
-                  ? `No sources found matching "${searchQuery}".`
+                {debouncedSearchQuery
+                  ? `No sources found matching "${debouncedSearchQuery}".`
                   : selectedCategory === "all"
                   ? "No chatbot sources are available at the moment."
                   : `No sources found in the "${selectedCategory}" category.`}
               </p>
               <div className="flex gap-2 justify-center">
-                {searchQuery && (
+                {debouncedSearchQuery && (
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -481,10 +469,10 @@ export default function ChatbotSources() {
           onClick={closeModal}
         >
           <motion.div
-            initial={{ scale: 0.8, opacity: 0, y: 30 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.8, opacity: 0, y: 30 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
             className="bg-gradient-to-br from-brand-beige-light to-brand-beige rounded-xl shadow-2xl border border-brand-secondary/30 w-full max-w-5xl max-h-[85vh] h-[80vh] sm:h-[80vh] flex flex-col overflow-hidden"
             onClick={(e) => e.stopPropagation()}
             role="dialog"
