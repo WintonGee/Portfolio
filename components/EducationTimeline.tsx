@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useMemo } from "react";
 import {
   LineChart,
   Line,
@@ -35,6 +35,8 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [filterCategory, setFilterCategory] = useState<FilterCategory>("all");
+  const [selectedItem, setSelectedItem] = useState<TimelineItem | null>(null);
+  const [showCardPopup, setShowCardPopup] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -46,21 +48,32 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Process timeline data
-  const sortedItems = addSpacingToOverlappingPoints(items);
-  const filteredItems = filterItemsByCategory(sortedItems, filterCategory);
-
-  // Separate professional and academic items
-  const professionalItems = filteredItems.filter(
-    (item) => item.category === "professional"
-  );
-  const academicItems = filteredItems.filter(
-    (item) => item.category === "academic"
+  // Process timeline data - memoized to prevent unnecessary re-renders
+  const sortedItems = useMemo(() => addSpacingToOverlappingPoints(items), [items]);
+  const filteredItems = useMemo(
+    () => filterItemsByCategory(sortedItems, filterCategory),
+    [sortedItems, filterCategory]
   );
 
-  // Transform to chart data
-  const professionalData = transformToChartData(professionalItems);
-  const academicData = transformToChartData(academicItems);
+  // Separate professional and academic items - memoized
+  const professionalItems = useMemo(
+    () => filteredItems.filter((item) => item.category === "professional"),
+    [filteredItems]
+  );
+  const academicItems = useMemo(
+    () => filteredItems.filter((item) => item.category === "academic"),
+    [filteredItems]
+  );
+
+  // Transform to chart data - memoized
+  const professionalData = useMemo(
+    () => transformToChartData(professionalItems),
+    [professionalItems]
+  );
+  const academicData = useMemo(
+    () => transformToChartData(academicItems),
+    [academicItems]
+  );
 
   // Helper function to get logo path for institution
   const getLogoPath = (institution: string): string => {
@@ -112,6 +125,12 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
     return "/logos/companies/default.png";
   };
 
+  // Handler for opening card popup
+  const handleDotClick = (item: TimelineItem) => {
+    setSelectedItem(item);
+    setShowCardPopup(true);
+  };
+
   // Custom dot component for timeline points with logos
   const CustomDot = (props: any) => {
     const { cx, cy, payload } = props;
@@ -124,10 +143,7 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
     return (
       <g>
         {/* Logo background circle */}
-        <motion.circle
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.5, delay: payload.progression * 0.1 }}
+        <circle
           cx={cx}
           cy={cy}
           r={isMobile ? 16 : 20}
@@ -135,20 +151,12 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
           stroke={color}
           strokeWidth={3}
           className="cursor-pointer hover:scale-110 transition-all duration-300"
-          onClick={() =>
-            setActiveIndex(
-              activeIndex === payload.progression - 1
-                ? null
-                : payload.progression - 1
-            )
-          }
+          style={{ transformOrigin: `${cx}px ${cy}px` }}
+          onClick={() => handleDotClick(item)}
         />
 
         {/* Logo image */}
-        <motion.foreignObject
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.4, delay: payload.progression * 0.1 + 0.2 }}
+        <foreignObject
           x={cx - (isMobile ? 12 : 16)}
           y={cy - (isMobile ? 12 : 16)}
           width={isMobile ? 24 : 32}
@@ -169,17 +177,11 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
               }}
             />
           </div>
-        </motion.foreignObject>
+        </foreignObject>
 
         {/* Current status indicator */}
         {isCurrent && (
-          <motion.circle
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{
-              duration: 0.3,
-              delay: payload.progression * 0.1 + 0.3,
-            }}
+          <circle
             cx={cx + 14}
             cy={cy - 14}
             r={5}
@@ -189,10 +191,7 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
         )}
 
         {/* Visible label */}
-        <motion.text
-          initial={{ opacity: 0, x: -10 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.4, delay: payload.progression * 0.1 + 0.3 }}
+        <text
           x={cx + (isMobile ? 20 : 30)}
           y={cy + 5}
           textAnchor="start"
@@ -200,7 +199,7 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
           style={{ fontSize: isMobile ? "9px" : "11px" }}
         >
           {item?.title}
-        </motion.text>
+        </text>
       </g>
     );
   };
@@ -272,6 +271,103 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
 
   return (
     <div className="relative">
+      {/* Card Popup Modal */}
+      <AnimatePresence>
+        {showCardPopup && selectedItem && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
+              onClick={() => setShowCardPopup(false)}
+            />
+            
+            {/* Card */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 w-[90%] max-w-lg"
+            >
+              <div className="bg-brand-beige-light rounded-2xl p-6 sm:p-8 shadow-2xl border-2 border-brand-secondary/30 relative">
+                {/* Close button */}
+                <button
+                  onClick={() => setShowCardPopup(false)}
+                  className="absolute top-4 right-4 w-8 h-8 rounded-full bg-brand-primary/10 hover:bg-brand-primary/20 transition-colors duration-200 flex items-center justify-center group"
+                >
+                  <svg
+                    className="w-5 h-5 text-brand-text group-hover:text-brand-primary transition-colors"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+
+                <div className="space-y-4">
+                  {/* Year badge with logo */}
+                  <div className="inline-flex items-center px-3 sm:px-4 py-2 rounded-full text-sm sm:text-base font-medium bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10 text-brand-primary border border-brand-primary/20">
+                    <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full overflow-hidden mr-2 flex-shrink-0">
+                      <img
+                        src={getLogoPath(selectedItem.institution || "")}
+                        alt={`${selectedItem.institution} logo`}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.src = "/logos/companies/default.png";
+                        }}
+                      />
+                    </div>
+                    {selectedItem.year}
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-xl sm:text-2xl font-bold text-brand-text pr-8">
+                    {selectedItem.title}
+                  </h3>
+
+                  {/* Institution */}
+                  {selectedItem.institution && (
+                    <p className="text-brand-primary font-medium text-sm sm:text-base">
+                      {selectedItem.institution}
+                    </p>
+                  )}
+
+                  {/* Description */}
+                  <p className="text-brand-text-light leading-relaxed text-sm sm:text-base">
+                    {getHoverDescription(selectedItem)}
+                  </p>
+
+                  {/* Current status indicator */}
+                  {selectedItem.isCurrent && (
+                    <div className="flex items-center text-brand-primary text-sm sm:text-base font-medium">
+                      <div className="w-2 h-2 rounded-full bg-brand-primary mr-2 animate-pulse"></div>
+                      Currently Working
+                    </div>
+                  )}
+
+                  {/* Type badge */}
+                  {selectedItem.type && (
+                    <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-brand-secondary/10 text-brand-secondary border border-brand-secondary/20">
+                      {selectedItem.type}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
       {/* Section Title */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
