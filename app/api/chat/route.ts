@@ -25,15 +25,11 @@ interface EmbeddingData {
 async function loadEmbeddings(): Promise<EmbeddingData[]> {
   try {
     // Use embedded data (always available)
-    console.log("Loading embedded embeddings data...");
-    console.log(
-      "Successfully loaded",
-      EMBEDDINGS_DATA.length,
-      "embeddings from embedded data"
-    );
     return EMBEDDINGS_DATA;
   } catch (error) {
-    console.error("Error loading embedded embeddings:", error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error("Error loading embedded embeddings:", error);
+    }
     return [];
   }
 }
@@ -86,7 +82,9 @@ async function getRelevantContext(
 
     return { context, sources };
   } catch (error) {
-    console.error("Error getting relevant context:", error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error("Error getting relevant context:", error);
+    }
     return {
       context: "Portfolio information not available.",
       sources: [],

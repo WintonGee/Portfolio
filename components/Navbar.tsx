@@ -162,6 +162,7 @@ export default function Navbar() {
             >
               Download Resume
             </Button>
+
             <Button
               href="mailto:wintongee@gmail.com?subject=Let's Connect - Portfolio Inquiry&body=Hi Winton,%0D%0A%0D%0AI came across your portfolio and would like to connect regarding potential opportunities.%0D%0A%0D%0ABest regards,"
               size="md"
@@ -289,7 +290,7 @@ export default function Navbar() {
                   <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.3 }}
+                    transition={{ delay: 0.35 }}
                     className="pt-4"
                   >
                     <Button
@@ -312,7 +313,7 @@ export default function Navbar() {
                       href="https://linkedin.com/in/wintongee"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-brand-text-light hover:text-brand-primary transition-colors duration-200"
+                      className="text-brand-text hover:text-brand-primary transition-colors duration-200"
                       aria-label="Visit LinkedIn profile"
                     >
                       <svg
@@ -327,7 +328,7 @@ export default function Navbar() {
                       href="https://github.com/wintongee"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-brand-text-light hover:text-brand-primary transition-colors duration-200"
+                      className="text-brand-text hover:text-brand-primary transition-colors duration-200"
                       aria-label="Visit GitHub profile"
                     >
                       <svg

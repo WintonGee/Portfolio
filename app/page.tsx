@@ -8,6 +8,7 @@ import ProjectsNew from "@/components/ProjectsNew";
 import Chatbot from "@/components/Chatbot";
 import CollaborationCTA from "@/components/CollaborationCTA";
 import FloatingChatButton from "@/components/FloatingChatButton";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -137,6 +138,9 @@ export default function Home() {
 
       {/* Floating Chat Button */}
       <FloatingChatButton />
+
+      {/* Footer */}
+      <Footer />
     </main>
   );
 }
