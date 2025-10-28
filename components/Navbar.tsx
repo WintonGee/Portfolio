@@ -154,7 +154,7 @@ export default function Navbar() {
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-primary-light group-hover:w-full transition-all duration-300"></span>
             </motion.button>
             <Button
-              href="/resume/AIML_Resume_WintonGee.pdf"
+              href="/resume/Winton_Gee_Resume.pdf"
               download="Winton_Gee_Resume.pdf"
               variant="outline"
               size="md"
@@ -276,7 +276,7 @@ export default function Navbar() {
                     className="py-2"
                   >
                     <Button
-                      href="/resume/AIML_Resume_WintonGee.pdf"
+                      href="/resume/Winton_Gee_Resume.pdf"
                       download="Winton_Gee_Resume.pdf"
                       variant="outline"
                       size="md"

@@ -24,7 +24,7 @@ export const FILTER_OPTIONS: FilterOption[] = [
 // Hover descriptions for timeline items
 export const HOVER_DESCRIPTIONS: Record<string, string> = {
   "AI Engineer":
-    "Working with top foundational model labs to improve AI output quality and reduce hallucinations across 25+ backend tasks.",
+    "Working with top foundational model labs to improve AI output quality and reduce hallucinations",
   Founder:
     "Founded CoChat.io, an AI-driven platform for interactive online personas. Launched MVP with TypeScript/React and PostgreSQL.",
   "Python Software Engineer":

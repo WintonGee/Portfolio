@@ -21,7 +21,7 @@ const STATIC_ASSETS = [
   "/logos/companies/linkedin.png",
   "/logos/companies/ccsf.png",
   "/logos/companies/default.png",
-  "/resume/AIML_Resume_WintonGee.pdf",
+  "/resume/Winton_Gee_Resume.pdf",
   "/manifest.json",
 ];
 
