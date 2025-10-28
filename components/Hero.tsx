@@ -235,7 +235,13 @@ export default function Hero() {
               >
                 <span className="font-extrabold">AI </span>
                 <Typewriter
-                  words={["Engineer", "Founder", "Builder", "Innovator", "Developer"]}
+                  words={[
+                    "Engineer",
+                    "Founder",
+                    "Builder",
+                    "Innovator",
+                    "Developer",
+                  ]}
                   typingSpeed={120}
                   deletingSpeed={80}
                   delayBetweenWords={2500}
@@ -268,7 +274,7 @@ export default function Hero() {
               {/* Enhanced Button Layout */}
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <Button
-                  href="/resume/AIML_Resume_WintonGee.pdf"
+                  href="/resume/Winton_Gee_Resume.pdf"
                   size="lg"
                   download="Winton_Gee_Resume.pdf"
                 >
@@ -341,7 +347,8 @@ export default function Hero() {
                     transition={{ duration: 0.5, delay: 1.1 + index * 0.1 }}
                     whileHover={{
                       scale: 1.08,
-                      boxShadow: "0 0 20px rgba(51, 102, 85, 0.4), 0 0 40px rgba(51, 102, 85, 0.2)",
+                      boxShadow:
+                        "0 0 20px rgba(51, 102, 85, 0.4), 0 0 40px rgba(51, 102, 85, 0.2)",
                     }}
                     className="relative px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-3 bg-brand-beige-light text-brand-text text-sm sm:text-base font-medium rounded-full shadow-organic border border-brand-secondary/50 hover:bg-gradient-to-r hover:from-brand-primary/15 hover:to-brand-secondary/15 hover:text-brand-primary hover:border-brand-primary transition-all duration-300 cursor-pointer"
                   >
