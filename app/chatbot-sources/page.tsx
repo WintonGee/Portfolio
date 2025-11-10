@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useSearchParams } from "next/navigation";
 
 interface SourceFile {
   path: string;
@@ -17,6 +18,7 @@ interface SourceFile {
 }
 
 export default function ChatbotSources() {
+  const searchParams = useSearchParams();
   const [sources, setSources] = useState<SourceFile[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -52,6 +54,17 @@ export default function ChatbotSources() {
   useEffect(() => {
     loadSources();
   }, []);
+
+  // Auto-open modal if file parameter is present in URL
+  useEffect(() => {
+    const fileParam = searchParams.get("file");
+    if (fileParam && sources.length > 0 && !showModal) {
+      const sourceToOpen = sources.find((source) => source.path === fileParam);
+      if (sourceToOpen) {
+        openModal(sourceToOpen);
+      }
+    }
+  }, [sources, searchParams]);
 
   // Handle ESC key to close modal
   useEffect(() => {

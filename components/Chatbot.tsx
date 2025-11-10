@@ -587,7 +587,12 @@ export default function Chatbot() {
                                 whileHover={{ scale: 1.01, y: -0.5 }}
                                 whileTap={{ scale: 0.99 }}
                                 onClick={() =>
-                                  window.open("/chatbot-sources", "_blank")
+                                  window.open(
+                                    `/chatbot-sources?file=${encodeURIComponent(
+                                      source.filePath
+                                    )}`,
+                                    "_blank"
+                                  )
                                 }
                                 className="w-full text-left bg-white/30 hover:bg-white/50 border border-brand-secondary/10 hover:border-brand-secondary/30 rounded-md p-2 transition-all duration-200 shadow-sm hover:shadow-md group"
                                 title={`View source: ${
