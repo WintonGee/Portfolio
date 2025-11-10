@@ -148,9 +148,9 @@ export default function Hero() {
                 transition={{ duration: 0.8, delay: 0.7 }}
                 className="space-y-3"
               >
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl text-brand-text font-bold tracking-tight">
+                <p className="text-2xl sm:text-3xl lg:text-4xl text-brand-text font-bold tracking-tight">
                   Hi, I'm Winton 👋
-                </h1>
+                </p>
 
                 {/* Location moved here */}
                 <div className="flex items-center justify-center lg:justify-start gap-3 text-brand-text-light">

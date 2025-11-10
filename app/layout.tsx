@@ -56,7 +56,6 @@ export const metadata: Metadata = {
 export const viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
   themeColor: "#556B2F",
 };
 
@@ -76,6 +75,43 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/logos/companies/default.png" />
         <meta name="msapplication-TileColor" content="#556B2F" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Winton Gee",
+              "jobTitle": "AI/ML Engineer",
+              "url": "https://wintongee.com",
+              "sameAs": [
+                "https://linkedin.com/in/wintongee",
+                "https://github.com/wintongee"
+              ],
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "San Francisco",
+                "addressRegion": "CA"
+              },
+              "email": "wintongee@gmail.com",
+              "telephone": "+14158063004",
+              "knowsAbout": [
+                "Artificial Intelligence",
+                "Machine Learning",
+                "Python",
+                "TypeScript",
+                "React",
+                "Next.js",
+                "RAG Systems",
+                "Semantic Search"
+              ],
+              "worksFor": {
+                "@type": "Organization",
+                "name": "Mercor"
+              }
+            })
+          }}
+        />
       </head>
       <body className={plusJakartaSans.className}>
         {children}

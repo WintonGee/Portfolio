@@ -97,16 +97,25 @@ export default function Navbar() {
   };
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
-          ? "bg-brand-beige/90 backdrop-blur-md shadow-organic-lg border-b border-brand-secondary/30"
-          : "bg-transparent"
-      }`}
-    >
+    <>
+      {/* Skip Navigation Link for Accessibility */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[60] focus:px-4 focus:py-2 focus:bg-brand-primary focus:text-white focus:rounded-lg focus:shadow-lg"
+      >
+        Skip to main content
+      </a>
+
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          isScrolled
+            ? "bg-brand-beige/90 backdrop-blur-md shadow-organic-lg border-b border-brand-secondary/30"
+            : "bg-transparent"
+        }`}
+      >
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-6">
           {/* Logo */}
@@ -180,6 +189,8 @@ export default function Navbar() {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="text-brand-text hover:text-brand-primary transition-colors duration-200 relative z-50"
               aria-label="Toggle mobile menu"
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-menu"
             >
               <motion.div
                 animate={{ rotate: isMobileMenuOpen ? 45 : 0 }}
@@ -229,6 +240,7 @@ export default function Navbar() {
 
             {/* Mobile Menu */}
             <motion.div
+              id="mobile-menu"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
@@ -347,5 +359,6 @@ export default function Navbar() {
         )}
       </AnimatePresence>
     </motion.nav>
+    </>
   );
 }
