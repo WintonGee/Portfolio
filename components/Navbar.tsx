@@ -116,8 +116,8 @@ export default function Navbar() {
             : "bg-transparent"
         }`}
       >
-      <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center py-6">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center py-4 sm:py-6">
           {/* Logo */}
           <motion.div
             whileHover={{ scale: 1.05 }}
@@ -126,7 +126,7 @@ export default function Navbar() {
           >
             <button
               onClick={navigateToHome}
-              className="text-2xl font-bold text-brand-text hover:gradient-text transition-all duration-300"
+              className="text-xl sm:text-2xl font-bold text-brand-text hover:gradient-text transition-all duration-300"
             >
               Winton Gee
             </button>
@@ -187,7 +187,7 @@ export default function Navbar() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-brand-text hover:text-brand-primary transition-colors duration-200 relative z-50"
+              className="inline-flex items-center justify-center p-2 text-brand-text hover:text-brand-primary hover:bg-brand-beige/20 rounded-lg transition-colors duration-200 relative z-50"
               aria-label="Toggle mobile menu"
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-menu"
@@ -197,7 +197,7 @@ export default function Navbar() {
                 transition={{ duration: 0.3 }}
               >
                 <svg
-                  className="w-6 h-6"
+                  className="w-7 h-7"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -247,15 +247,15 @@ export default function Navbar() {
               transition={{ duration: 0.3, ease: "easeOut" }}
               className="fixed top-0 left-0 right-0 bg-brand-beige/95 backdrop-blur-md border-b border-brand-secondary/30 z-50 md:hidden"
             >
-              <div className="container mx-auto px-4 py-6">
-                <div className="flex flex-col space-y-6">
+              <div className="container mx-auto px-4 sm:px-6 py-6">
+                <div className="flex flex-col space-y-4">
                   {/* Mobile Navigation Links */}
                   <motion.button
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 }}
                     onClick={() => scrollToSection("about")}
-                    className="text-left text-lg font-medium text-brand-text hover:text-brand-primary transition-colors duration-200 py-2"
+                    className="text-left text-lg font-medium text-brand-text hover:text-brand-primary hover:bg-brand-beige/20 transition-colors duration-200 py-3 px-2 rounded-lg"
                   >
                     Journey
                   </motion.button>
@@ -265,7 +265,7 @@ export default function Navbar() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.15 }}
                     onClick={() => scrollToSection("projects")}
-                    className="text-left text-lg font-medium text-brand-text hover:text-brand-primary transition-colors duration-200 py-2"
+                    className="text-left text-lg font-medium text-brand-text hover:text-brand-primary hover:bg-brand-beige/20 transition-colors duration-200 py-3 px-2 rounded-lg"
                   >
                     Projects
                   </motion.button>
@@ -319,13 +319,13 @@ export default function Navbar() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.35 }}
-                    className="flex justify-center space-x-6 pt-4 border-t border-brand-secondary/30"
+                    className="flex justify-center gap-3 pt-4 border-t border-brand-secondary/30"
                   >
                     <a
                       href="https://linkedin.com/in/wintongee"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-brand-text hover:text-brand-primary transition-colors duration-200"
+                      className="inline-flex items-center justify-center p-3 text-brand-text hover:text-brand-primary hover:bg-brand-beige/20 transition-colors duration-200 rounded-lg"
                       aria-label="Visit LinkedIn profile"
                     >
                       <svg
@@ -340,7 +340,7 @@ export default function Navbar() {
                       href="https://github.com/wintongee"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-brand-text hover:text-brand-primary transition-colors duration-200"
+                      className="inline-flex items-center justify-center p-3 text-brand-text hover:text-brand-primary hover:bg-brand-beige/20 transition-colors duration-200 rounded-lg"
                       aria-label="Visit GitHub profile"
                     >
                       <svg

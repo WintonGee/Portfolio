@@ -35,9 +35,9 @@ export default function Button({
     "font-semibold rounded-xl transition-all duration-300 hover:scale-105 transform";
 
   const sizeClasses = {
-    sm: "px-3 sm:px-4 py-2 text-sm",
-    md: "px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base",
-    lg: "px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg",
+    sm: "px-4 py-2.5 text-sm sm:px-4 sm:py-2",
+    md: "px-5 py-3 text-sm sm:px-6 sm:py-3 sm:text-base",
+    lg: "px-6 py-4 text-base sm:px-8 sm:py-4 sm:text-lg",
   };
 
   const variantClasses = {

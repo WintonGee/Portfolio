@@ -31,7 +31,7 @@ export default function Hero() {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute top-16 right-16 w-40 h-40 bg-gradient-to-r from-brand-primary/15 to-brand-secondary/15 rounded-full blur-2xl"
+          className="absolute top-16 right-16 w-20 sm:w-40 h-20 sm:h-40 bg-gradient-to-r from-brand-primary/15 to-brand-secondary/15 rounded-full blur-2xl"
         />
         {/* Secondary floating element */}
         <motion.div
@@ -46,7 +46,7 @@ export default function Hero() {
             ease: "easeInOut",
             delay: 3,
           }}
-          className="absolute bottom-24 left-16 w-32 h-32 bg-gradient-to-r from-brand-secondary/15 to-brand-primary/15 rounded-full blur-2xl"
+          className="absolute bottom-24 left-16 w-16 sm:w-32 h-16 sm:h-32 bg-gradient-to-r from-brand-secondary/15 to-brand-primary/15 rounded-full blur-2xl"
         />
         {/* Tertiary accent element */}
         <motion.div
@@ -153,7 +153,7 @@ export default function Hero() {
                 </p>
 
                 {/* Location moved here */}
-                <div className="flex items-center justify-center lg:justify-start gap-3 text-brand-text-light">
+                <div className="flex items-center justify-center lg:justify-start gap-4 text-brand-text-light">
                   <MapPinIcon className="w-5 h-5 text-brand-primary" />
                   <span className="text-base font-medium">
                     San Francisco, CA
@@ -186,7 +186,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.9 }}
-                className="flex flex-col sm:flex-row items-center lg:items-start gap-3 sm:gap-4"
+                className="flex flex-col sm:flex-row items-center lg:items-start gap-4 sm:gap-6"
               >
                 {/* Email */}
                 <motion.a
@@ -195,7 +195,7 @@ export default function Hero() {
                   whileTap={{ scale: 0.98 }}
                   className="flex items-center gap-3 transition-all duration-300 group"
                 >
-                  <EnvelopeIcon className="w-4 h-4 text-brand-primary group-hover:scale-110 transition-transform duration-300" />
+                  <EnvelopeIcon className="w-5 h-5 text-brand-primary group-hover:scale-110 transition-transform duration-300" />
                   <span className="text-base font-medium text-brand-text-light group-hover:text-brand-text transition-colors duration-300">
                     wintongee@gmail.com
                   </span>
@@ -208,7 +208,7 @@ export default function Hero() {
                   whileTap={{ scale: 0.98 }}
                   className="flex items-center gap-3 transition-all duration-300 group"
                 >
-                  <PhoneIcon className="w-4 h-4 text-brand-primary group-hover:scale-110 transition-transform duration-300" />
+                  <PhoneIcon className="w-5 h-5 text-brand-primary group-hover:scale-110 transition-transform duration-300" />
                   <span className="text-base font-medium text-brand-text-light group-hover:text-brand-text transition-colors duration-300">
                     (415) 806-3004
                   </span>
@@ -295,13 +295,13 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.9 }}
-                className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6"
+                className="flex items-center justify-center sm:justify-start gap-3 sm:gap-4"
               >
                 <a
                   href="https://linkedin.com/in/wintongee"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-2 text-brand-text-light hover:text-brand-primary transition-all duration-300 hover:scale-105"
+                  className="group inline-flex items-center gap-2 px-3 py-2 text-brand-text-light hover:text-brand-primary hover:bg-brand-beige/50 rounded-lg transition-all duration-300"
                   aria-label="Visit LinkedIn profile"
                 >
                   <FaLinkedin className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
@@ -311,7 +311,7 @@ export default function Hero() {
                   href="https://github.com/wintongee"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-2 text-brand-text-light hover:text-brand-primary transition-all duration-300 hover:scale-105"
+                  className="group inline-flex items-center gap-2 px-3 py-2 text-brand-text-light hover:text-brand-primary hover:bg-brand-beige/50 rounded-lg transition-all duration-300"
                   aria-label="Visit GitHub profile"
                 >
                   <FaGithub className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />

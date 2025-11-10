@@ -297,7 +297,7 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
                 {/* Close button */}
                 <button
                   onClick={() => setShowCardPopup(false)}
-                  className="absolute top-4 right-4 w-8 h-8 rounded-full bg-brand-primary/10 hover:bg-brand-primary/20 transition-colors duration-200 flex items-center justify-center group"
+                  className="absolute top-2 right-2 w-12 h-12 rounded-full bg-brand-primary/10 hover:bg-brand-primary/20 transition-colors duration-200 flex items-center justify-center group focus:ring-2 focus:ring-brand-primary focus:ring-offset-2"
                 >
                   <svg
                     className="w-5 h-5 text-brand-text group-hover:text-brand-primary transition-colors"
@@ -386,7 +386,7 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
             <button
               key={filter.key}
               onClick={() => setFilterCategory(filter.key as any)}
-              className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${
+              className={`px-4 sm:px-6 py-3 sm:py-3 rounded-full text-sm sm:text-base font-medium transition-all duration-300 ${
                 filterCategory === filter.key
                   ? `${filter.color} text-white shadow-organic-lg border-2 border-brand-primary/20`
                   : "bg-brand-beige-light text-brand-text border-2 border-brand-secondary/30 hover:bg-brand-beige-dark hover:border-brand-secondary/50"

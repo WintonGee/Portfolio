@@ -13,7 +13,7 @@ export default function FloatingChatButton() {
   return (
     <button
       onClick={scrollToChat}
-      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 bg-gradient-to-r from-brand-primary to-brand-primary-light hover:from-brand-primary-dark hover:to-brand-primary text-white p-3 sm:p-4 rounded-full shadow-organic-xl hover:shadow-organic-2xl transition-all duration-300 hover:scale-110 transform group border-2 border-brand-secondary/30 hover:border-brand-secondary"
+      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 bg-gradient-to-r from-brand-primary to-brand-primary-light hover:from-brand-primary-dark hover:to-brand-primary text-white p-4 sm:p-4 rounded-full shadow-organic-xl hover:shadow-organic-2xl transition-all duration-300 hover:scale-110 transform group border-2 border-brand-secondary/30 hover:border-brand-secondary"
       aria-label="Chat with Winton"
       title="Ask me anything!"
     >

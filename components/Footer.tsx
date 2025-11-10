@@ -55,19 +55,19 @@ export default function Footer() {
             className="flex flex-col sm:flex-row justify-between items-center gap-4"
           >
             {/* Copyright on the left */}
-            <p className="text-sm text-brand-beige/80 order-2 sm:order-1">
+            <p className="text-sm sm:text-base text-brand-beige/80 order-2 sm:order-1">
               © 2025 Winton Gee. All rights reserved.
             </p>
 
             {/* Social Links on the right */}
-            <div className="flex items-center gap-4 order-1 sm:order-2">
+            <div className="flex items-center gap-2 sm:gap-4 order-1 sm:order-2">
               {socialLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
                   target={link.href.startsWith("http") ? "_blank" : undefined}
                   rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className="text-brand-beige/80 hover:text-brand-beige transition-colors duration-200"
+                  className="inline-flex items-center justify-center p-3 sm:p-2 text-brand-beige/80 hover:text-brand-beige hover:bg-brand-beige/10 transition-colors duration-200 rounded-lg"
                   aria-label={link.name}
                 >
                   {link.icon}

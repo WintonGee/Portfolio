@@ -75,17 +75,17 @@ function ProjectItem({ project, index }: ProjectItemProps) {
         >
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <h3 className="text-xl sm:text-2xl font-bold text-brand-text">
+              <h3 className="text-2xl sm:text-3xl font-bold text-brand-text">
                 {project.title}
               </h3>
               {project.status === "in-progress" && (
-                <span className="px-3 py-1 bg-gradient-to-r from-brand-primary/20 to-brand-accent/20 text-brand-primary text-xs font-medium rounded-full border border-brand-primary/30 flex items-center gap-1">
+                <span className="px-3 py-1.5 sm:py-2 bg-gradient-to-r from-brand-primary/20 to-brand-accent/20 text-brand-primary text-xs font-medium rounded-full border border-brand-primary/30 flex items-center gap-1">
                   <div className="w-2 h-2 bg-brand-primary rounded-full animate-pulse"></div>
                   In Progress
                 </span>
               )}
               {project.status === "completed" && (
-                <span className="px-3 py-1 bg-gradient-to-r from-brand-secondary/20 to-brand-secondary-light/20 text-brand-text text-xs font-medium rounded-full border border-brand-secondary/30 flex items-center gap-1">
+                <span className="px-3 py-1.5 sm:py-2 bg-gradient-to-r from-brand-secondary/20 to-brand-secondary-light/20 text-brand-text text-xs font-medium rounded-full border border-brand-secondary/30 flex items-center gap-1">
                   <svg
                     className="w-3 h-3"
                     fill="currentColor"
@@ -118,7 +118,7 @@ function ProjectItem({ project, index }: ProjectItemProps) {
                   delay: index * 0.1 + 0.4 + tagIndex * 0.05,
                 }}
                 viewport={{ once: true }}
-                className="px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10 text-brand-primary text-xs sm:text-sm font-medium rounded-full border border-brand-primary/30"
+                className="px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-brand-primary/10 to-brand-secondary/10 text-brand-primary text-sm sm:text-base font-medium rounded-full border border-brand-primary/30"
               >
                 {tech.name}
               </motion.span>
