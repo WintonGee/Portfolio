@@ -135,9 +135,6 @@ const nextConfig = {
   // Enable SWC minification
   swcMinify: true,
 
-  // Disable build traces collection to prevent micromatch stack overflow
-  outputFileTracing: false,
-
   // Enable static optimization
   trailingSlash: false,
 
