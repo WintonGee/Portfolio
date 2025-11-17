@@ -152,16 +152,6 @@ export default function Navbar() {
               Projects
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-primary-light group-hover:w-full transition-all duration-300"></span>
             </motion.button>
-            {/* Chat link - Hidden but functional */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => scrollToSection("chat")}
-              className="hidden text-brand-text hover:text-brand-primary font-medium transition-colors duration-200 relative group"
-            >
-              Chat
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-primary to-brand-primary-light group-hover:w-full transition-all duration-300"></span>
-            </motion.button>
             <Button
               href="/resume/Winton_Gee_Resume.pdf"
               download="Winton_Gee_Resume.pdf"
@@ -270,21 +260,10 @@ export default function Navbar() {
                     Projects
                   </motion.button>
 
-                  {/* Chat link - Hidden but functional */}
-                  <motion.button
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2 }}
-                    onClick={() => scrollToSection("chat")}
-                    className="hidden text-left text-lg font-medium text-brand-text hover:text-brand-primary transition-colors duration-200 py-2"
-                  >
-                    Chat
-                  </motion.button>
-
                   <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.25 }}
+                    transition={{ delay: 0.2 }}
                     className="py-2"
                   >
                     <Button
@@ -302,7 +281,7 @@ export default function Navbar() {
                   <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.35 }}
+                    transition={{ delay: 0.25 }}
                     className="pt-4"
                   >
                     <Button
@@ -318,7 +297,7 @@ export default function Navbar() {
                   <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.35 }}
+                    transition={{ delay: 0.3 }}
                     className="flex justify-center space-x-6 pt-4 border-t border-brand-secondary/30"
                   >
                     <a
