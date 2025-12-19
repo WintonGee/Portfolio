@@ -33,13 +33,6 @@ export const SKILLS_DATA: Record<string, SkillData> = {
           "Backend API development and AI integration for recipe suggestions",
         category: "ai",
       },
-      {
-        projectId: "trustyfaq",
-        projectTitle: "TrustyFAQ",
-        usage:
-          "FastAPI backend development with AI integration and vector search",
-        category: "ai",
-      },
     ],
   },
   OpenAI: {
@@ -61,29 +54,6 @@ export const SKILLS_DATA: Record<string, SkillData> = {
         projectTitle: "CoChat",
         usage:
           "AI-powered chatbot responses and voice cloning technology for digital presence",
-        category: "ai",
-      },
-    ],
-  },
-  "Google Gemini": {
-    name: "Google Gemini",
-    logo: "/logos/tech/gemini.svg",
-    description:
-      "Google's advanced AI model for multimodal understanding, text generation, and intelligent content creation.",
-    category: "ai",
-    proficiency: "advanced",
-    usage: [
-      {
-        projectId: "portfolio",
-        projectTitle: "AI-Powered Portfolio Website",
-        usage:
-          "AI-powered chatbot integration for intelligent portfolio responses",
-        category: "ai",
-      },
-      {
-        projectId: "trustyfaq",
-        projectTitle: "TrustyFAQ",
-        usage: "AI-powered content generation and intelligent FAQ responses",
         category: "ai",
       },
     ],
@@ -121,13 +91,6 @@ export const SKILLS_DATA: Record<string, SkillData> = {
         category: "ai",
       },
       {
-        projectId: "portfolio",
-        projectTitle: "AI-Powered Portfolio Website",
-        usage:
-          "AI chatbot integration with Google Gemini for intelligent portfolio interactions",
-        category: "ai",
-      },
-      {
         projectId: "cochat",
         projectTitle: "CoChat",
         usage:
@@ -144,20 +107,6 @@ export const SKILLS_DATA: Record<string, SkillData> = {
     category: "ai",
     proficiency: "intermediate",
     usage: [
-      {
-        projectId: "portfolio",
-        projectTitle: "AI-Powered Portfolio Website",
-        usage:
-          "RAG system for AI chatbot to provide context-aware responses about portfolio content",
-        category: "ai",
-      },
-      {
-        projectId: "trustyfaq",
-        projectTitle: "TrustyFAQ",
-        usage:
-          "RAG system for semantic FAQ search with vector embeddings and intelligent responses",
-        category: "ai",
-      },
       {
         projectId: "cochat",
         projectTitle: "CoChat",
@@ -195,17 +144,10 @@ export const SKILLS_DATA: Record<string, SkillData> = {
     proficiency: "advanced",
     usage: [
       {
-        projectId: "portfolio",
-        projectTitle: "AI-Powered Portfolio Website",
+        projectId: "paperinvoice",
+        projectTitle: "Paper Invoice",
         usage:
-          "Full type safety throughout the application with advanced TypeScript patterns",
-        category: "frontend",
-      },
-      {
-        projectId: "trustyfaq",
-        projectTitle: "TrustyFAQ",
-        usage:
-          "Type-safe frontend development with React Query and modern patterns",
+          "Type-safe React Native development for offline-first mobile invoice app",
         category: "frontend",
       },
       {
@@ -243,24 +185,17 @@ export const SKILLS_DATA: Record<string, SkillData> = {
     proficiency: "advanced",
     usage: [
       {
+        projectId: "paperinvoice",
+        projectTitle: "Paper Invoice",
+        usage:
+          "React Native framework for building cross-platform iOS invoice app with offline-first architecture",
+        category: "frontend",
+      },
+      {
         projectId: "foodmanager",
         projectTitle: "FoodManager (PantryCraft)",
         usage:
           "Main frontend framework for building the ingredient management interface",
-        category: "frontend",
-      },
-      {
-        projectId: "portfolio",
-        projectTitle: "AI-Powered Portfolio Website",
-        usage:
-          "Component-based architecture with advanced patterns like portals and custom hooks",
-        category: "frontend",
-      },
-      {
-        projectId: "trustyfaq",
-        projectTitle: "TrustyFAQ",
-        usage:
-          "React components with React Query for state management and modern hooks",
         category: "frontend",
       },
       {
@@ -281,23 +216,44 @@ export const SKILLS_DATA: Record<string, SkillData> = {
     proficiency: "advanced",
     usage: [
       {
-        projectId: "portfolio",
-        projectTitle: "AI-Powered Portfolio Website",
-        usage:
-          "Next.js 14 with App Router, SSR, and API routes for AI integration",
-        category: "frontend",
-      },
-      {
-        projectId: "trustyfaq",
-        projectTitle: "TrustyFAQ",
-        usage: "Next.js 14 frontend with App Router and shadcn/ui components",
-        category: "frontend",
-      },
-      {
         projectId: "cochat",
         projectTitle: "CoChat",
         usage:
           "Next.js 14 with App Router for AI-powered digital presence platform",
+        category: "frontend",
+      },
+    ],
+  },
+  "React Native": {
+    name: "React Native",
+    logo: "/logos/tech/react.svg",
+    description:
+      "Cross-platform mobile framework for building native iOS and Android apps using React and JavaScript.",
+    category: "frontend",
+    proficiency: "advanced",
+    usage: [
+      {
+        projectId: "paperinvoice",
+        projectTitle: "Paper Invoice",
+        usage:
+          "Cross-platform mobile development for offline-first iOS invoice app built in 7 days",
+        category: "frontend",
+      },
+    ],
+  },
+  Expo: {
+    name: "Expo",
+    logo: "/logos/tech/expo.svg",
+    description:
+      "Development platform for React Native that streamlines app development with managed workflow and built-in tooling.",
+    category: "frontend",
+    proficiency: "advanced",
+    usage: [
+      {
+        projectId: "paperinvoice",
+        projectTitle: "Paper Invoice",
+        usage:
+          "Rapid mobile app development enabling 7-day build and launch to App Store",
         category: "frontend",
       },
     ],
@@ -310,20 +266,6 @@ export const SKILLS_DATA: Record<string, SkillData> = {
     category: "frontend",
     proficiency: "advanced",
     usage: [
-      {
-        projectId: "portfolio",
-        projectTitle: "AI-Powered Portfolio Website",
-        usage:
-          "Custom design system with organic color palette and responsive utilities",
-        category: "frontend",
-      },
-      {
-        projectId: "trustyfaq",
-        projectTitle: "TrustyFAQ",
-        usage:
-          "Modern UI styling with shadcn/ui components and responsive design",
-        category: "frontend",
-      },
       {
         projectId: "cochat",
         projectTitle: "CoChat",
@@ -371,13 +313,6 @@ export const SKILLS_DATA: Record<string, SkillData> = {
           "Core web technologies for building the application structure and styling",
         category: "frontend",
       },
-      {
-        projectId: "portfolio",
-        projectTitle: "AI-Powered Portfolio Website",
-        usage:
-          "Semantic HTML structure and advanced CSS with custom properties and animations",
-        category: "frontend",
-      },
     ],
   },
 
@@ -390,13 +325,6 @@ export const SKILLS_DATA: Record<string, SkillData> = {
     category: "backend",
     proficiency: "intermediate",
     usage: [
-      {
-        projectId: "trustyfaq",
-        projectTitle: "TrustyFAQ",
-        usage:
-          "PostgreSQL database with pgvector extension for vector search and multi-tenant architecture",
-        category: "backend",
-      },
       {
         projectId: "cochat",
         projectTitle: "CoChat",
@@ -415,34 +343,10 @@ export const SKILLS_DATA: Record<string, SkillData> = {
     proficiency: "advanced",
     usage: [
       {
-        projectId: "trustyfaq",
-        projectTitle: "TrustyFAQ",
-        usage:
-          "Primary database with pgvector extension for vector search and semantic similarity operations",
-        category: "backend",
-      },
-      {
         projectId: "cochat",
         projectTitle: "CoChat",
         usage:
           "Database for user profiles, conversations, and AI chatbot data with vector storage and complex queries",
-        category: "backend",
-      },
-    ],
-  },
-  FastAPI: {
-    name: "FastAPI",
-    logo: "/logos/tech/fastapi.svg",
-    description:
-      "Modern Python web framework for building APIs with automatic documentation, type hints, and high performance.",
-    category: "backend",
-    proficiency: "intermediate",
-    usage: [
-      {
-        projectId: "trustyfaq",
-        projectTitle: "TrustyFAQ",
-        usage:
-          "High-performance Python API with automatic documentation and type hints",
         category: "backend",
       },
     ],
@@ -507,12 +411,6 @@ export const SKILLS_DATA: Record<string, SkillData> = {
     proficiency: "advanced",
     usage: [
       {
-        projectId: "trustyfaq",
-        projectTitle: "TrustyFAQ",
-        usage: "Secure authentication system for multi-tenant SaaS platform",
-        category: "backend",
-      },
-      {
         projectId: "cochat",
         projectTitle: "CoChat",
         usage:
@@ -537,13 +435,6 @@ export const SKILLS_DATA: Record<string, SkillData> = {
         category: "backend",
       },
       {
-        projectId: "portfolio",
-        projectTitle: "AI-Powered Portfolio Website",
-        usage:
-          "Next.js API routes for AI chatbot integration and data handling",
-        category: "backend",
-      },
-      {
         projectId: "cochat",
         projectTitle: "CoChat",
         usage:
@@ -565,12 +456,6 @@ export const SKILLS_DATA: Record<string, SkillData> = {
         projectTitle: "FoodManager (PantryCraft)",
         usage:
           "HTTP client for frontend-backend communication and API requests",
-        category: "backend",
-      },
-      {
-        projectId: "portfolio",
-        projectTitle: "AI-Powered Portfolio Website",
-        usage: "HTTP client for AI API communication and data fetching",
         category: "backend",
       },
     ],

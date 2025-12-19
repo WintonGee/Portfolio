@@ -16,6 +16,7 @@ export interface Project {
     demo?: string;
     caseStudy?: string;
     report?: string;
+    appStore?: string;
   };
   status: "completed" | "in-progress" | "archived";
   featured: boolean;
