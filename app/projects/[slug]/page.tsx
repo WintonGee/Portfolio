@@ -98,6 +98,9 @@ const projects = [
       ],
       developmentTime: "7 days from start to App Store launch",
       userAcquisition: "37 users in first week (organic)",
+      apiEndpoint: "N/A (Offline-first mobile app)",
+      errorHandling: "Local error handling with user feedback",
+      caching: "Device-only AsyncStorage persistence",
     },
   },
   {
