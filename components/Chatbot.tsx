@@ -587,7 +587,12 @@ export default function Chatbot() {
                                 whileHover={{ scale: 1.01, y: -0.5 }}
                                 whileTap={{ scale: 0.99 }}
                                 onClick={() =>
-                                  window.open("/chatbot-sources", "_blank")
+                                  window.open(
+                                    `/chatbot-sources?file=${encodeURIComponent(
+                                      source.filePath
+                                    )}`,
+                                    "_blank"
+                                  )
                                 }
                                 className="w-full text-left bg-white/30 hover:bg-white/50 border border-brand-secondary/10 hover:border-brand-secondary/30 rounded-md p-2 transition-all duration-200 shadow-sm hover:shadow-md group"
                                 title={`View source: ${
@@ -695,6 +700,7 @@ export default function Chatbot() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask a question..."
+            aria-label="Chat message input"
             className="flex-1 px-4 py-3 text-sm border-2 border-brand-secondary/40 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-primary/30 focus:border-brand-primary bg-white text-brand-text placeholder-brand-text-light/60 transition-all duration-200"
             disabled={isLoading}
           />

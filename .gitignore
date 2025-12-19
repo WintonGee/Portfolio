@@ -50,3 +50,8 @@ __pycache__/
 
 # claude
 .claude/
+*.so
+
+# logs
+logs/
+*.log

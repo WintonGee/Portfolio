@@ -1,13 +1,7 @@
 import { NextRequest } from "next/server";
 import { StreamingTextResponse } from "ai";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { readFileSync, existsSync } from "fs";
-import { join } from "path";
 import { EMBEDDINGS_DATA } from "../../../lib/embeddings";
-
-// Load environment variables
-import { config } from "dotenv";
-config({ path: ".env.local" });
 
 interface EmbeddingData {
   id: string;
@@ -22,16 +16,9 @@ interface EmbeddingData {
   embedding: number[];
 }
 
-async function loadEmbeddings(): Promise<EmbeddingData[]> {
-  try {
-    // Use embedded data (always available)
-    return EMBEDDINGS_DATA;
-  } catch (error) {
-    if (process.env.NODE_ENV === 'development') {
-      console.error("Error loading embedded embeddings:", error);
-    }
-    return [];
-  }
+function loadEmbeddings(): EmbeddingData[] {
+  // Use embedded data (always available)
+  return EMBEDDINGS_DATA;
 }
 
 async function getRelevantContext(
@@ -115,7 +102,7 @@ export async function POST(request: NextRequest) {
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
     // Load embeddings and get relevant context
-    const embeddings = await loadEmbeddings();
+    const embeddings = loadEmbeddings();
     const { context: relevantContext, sources } = await getRelevantContext(
       genAI,
       message,
