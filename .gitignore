@@ -40,10 +40,16 @@ next-env.d.ts
 data/embeddings.json
 data/embeddings-summary.json
 
+# logs
+logs
+
 # python
 __pycache__/
 *.py[cod]
 *$py.class
+
+# claude
+.claude/
 *.so
 
 # logs

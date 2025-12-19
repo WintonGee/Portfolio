@@ -277,7 +277,7 @@ export default function ProjectCaseStudyClient({
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
                 Project Screenshots
               </h2>
-              <div className="grid md:grid-cols-2 gap-8">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {project.images.map((image, index) => (
                   <motion.div
                     key={index}
@@ -287,12 +287,13 @@ export default function ProjectCaseStudyClient({
                     viewport={{ once: true }}
                     className="space-y-4"
                   >
-                    <div className="relative aspect-video overflow-hidden rounded-lg shadow-lg">
+                    <div className="relative overflow-hidden rounded-lg shadow-lg bg-gray-100 dark:bg-gray-800">
                       <Image
                         src={image.src}
                         alt={image.alt}
-                        fill
-                        className="object-cover"
+                        width={1290}
+                        height={2796}
+                        className="w-full h-auto object-contain"
                       />
                     </div>
                     <p className="text-sm text-gray-600 dark:text-gray-400 text-center">

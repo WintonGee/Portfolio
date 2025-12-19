@@ -70,19 +70,19 @@ export default function Chatbot() {
     {
       category: "Projects & Startups",
       questions: [
-        { label: "TrustyFAQ Problem", question: "What problem does TrustyFAQ solve for team leads?" },
-        { label: "Semantic Search", question: "How does semantic search work in TrustyFAQ?" },
+        { label: "Paper Invoice Launch", question: "Tell me about building and launching Paper Invoice in 7 days" },
+        { label: "Offline-First Architecture", question: "How did you implement the offline-first architecture in Paper Invoice?" },
         { label: "CoChat Founding", question: "Tell me about CoChat and how you founded it" },
         { label: "Voice Cloning Tech", question: "How does voice cloning technology work in CoChat?" },
         { label: "FoodManager AI", question: "What is FoodManager and what AI features did you build?" },
-        { label: "Portfolio RAG System", question: "How did you implement the RAG system in your portfolio?" },
+        { label: "User Acquisition", question: "How did Paper Invoice gain 37 users in the first week?" },
       ],
     },
     {
       category: "Technical Deep-Dive",
       questions: [
-        { label: "pgvector Choice", question: "Why did you choose pgvector for vector search?" },
-        { label: "Design Trade-offs", question: "What trade-offs did you consider when designing TrustyFAQ?" },
+        { label: "React Native & Expo", question: "How did React Native and Expo enable you to ship Paper Invoice in 7 days?" },
+        { label: "Mobile Development", question: "What are the challenges of building offline-first mobile apps?" },
         { label: "Testing Approach", question: "How do you approach testing in your applications?" },
         { label: "Error Handling", question: "How do you handle errors in your AI integrations?" },
         { label: "Performance Optimization", question: "How do you optimize applications for production performance?" },
