@@ -32,7 +32,7 @@ export default function Button({
   const { ref, handleMouseMove, handleMouseLeave, animateProps } = useMagneticEffect();
 
   const baseClasses =
-    "font-semibold rounded-xl transition-all duration-300 hover:scale-105 transform";
+    "inline-flex items-center font-semibold rounded-xl transition-all duration-300 hover:scale-105 transform";
 
   const sizeClasses = {
     sm: "px-3 sm:px-4 py-2 text-sm",
@@ -42,11 +42,11 @@ export default function Button({
 
   const variantClasses = {
     primary:
-      "group relative bg-gradient-to-r from-brand-primary to-brand-primary-light hover:from-brand-primary-dark hover:to-brand-primary text-brand-beige hover:shadow-organic-lg hover:shadow-brand-primary/25",
+      "group relative bg-gradient-to-r from-brand-primary to-brand-primary-light hover:from-brand-primary-dark hover:to-brand-primary text-brand-beige hover:shadow-organic-lg hover:shadow-brand-primary/25 overflow-hidden",
     secondary:
-      "group px-8 py-4 border-2 border-brand-secondary text-brand-text hover:bg-brand-primary hover:text-brand-beige hover:shadow-organic",
+      "group border-2 border-brand-secondary text-brand-text hover:bg-brand-primary hover:text-brand-beige hover:shadow-organic",
     outline:
-      "px-6 py-2 border-2 border-brand-secondary text-brand-text hover:bg-brand-primary hover:text-brand-beige font-medium rounded-lg hover:shadow-organic",
+      "border-2 border-brand-secondary text-brand-text hover:bg-brand-primary hover:text-brand-beige font-medium hover:shadow-organic",
   };
 
   const classes = `${baseClasses} ${sizeClasses[size]} ${variantClasses[variant]} ${className}`;
@@ -55,7 +55,7 @@ export default function Button({
     <>
       <span className="relative z-10 flex items-center gap-2">{children}</span>
       {variant === "primary" && (
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-primary to-brand-primary-light rounded-xl blur opacity-0 group-hover:opacity-75 transition-opacity duration-300"></div>
+        <span className="absolute inset-0 bg-gradient-to-r from-brand-primary to-brand-primary-light rounded-xl blur opacity-0 group-hover:opacity-75 transition-opacity duration-300 pointer-events-none"></span>
       )}
     </>
   );
