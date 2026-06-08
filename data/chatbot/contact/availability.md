@@ -3,7 +3,6 @@
 ## Contact Information
 
 - **Email**: wintongee@gmail.com
-- **Phone**: (415) 806-3004
 - **LinkedIn**: https://linkedin.com/in/wintongee
 - **GitHub**: https://github.com/wintongee
 - **Portfolio**: https://wintongee.com

@@ -6,7 +6,6 @@ import Button from "./ui/Button";
 import Typewriter from "./ui/Typewriter";
 import {
   MapPinIcon,
-  PhoneIcon,
   EnvelopeIcon,
 } from "@heroicons/react/24/outline";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
@@ -198,19 +197,6 @@ export default function Hero() {
                   <EnvelopeIcon className="w-4 h-4 text-brand-primary group-hover:scale-110 transition-transform duration-300" />
                   <span className="text-base font-medium text-brand-text-light group-hover:text-brand-text transition-colors duration-300">
                     wintongee@gmail.com
-                  </span>
-                </motion.a>
-
-                {/* Phone */}
-                <motion.a
-                  href="tel:+14158063004"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="flex items-center gap-3 transition-all duration-300 group"
-                >
-                  <PhoneIcon className="w-4 h-4 text-brand-primary group-hover:scale-110 transition-transform duration-300" />
-                  <span className="text-base font-medium text-brand-text-light group-hover:text-brand-text transition-colors duration-300">
-                    (415) 806-3004
                   </span>
                 </motion.a>
               </motion.div>

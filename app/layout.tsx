@@ -93,7 +93,6 @@ export default function RootLayout({
                 "addressRegion": "CA"
               },
               "email": "wintongee@gmail.com",
-              "telephone": "+14158063004",
               "knowsAbout": [
                 "Artificial Intelligence",
                 "Machine Learning",
