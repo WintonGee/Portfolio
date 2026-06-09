@@ -61,3 +61,5 @@ logs/
 *.log
 seed.sql
 merge.sql
+.playwright-mcp/
+portfolio-deployed.jpeg
