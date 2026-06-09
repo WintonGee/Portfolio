@@ -1,13 +1,12 @@
 import { NextRequest } from "next/server";
 import { listKnowledge, upsertKnowledge } from "../../../../lib/db/knowledge";
 import { upsertVector } from "../../../../lib/rag/vectorize";
-import { isDev } from "../../../../lib/db/client";
+import { denyIfNotAdmin } from "../../../../lib/auth/require-admin";
 
-export async function POST(_request: NextRequest) {
-  // Dev-only guard until Task 5.1 wires requireAdmin here.
-  if (!isDev()) {
-    return new Response("Reindex disabled outside development", { status: 403 });
-  }
+export async function POST(request: NextRequest) {
+  const denied = await denyIfNotAdmin(request);
+  if (denied) return denied;
+
   const docs = await listKnowledge();
   let count = 0;
   for (const doc of docs) {
