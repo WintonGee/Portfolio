@@ -28,6 +28,8 @@
 
 ## Phase 0 — Provision resources & wire bindings
 
+> **Pre-flight (verified 2026-06-09):** `npx wrangler whoami` confirms an OAuth token for wintongee@gmail.com (account `8bb39934486d16014e0f95d391c379b4`) with d1/workers write scopes, so provisioning in Task 0.2 can run directly. Before Phase 7, also confirm the deployed Worker actually serves the **custom domain** (Workers → your worker → Settings → Domains & Routes) — Cloudflare Access can only gate the custom hostname, not `*.workers.dev`.
+
 ### Task 0.1: Install dev dependencies (vitest, tsx)
 
 **Files:**
@@ -1282,9 +1284,13 @@ export default function HomeClient({ projects, technologies, skills, timeline }:
 
 - [ ] **Step 5: Replace `app/page.tsx` with a server component**
 
+> `force-dynamic` is **required**: a plain async server component is prerendered during `next build`, where `getCloudflareContext().env.DB` and `caches.default` don't exist (no request context) and the build throws. `force-dynamic` makes the page render per-request instead.
+
 ```tsx
 import HomeClient from "./HomeClient";
 import { loadHomeContent, loadProjects } from "@/lib/content-loader";
+
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const [content, projects] = await Promise.all([loadHomeContent(), loadProjects()]);
@@ -1362,10 +1368,14 @@ Expected: 3 rows updated each.
 - [ ] **Step 4: Update the case-study page to read from D1**
 
 Replace `app/projects/[slug]/page.tsx`:
+> Like the homepage, this page reads D1 at request time, so it must be `force-dynamic` (no build-time prerender / no `generateStaticParams` hitting D1).
+
 ```tsx
 import { notFound } from "next/navigation";
 import ProjectCaseStudyClient from "./ProjectCaseStudyClient";
-import { getProjectBySlug, listProjects } from "@/lib/db/projects";
+import { getProjectBySlug } from "@/lib/db/projects";
+
+export const dynamic = "force-dynamic";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -1378,13 +1388,8 @@ export default async function ProjectCaseStudy({ params }: Props) {
   if (!caseStudy) notFound();
   return <ProjectCaseStudyClient project={caseStudy as any} />;
 }
-
-export async function generateStaticParams() {
-  const rows = await listProjects();
-  return rows.map((r) => ({ slug: r.slug }));
-}
 ```
-> If `generateStaticParams` cannot reach D1 at build time under OpenNext, replace its body with `return [];` and add `export const dynamic = "force-dynamic";` and `export const dynamicParams = true;` so slugs render on demand. Verify which works in Step 6.
+> `generateStaticParams` is intentionally removed: with `force-dynamic`, slugs render on demand and we avoid reading D1 during `next build`.
 
 - [ ] **Step 5: Make `lib/content.ts` D1-backed (or delete if unused)**
 
@@ -2376,7 +2381,18 @@ export default function ResumeTab() {
           Current: {meta.filename} ({meta.size ?? "?"} bytes) — updated {meta.updated_at}
         </p>
       )}
-      <iframe src="/resume" className="w-full h-96 border rounded-lg" title="Resume preview" />
+      {/* No <iframe>: next.config.mjs sets a global `frame-ancestors 'none'` CSP +
+          X-Frame-Options: DENY, which blocks framing /resume even same-origin.
+          Link out instead. */}
+      <a
+        href="/resume"
+        target="_blank"
+        rel="noreferrer"
+        className="inline-block px-4 py-2 rounded-lg bg-white/60 text-brand-text text-sm hover:bg-white"
+      >
+        Open current resume ↗
+      </a>
+      <br />
       <label className="inline-block">
         <span className="px-4 py-2 rounded-lg bg-brand-primary text-white text-sm cursor-pointer">
           Upload new PDF
@@ -2392,7 +2408,7 @@ export default function ResumeTab() {
 - [ ] **Step 2: Typecheck + verify**
 
 Run: `npx tsc --noEmit` (no errors).
-With `npm run preview`: Resume tab previews the PDF; upload a different PDF and confirm `/resume` reflects it after reload.
+With `npm run preview`: Resume tab shows current metadata + an "Open current resume" link (opens the PDF in a new tab); upload a different PDF and confirm `/resume` reflects it after reload.
 
 - [ ] **Step 3: Commit**
 
@@ -2704,17 +2720,19 @@ Visit the live URL. Homepage renders, `/resume` serves the PDF, `/projects/<slug
 **Files:**
 - Modify: `wrangler.jsonc` (fill `CF_ACCESS_TEAM_DOMAIN`, `CF_ACCESS_AUD`)
 
-- [ ] **Step 1: Create a self-hosted Access application in the Zero Trust dashboard**
+- [ ] **Step 1: Create ONE self-hosted Access application covering both paths**
+
+> **Critical:** use a **single** Access application, not two. Two separate apps issue separate per-app cookies with different AUDs; the browser would authenticate the dashboard but a same-origin `fetch('/api/admin/...')` would hit an unauthenticated second app, get a 302 to the Access login (which `fetch` can't follow), and every save would fail. One application → one cookie → both paths authorized by the same AUD.
 
 In the Cloudflare dashboard → **Zero Trust → Access → Applications → Add an application → Self-hosted**:
-- **Application name:** Portfolio Dashboard
+- **Application name:** Portfolio Admin
 - **Session duration:** 24h (or preference)
-- **Application domain:** your custom domain, **path** `dashboard` (add a second app/path for `api/admin` OR use a wildcard — see Step 2).
-- Save and **copy the Application Audience (AUD) tag** from the application's Overview.
+- **Application domain / paths:** add the custom domain **twice on the same application**, once with path `dashboard` and once with path `api/admin` (Access lets one self-hosted app include multiple domain+path rows). This makes one app cover both `/dashboard*` and `/api/admin*`.
+- Save and **copy the single Application Audience (AUD) tag** from the application's Overview — this one AUD goes into `CF_ACCESS_AUD`.
 
-- [ ] **Step 2: Add a second hostname/path or a wildcard so the admin API is also gated**
+- [ ] **Step 2: Confirm both paths are on the one application**
 
-Add include paths for both `/dashboard*` and `/api/admin*`. The simplest robust option in Access is to create the application with the domain and configure path `dashboard` plus an additional application entry for `api/admin`. Both share the same policy. (Alternatively protect the whole hostname and exclude public paths — not recommended here since the public site must stay open.)
+In the application's **Overview → Application domains**, verify both `…/dashboard` and `…/api/admin` are listed under the same app. Do NOT create a second application. The public site (`/`, `/resume`, `/projects/*`, `/api/chat`) is intentionally NOT included, so it stays open.
 
 - [ ] **Step 3: Add the policy (allow only the owner email)**
 
