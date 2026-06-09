@@ -9,3 +9,9 @@ export function getEnv(): CloudflareEnv {
 export function getDb(): D1Database {
   return getEnv().DB;
 }
+
+/** True when running locally (ENVIRONMENT var = "development"). Cast to string
+ *  because wrangler types pin the var to a string literal. */
+export function isDev(): boolean {
+  return (getEnv().ENVIRONMENT as string) === "development";
+}

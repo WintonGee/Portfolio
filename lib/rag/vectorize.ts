@@ -36,9 +36,8 @@ export async function queryVectors(
   topK = 3
 ): Promise<Array<{ id: string; score: number }>> {
   const values = await embed(query);
-  const res = await getEnv().VECTORIZE.query(values, {
-    topK,
-    returnMetadata: false,
-  });
+  // Note: we only need ids + scores; the doc text is fetched from D1. Do NOT pass
+  // returnMetadata:false — the Vectorize binding rejects the boolean form.
+  const res = await getEnv().VECTORIZE.query(values, { topK });
   return (res.matches ?? []).map((m) => ({ id: m.id, score: m.score }));
 }

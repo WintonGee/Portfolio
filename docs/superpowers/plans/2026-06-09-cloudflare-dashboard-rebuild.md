@@ -20,6 +20,8 @@
 
 **Conventions used throughout:**
 - Bindings are read via `getCloudflareContext().env` from `@opennextjs/cloudflare`.
+- **Local testing of binding-backed routes:** Vectorize has **no local emulation** (`wrangler dev` shows it as "not supported"). Run `npx opennextjs-cloudflare build` then `npx wrangler dev --remote --port 8799 --var ENVIRONMENT:development` to exercise routes against the real remote D1/Vectorize/R2/AI with the dev auth-bypass active. Never commit `ENVIRONMENT: development` to `wrangler.jsonc` — use the `--var` override instead so the committed default stays `production`.
+- Use `isDev()` from `lib/db/client.ts` (string-cast) for environment checks; the wrangler-generated type pins `ENVIRONMENT` to a string literal, so direct `=== "development"` comparisons fail typecheck.
 - All new server modules live under `lib/`. Admin routes under `app/api/admin/`.
 - Every admin route calls `requireAdmin(request)` (Task 4.3) before doing anything.
 - Commit after each task with the message shown in its final step.
