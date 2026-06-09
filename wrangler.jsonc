@@ -9,13 +9,10 @@
     "binding": "ASSETS"
   },
   "workers_dev": true,
-  // To serve the site on the custom domain, delete the imported apex + www `A`
-  // records in the Cloudflare DNS dashboard first (they conflict with the Worker
-  // custom domain), then uncomment the routes below and run `npx wrangler deploy`.
-  // "routes": [
-  //   { "pattern": "wintongee.com", "custom_domain": true },
-  //   { "pattern": "www.wintongee.com", "custom_domain": true }
-  // ],
+  "routes": [
+    { "pattern": "wintongee.com", "custom_domain": true },
+    { "pattern": "www.wintongee.com", "custom_domain": true }
+  ],
   "ai": {
     "binding": "AI"
   },
