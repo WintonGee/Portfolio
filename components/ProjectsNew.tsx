@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { getAllProjects } from "@/lib/content";
 import { Project } from "@/types/project";
 import Button from "./ui/Button";
 import { use3DTilt } from "@/hooks/use3DTilt";
@@ -253,9 +252,7 @@ function ProjectItem({ project, index }: ProjectItemProps) {
   );
 }
 
-export default function ProjectsNew() {
-  const projects = getAllProjects();
-
+export default function ProjectsNew({ projects }: { projects: Project[] }) {
   return (
     <div className="max-w-7xl mx-auto">
       {/* Section Header */}

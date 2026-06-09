@@ -4,16 +4,22 @@ import { motion } from "framer-motion";
 import EducationTimeline from "./EducationTimeline";
 import { AnimatedSection, AnimatedCard } from "./ui/AnimatedSection";
 import { SkillHoverCard } from "./ui/SkillHoverCard";
-import { TECHNOLOGIES } from "../data/about-data";
-import { getSkillData } from "../data/skills-data";
+import type { TimelineItem } from "../types/timeline";
+import type { SkillData } from "../types/skill";
+
+interface TechItem {
+  name: string;
+  logo: string;
+}
+type TechEntry = TechItem | TechItem[];
 
 // Journey Section Component
-export function JourneySection() {
+export function JourneySection({ timeline }: { timeline: TimelineItem[] }) {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="max-w-4xl mx-auto">
         <AnimatedSection delay={0.3} className="pt-8">
-          <EducationTimeline />
+          <EducationTimeline timeline={timeline} />
         </AnimatedSection>
       </div>
     </div>
@@ -21,7 +27,13 @@ export function JourneySection() {
 }
 
 // Tech Stack Section Component
-export function TechStackSection() {
+export function TechStackSection({
+  technologies,
+  skills,
+}: {
+  technologies: Record<string, TechEntry[]>;
+  skills: Record<string, SkillData>;
+}) {
   return (
     <div className="max-w-7xl mx-auto relative">
       {/* Background Elements */}
@@ -73,7 +85,7 @@ export function TechStackSection() {
 
           {/* Enhanced Grid Layout */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
-            {Object.entries(TECHNOLOGIES).map(
+            {Object.entries(technologies).map(
               ([category, technologies], categoryIndex) => (
                 <motion.div
                   key={category}
@@ -108,7 +120,7 @@ export function TechStackSection() {
                               className="flex gap-2"
                             >
                               {techItem.map((tech, groupIndex) => {
-                                const skillData = getSkillData(tech.name);
+                                const skillData = skills[tech.name];
                                 return (
                                   <motion.div
                                     key={tech.name}
@@ -166,7 +178,7 @@ export function TechStackSection() {
                           );
                         } else {
                           // Individual technology
-                          const skillData = getSkillData(techItem.name);
+                          const skillData = skills[techItem.name];
                           return (
                             <motion.div
                               key={techItem.name}
@@ -227,29 +239,6 @@ export function TechStackSection() {
             )}
           </div>
         </AnimatedCard>
-      </div>
-    </div>
-  );
-}
-
-// Legacy About component for backward compatibility
-export default function About() {
-  return (
-    <div className="max-w-6xl mx-auto">
-      <div className="max-w-4xl mx-auto">
-        {/* About Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="space-y-8"
-        >
-          {/* Education Timeline */}
-          <AnimatedSection delay={0.3} className="pt-8">
-            <EducationTimeline />
-          </AnimatedSection>
-        </motion.div>
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import * as HoverCard from "@radix-ui/react-hover-card";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { SkillData } from "@/data/skills-data";
+import { SkillData } from "@/types/skill";
 
 interface SkillHoverCardProps {
   skill: SkillData;

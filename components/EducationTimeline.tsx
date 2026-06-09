@@ -14,7 +14,6 @@ import {
 } from "recharts";
 
 import { TimelineItem, FilterCategory } from "../types/timeline";
-import { timelineData } from "../data/timeline-data";
 import {
   FILTER_OPTIONS,
   HOVER_DESCRIPTIONS,
@@ -514,6 +513,10 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
   );
 }
 
-export default function EducationTimeline() {
-  return <UnifiedTimeline items={timelineData} />;
+export default function EducationTimeline({
+  timeline,
+}: {
+  timeline: TimelineItem[];
+}) {
+  return <UnifiedTimeline items={timeline} />;
 }
