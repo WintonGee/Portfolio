@@ -1,11 +1,16 @@
 const fs = require("fs");
 const path = require("path");
-const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 // Load environment variables
 require("dotenv").config({ path: ".env.local" });
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+// Workers AI embedding model. This MUST match the model used at runtime in
+// app/api/chat/route.ts, otherwise stored vectors and query vectors will not
+// be comparable.
+const EMBEDDING_MODEL = "@cf/baai/bge-base-en-v1.5";
+
+const ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID;
+const API_TOKEN = process.env.CLOUDFLARE_API_TOKEN;
 
 // Function to read all markdown files from a directory
 function readMarkdownFiles(dirPath) {
@@ -37,10 +42,45 @@ function readMarkdownFiles(dirPath) {
   return files;
 }
 
+// Generate an embedding for a piece of text via the Workers AI REST API
+async function embedText(text) {
+  const response = await fetch(
+    `https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/ai/run/${EMBEDDING_MODEL}`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${API_TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text, pooling: "cls" }),
+    }
+  );
+
+  if (!response.ok) {
+    const body = await response.text();
+    throw new Error(`Workers AI returned ${response.status}: ${body}`);
+  }
+
+  const json = await response.json();
+  if (!json.success) {
+    throw new Error(`Workers AI error: ${JSON.stringify(json.errors)}`);
+  }
+
+  return json.result.data[0];
+}
+
 // Function to generate embeddings
 async function generateEmbeddings() {
   try {
-    console.log("🚀 Starting chatbot embeddings generation...");
+    console.log("🚀 Starting chatbot embeddings generation (Workers AI)...");
+
+    if (!ACCOUNT_ID || !API_TOKEN) {
+      console.error(
+        "❌ Missing CLOUDFLARE_ACCOUNT_ID or CLOUDFLARE_API_TOKEN. " +
+          "Set them in .env.local (the token needs the 'Workers AI' permission)."
+      );
+      process.exit(1);
+    }
 
     // Read all markdown files from the chatbot data directory
     const chatbotDataDir = path.join(process.cwd(), "data", "chatbot");
@@ -54,16 +94,13 @@ async function generateEmbeddings() {
     console.log(`📁 Found ${files.length} markdown files`);
 
     const embeddings = [];
-    const model = genAI.getGenerativeModel({ model: "text-embedding-004" });
 
     // Process each file
     for (const file of files) {
       console.log(`📄 Processing: ${file.path}`);
 
       try {
-        // Generate embedding for the content
-        const result = await model.embedContent(file.content);
-        const embedding = result.embedding.values;
+        const embedding = await embedText(file.content);
 
         embeddings.push({
           id: `chatbot_${Date.now()}_${Math.random()
@@ -82,7 +119,7 @@ async function generateEmbeddings() {
 
         console.log(`✅ Generated embedding for: ${file.path}`);
 
-        // Add a small delay to avoid rate limiting
+        // Add a small delay to be gentle on rate limits
         await new Promise((resolve) => setTimeout(resolve, 100));
       } catch (error) {
         console.error(`❌ Error processing ${file.path}:`, error.message);
@@ -103,6 +140,7 @@ async function generateEmbeddings() {
     // Generate summary
     const summary = {
       totalEmbeddings: embeddings.length,
+      model: EMBEDDING_MODEL,
       categories: [...new Set(embeddings.map((e) => e.metadata.category))],
       generatedAt: new Date().toISOString(),
       files: embeddings.map((e) => ({

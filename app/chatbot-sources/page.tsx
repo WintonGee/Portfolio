@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 
@@ -17,7 +17,7 @@ interface SourceFile {
   tags: string[];
 }
 
-export default function ChatbotSources() {
+function ChatbotSourcesContent() {
   const searchParams = useSearchParams();
   const [sources, setSources] = useState<SourceFile[]>([]);
   const [loading, setLoading] = useState(true);
@@ -36,7 +36,7 @@ export default function ChatbotSources() {
       setError(null);
       const response = await fetch("/api/chatbot-sources");
       if (response.ok) {
-        const data = await response.json();
+        const data = (await response.json()) as SourceFile[];
         setSources(data);
       } else {
         setError(
@@ -631,5 +631,13 @@ export default function ChatbotSources() {
         </motion.div>
       )}
     </div>
+  );
+}
+
+export default function ChatbotSources() {
+  return (
+    <Suspense fallback={null}>
+      <ChatbotSourcesContent />
+    </Suspense>
   );
 }

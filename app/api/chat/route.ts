@@ -1,7 +1,12 @@
 import { NextRequest } from "next/server";
-import { StreamingTextResponse } from "ai";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { EMBEDDINGS_DATA } from "../../../lib/embeddings";
+
+// Workers AI models. The embedding model MUST match the one used to generate
+// data/chatbot-embeddings.json (see scripts/generate-chatbot-embeddings.js),
+// otherwise the stored vectors and the query vector live in different spaces.
+const EMBEDDING_MODEL = "@cf/baai/bge-base-en-v1.5";
+const CHAT_MODEL = "@cf/meta/llama-3.1-8b-instruct-fast";
 
 interface EmbeddingData {
   id: string;
@@ -21,8 +26,15 @@ function loadEmbeddings(): EmbeddingData[] {
   return EMBEDDINGS_DATA;
 }
 
+function cosineSimilarity(a: number[], b: number[]): number {
+  const dotProduct = a.reduce((sum, val, i) => sum + val * b[i], 0);
+  const magnitudeA = Math.sqrt(a.reduce((sum, val) => sum + val * val, 0));
+  const magnitudeB = Math.sqrt(b.reduce((sum, val) => sum + val * val, 0));
+  return dotProduct / (magnitudeA * magnitudeB);
+}
+
 async function getRelevantContext(
-  genAI: GoogleGenerativeAI,
+  ai: Ai,
   userMessage: string,
   embeddings: EmbeddingData[]
 ): Promise<{
@@ -38,10 +50,19 @@ async function getRelevantContext(
       };
     }
 
-    // Generate embedding for user message
-    const model = genAI.getGenerativeModel({ model: "text-embedding-004" });
-    const userEmbedding = await model.embedContent(userMessage);
-    const userVector = userEmbedding.embedding.values;
+    // Generate embedding for user message using Workers AI
+    const embeddingResponse = (await ai.run(EMBEDDING_MODEL, {
+      text: userMessage,
+      pooling: "cls",
+    })) as unknown as { data: number[][] };
+    const userVector = embeddingResponse.data[0];
+
+    if (!userVector) {
+      return {
+        context: "Portfolio information not available.",
+        sources: [],
+      };
+    }
 
     // Calculate cosine similarity and find most relevant content
     const similarities = embeddings.map((item) => {
@@ -69,7 +90,7 @@ async function getRelevantContext(
 
     return { context, sources };
   } catch (error) {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === "development") {
       console.error("Error getting relevant context:", error);
     }
     return {
@@ -79,39 +100,7 @@ async function getRelevantContext(
   }
 }
 
-function cosineSimilarity(a: number[], b: number[]): number {
-  const dotProduct = a.reduce((sum, val, i) => sum + val * b[i], 0);
-  const magnitudeA = Math.sqrt(a.reduce((sum, val) => sum + val * val, 0));
-  const magnitudeB = Math.sqrt(b.reduce((sum, val) => sum + val * val, 0));
-  return dotProduct / (magnitudeA * magnitudeB);
-}
-
-export async function POST(request: NextRequest) {
-  try {
-    const { message } = await request.json();
-
-    if (!message) {
-      return new Response("Message is required", { status: 400 });
-    }
-
-    if (!process.env.GEMINI_API_KEY) {
-      return new Response("Gemini API key not configured", { status: 500 });
-    }
-
-    // Initialize Gemini AI
-    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-
-    // Load embeddings and get relevant context
-    const embeddings = loadEmbeddings();
-    const { context: relevantContext, sources } = await getRelevantContext(
-      genAI,
-      message,
-      embeddings
-    );
-
-    // Create prompt with context
-    const prompt = `
-You are Winton Gee, an AI/ML Engineer currently working at Mercor. You are responding directly to someone asking questions about your work and experience.
+const SYSTEM_PROMPT = `You are Winton Gee, an AI/ML Engineer currently working at Mercor. You are responding directly to someone asking questions about your work and experience.
 
 IMPORTANT INSTRUCTIONS:
 - ONLY use information provided in the context below
@@ -125,36 +114,95 @@ IMPORTANT INSTRUCTIONS:
 - Use proper formatting with bullet points, bold text, or paragraphs when appropriate
 - Keep responses brief and to the point
 - For simple requests (like contact info), provide just the essential information
+- If the question is about something not covered in the context, suggest reaching out via email (wintongee@gmail.com) or LinkedIn (https://linkedin.com/in/wintongee) for more details.`;
 
-Context about Winton:
+export async function POST(request: NextRequest) {
+  try {
+    const { message } = (await request.json()) as { message?: string };
+
+    if (!message) {
+      return new Response("Message is required", { status: 400 });
+    }
+
+    const { env } = getCloudflareContext();
+    const ai = env.AI;
+
+    if (!ai) {
+      return new Response("AI binding not configured", { status: 500 });
+    }
+
+    // Load embeddings and get relevant context
+    const embeddings = loadEmbeddings();
+    const { context: relevantContext, sources } = await getRelevantContext(
+      ai,
+      message,
+      embeddings
+    );
+
+    const userPrompt = `Context about Winton:
 ${relevantContext}
 
 User question: ${message}
 
-Respond as Winton, using only the information provided in the context. Be direct and concise. If the question is about something not covered in the context, suggest reaching out via email (wintongee@gmail.com) or LinkedIn (https://linkedin.com/in/wintongee) for more details.
-`;
+Respond as Winton, using only the information provided in the context. Be direct and concise.`;
 
-    // Generate response using Gemini
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-    const result = await model.generateContentStream(prompt);
+    // Generate a streaming response using Workers AI
+    const aiStream = (await ai.run(CHAT_MODEL, {
+      messages: [
+        { role: "system", content: SYSTEM_PROMPT },
+        { role: "user", content: userPrompt },
+      ],
+      stream: true,
+    })) as unknown as ReadableStream<Uint8Array>;
 
     const encoder = new TextEncoder();
+    const decoder = new TextDecoder();
+
     const stream = new ReadableStream({
       async start(controller) {
-        try {
-          for await (const chunk of result.stream) {
-            const chunkText = chunk.text();
-            controller.enqueue(
-              encoder.encode(
-                `data: ${JSON.stringify({ content: chunkText })}\n\n`
-              )
-            );
-          }
-          // Send sources information at the end
+        const reader = aiStream.getReader();
+        let buffer = "";
+
+        const flushSources = () => {
           controller.enqueue(
-            encoder.encode(`data: ${JSON.stringify({ sources: sources })}\n\n`)
+            encoder.encode(`data: ${JSON.stringify({ sources })}\n\n`)
           );
           controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+        };
+
+        try {
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            buffer += decoder.decode(value, { stream: true });
+            const lines = buffer.split("\n");
+            // Keep the last (possibly partial) line in the buffer
+            buffer = lines.pop() ?? "";
+
+            for (const line of lines) {
+              const trimmed = line.trim();
+              if (!trimmed.startsWith("data:")) continue;
+
+              const data = trimmed.slice("data:".length).trim();
+              if (data === "[DONE]") continue;
+
+              try {
+                const parsed = JSON.parse(data);
+                if (parsed.response) {
+                  controller.enqueue(
+                    encoder.encode(
+                      `data: ${JSON.stringify({ content: parsed.response })}\n\n`
+                    )
+                  );
+                }
+              } catch {
+                // Ignore non-JSON keep-alive lines
+              }
+            }
+          }
+
+          flushSources();
           controller.close();
         } catch (error) {
           console.error("Streaming error:", error);
@@ -167,13 +215,15 @@ Respond as Winton, using only the information provided in the context. Be direct
           );
           controller.enqueue(encoder.encode("data: [DONE]\n\n"));
           controller.close();
+        } finally {
+          reader.releaseLock();
         }
       },
     });
 
-    return new StreamingTextResponse(stream, {
+    return new Response(stream, {
       headers: {
-        "Content-Type": "text/plain; charset=utf-8",
+        "Content-Type": "text/event-stream; charset=utf-8",
         "Cache-Control": "no-cache",
         Connection: "keep-alive",
       },

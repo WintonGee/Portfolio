@@ -21,11 +21,11 @@ const nextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://vercel.live https://va.vercel-scripts.com",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
               "img-src 'self' data: https:",
-              "connect-src 'self' https://generativelanguage.googleapis.com https://vercel.live",
+              "connect-src 'self'",
               "frame-ancestors 'none'",
               "base-uri 'self'",
               "form-action 'self'",
@@ -132,12 +132,6 @@ const nextConfig = {
     return config;
   },
 
-  // Enable SWC minification
-  swcMinify: true,
-
-  // Disable build traces collection to prevent micromatch stack overflow
-  outputFileTracing: false,
-
   // Enable static optimization
   trailingSlash: false,
 
@@ -155,3 +149,7 @@ const nextConfig = {
 };
 
 export default nextConfig;
+
+// Enable Cloudflare bindings (e.g. env.AI) during local `next dev`.
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
+initOpenNextCloudflareForDev();
