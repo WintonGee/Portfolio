@@ -2,16 +2,22 @@
 
 🌐 **Live Portfolio:** [wintongee.com](https://wintongee.com)
 
-A modern, interactive portfolio website showcasing AI/ML engineering skills with real-time AI chatbot integration, interactive skill demonstrations, and advanced animations. Built with Next.js 14, TypeScript, and Google Gemini AI.
+A modern, interactive portfolio showcasing AI/ML engineering skills with a real-time RAG chatbot, interactive skill demonstrations, and advanced animations. **Fully Cloudflare-powered**: Next.js 15 on Cloudflare Workers (OpenNext), with all content editable live from a Cloudflare Access–gated dashboard — no rebuild required.
 
 ## ✨ Key Features
 
-### 🤖 **AI-Powered Chatbot**
+### 🤖 **AI-Powered Chatbot (RAG)**
 
-- **RAG Implementation**: Uses vector embeddings for semantic search
-- **Google Gemini Integration**: Real-time AI responses with streaming
-- **Context-Aware**: Answers based on actual portfolio content
-- **Build-Time Embedding**: Embeddings compiled into code for optimal performance
+- **Cloudflare Vectorize**: real vector search over the knowledge base (768-dim, cosine)
+- **Workers AI**: embeddings via `@cf/baai/bge-base-en-v1.5`, chat via `@cf/meta/llama-3.1-8b-instruct-fast` (streaming)
+- **D1-backed knowledge**: source docs live in D1; editing a doc re-embeds into Vectorize instantly
+- **Source citations**: answers cite the knowledge docs they drew from
+
+### 🔐 **Admin Dashboard** (`/dashboard`)
+
+- **Gated by Cloudflare Access (Zero Trust)** — only `wintongee@gmail.com`, with server-side JWT verification as defense-in-depth
+- Edit **chatbot knowledge**, **site content** (about/skills/timeline), **projects**, and upload a new **resume PDF**
+- All changes persist to Cloudflare storage and go live without a deploy
 
 ### 🎯 **Interactive Skill Demonstrations**
 
@@ -21,11 +27,11 @@ A modern, interactive portfolio website showcasing AI/ML engineering skills with
 
 ### 🚀 **Modern Tech Stack**
 
-- **Next.js 14**: App Router with SSR and performance optimization
+- **Next.js 15** (App Router) on **Cloudflare Workers** via OpenNext
 - **TypeScript**: Full type safety throughout the application
 - **Tailwind CSS**: Utility-first styling with custom design system
 - **Framer Motion**: Advanced animations and micro-interactions
-- **Google Gemini AI**: Real-time AI responses and content generation
+- **Cloudflare**: Workers AI (LLM + embeddings), Vectorize, D1, R2, Access
 
 ### 📱 **Responsive Design**
 
@@ -35,16 +41,35 @@ A modern, interactive portfolio website showcasing AI/ML engineering skills with
 
 ## 🏗️ Architecture Overview
 
-### **AI Chatbot System**
+### **AI Chatbot System (runtime RAG)**
 
 ```
-User Question → Vector Embedding → Semantic Search → Context Retrieval → Gemini AI → Streaming Response
+User Question → Workers AI embed → Vectorize query (topK) → D1 fetch docs → Llama 3.1 → Streaming Response
 ```
 
-### **Build-Time Embedding Process**
+### **Content storage (Cloudflare-native)**
+
+| Concern | Where it lives | Binding |
+| --- | --- | --- |
+| Chatbot knowledge (source text) | **D1** `knowledge_docs` | `DB` |
+| Chatbot knowledge (vectors) | **Vectorize** `portfolio-knowledge` | `VECTORIZE` |
+| Site content (about/skills/timeline) | **D1** `content_blocks` | `DB` |
+| Projects (card + case study) | **D1** `projects` | `DB` |
+| Resume PDF | **R2** `portfolio-assets` | `ASSETS_BUCKET` |
+
+### **Admin auth**
+
+A self-hosted **Cloudflare Access** application gates `/dashboard` and `/api/admin/*` to
+`wintongee@gmail.com`. Every admin handler also calls `requireAdmin()`, which verifies the
+`Cf-Access-Jwt-Assertion` JWT (RS256 against the team JWKS), the `aud`, and the email claim —
+so writes are rejected even if a route were reached directly. Local dev bypasses this via
+`ENVIRONMENT=development`. Editing knowledge re-embeds into Vectorize on save (no rebuild).
+
+To run admin routes against real bindings locally (Vectorize has no local emulation):
 
 ```
-Content Files → Embeddings Generation → TypeScript Compilation → Runtime Import
+npx opennextjs-cloudflare build
+npx wrangler dev --remote --port 8799 --var ENVIRONMENT:development
 ```
 
 ### **Component Architecture**
