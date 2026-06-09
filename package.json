@@ -12,7 +12,6 @@
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
-    "seed:gen": "tsx scripts/generate-seed-sql.ts",
     "lint": "next lint",
     "optimize-images": "node scripts/optimize-images.js",
     "analyze": "ANALYZE=true npm run build",
@@ -22,7 +21,6 @@
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "@radix-ui/react-hover-card": "^1.1.15",
-    "dotenv": "^16.6.1",
     "framer-motion": "^12.23.22",
     "next": "^15.5.19",
     "react": "^19.0.0",
@@ -44,7 +42,6 @@
     "postcss": "^8",
     "sharp": "^0.33.0",
     "tailwindcss": "^3.3.0",
-    "tsx": "^4.22.4",
     "typescript": "^5",
     "vitest": "^2.1.9",
     "webpack-bundle-analyzer": "^4.10.1",
