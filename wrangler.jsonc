@@ -11,6 +11,31 @@
   "ai": {
     "binding": "AI"
   },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "portfolio-db",
+      "database_id": "e49348da-9b70-451e-9553-95423fe8f10e"
+    }
+  ],
+  "vectorize": [
+    {
+      "binding": "VECTORIZE",
+      "index_name": "portfolio-knowledge"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "ASSETS_BUCKET",
+      "bucket_name": "portfolio-assets"
+    }
+  ],
+  "vars": {
+    "ADMIN_EMAIL": "wintongee@gmail.com",
+    "CF_ACCESS_TEAM_DOMAIN": "",
+    "CF_ACCESS_AUD": "",
+    "ENVIRONMENT": "production"
+  },
   "observability": {
     "enabled": true
   }
