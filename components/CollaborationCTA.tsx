@@ -113,7 +113,7 @@ export default function CollaborationCTA() {
               </Button>
 
               <Button
-                href="/resume/Winton_Gee_Resume.pdf"
+                href="/resume"
                 variant="outline"
                 size="md"
                 className="text-brand-text-light hover:text-brand-text"

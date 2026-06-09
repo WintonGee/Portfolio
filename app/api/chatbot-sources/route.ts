@@ -1,8 +1,21 @@
 import { NextResponse } from "next/server";
-import { CHATBOT_SOURCES } from "../../../lib/chatbot-sources";
+import { listKnowledge } from "../../../lib/db/knowledge";
 
-// Data is generated at build time by scripts/generate-chatbot-sources.js so we
-// don't touch the filesystem at runtime (unavailable on the Workers runtime).
+export const dynamic = "force-dynamic";
+
 export async function GET() {
-  return NextResponse.json(CHATBOT_SOURCES);
+  const docs = await listKnowledge();
+  const sources = docs.map((d) => ({
+    path: d.id,
+    content: d.content,
+    title: d.title,
+    category: d.category,
+    lastModified: d.updated_at,
+    size: d.content.length,
+    lines: d.content.split("\n").length,
+    words: d.content.trim().split(/\s+/).length,
+    description: "",
+    tags: [d.category],
+  }));
+  return NextResponse.json(sources);
 }
