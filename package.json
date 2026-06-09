@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prepare-data": "node scripts/embed-embeddings.js && node scripts/generate-chatbot-sources.js && wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+    "prepare-data": "node scripts/embed-embeddings.js && node scripts/generate-chatbot-sources.js",
     "build": "npm run prepare-data && NODE_OPTIONS='--max-old-space-size=4096' next build",
     "build:safe": "NODE_OPTIONS='--max-old-space-size=4096' next build",
     "start": "next start",
