@@ -322,7 +322,7 @@ export default function Hero() {
                   "TypeScript",
                   "React",
                   "SQL",
-                  "Cursor",
+                  "Claude",
                   "OpenAI",
                   "Gemini",
                 ].map((tech, index) => (
