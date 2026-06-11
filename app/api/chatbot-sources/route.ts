@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 import { listKnowledge } from "../../../lib/db/knowledge";
+import { cached, CACHE_KEYS } from "../../../lib/cache";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const docs = await listKnowledge();
+  const docs = await cached(CACHE_KEYS.knowledge, 60, listKnowledge);
   const sources = docs.map((d) => ({
     path: d.id,
     content: d.content,

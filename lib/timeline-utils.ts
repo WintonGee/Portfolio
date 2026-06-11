@@ -71,7 +71,7 @@ export function addSpacingToOverlappingPoints(
         // Add spacing by adjusting the date slightly, but preserve the original year range
         const adjustedDate = lastDate + spacingThreshold;
         const year = Math.floor(adjustedDate);
-        const month = Math.round((adjustedDate % 1) * 12) + 1;
+        const month = Math.min(Math.round((adjustedDate % 1) * 12) + 1, 12);
         const monthNames = [
           "January",
           "February",
@@ -92,7 +92,7 @@ export function addSpacingToOverlappingPoints(
           currentItem.year = `${monthNames[month - 1]} ${year}`;
         }
         // For date ranges, keep the original year but adjust the internal date for positioning
-        (currentItem as any)._adjustedDate = adjustedDate;
+        currentItem._adjustedDate = adjustedDate;
       }
     }
 
@@ -115,7 +115,7 @@ export function filterItemsByCategory(
 // Transform items to chart data
 export function transformToChartData(items: TimelineItem[]): TimelineData[] {
   return items.map((item, index) => ({
-    year: (item as any)._adjustedDate || extractStartDate(item.year),
+    year: item._adjustedDate ?? extractStartDate(item.year),
     progression: index + 1,
     item: item,
     isCurrent: item.isCurrent ?? false,

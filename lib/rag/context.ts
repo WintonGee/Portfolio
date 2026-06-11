@@ -19,6 +19,9 @@ export function buildContext(
   const ordered = matches
     .map((m) => ({ match: m, doc: byId.get(m.id) }))
     .filter((x): x is { match: typeof x.match; doc: KnowledgeDoc } => !!x.doc);
+  if (ordered.length === 0) {
+    return { context: "Portfolio information not available.", sources: [] };
+  }
 
   const context = ordered.map((x) => x.doc.content).join("\n\n");
   const sources = ordered.map((x) => ({

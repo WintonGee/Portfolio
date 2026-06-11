@@ -32,7 +32,9 @@ async function optimizeImages() {
 
     try {
       // Create WebP version (80% quality)
-      await sharp(filePath).webp({ quality: 80 }).toFile(webpPath);
+      if (webpPath !== filePath) {
+        await sharp(filePath).webp({ quality: 80 }).toFile(webpPath);
+      }
 
       // Create AVIF version (80% quality) - better compression than WebP
       await sharp(filePath).avif({ quality: 80 }).toFile(avifPath);
@@ -65,4 +67,7 @@ async function optimizeImages() {
 }
 
 // Run the optimization
-optimizeImages().catch(console.error);
+optimizeImages().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

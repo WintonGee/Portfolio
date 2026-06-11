@@ -6,6 +6,7 @@ import {
   deleteKnowledge,
 } from "../../../../lib/db/knowledge";
 import { upsertVector, deleteVector } from "../../../../lib/rag/vectorize";
+import { invalidate, CACHE_KEYS } from "../../../../lib/cache";
 
 export async function GET(request: NextRequest) {
   const denied = await denyIfNotAdmin(request);
@@ -29,6 +30,11 @@ export async function POST(request: NextRequest) {
     });
   }
 
+  // Embed first: if the AI call fails, nothing has been written yet.
+  await upsertVector(body.id, body.content, {
+    title: body.title,
+    category: body.category,
+  });
   await upsertKnowledge({
     id: body.id,
     title: body.title,
@@ -36,11 +42,7 @@ export async function POST(request: NextRequest) {
     content: body.content,
     vector_id: body.id,
   });
-  // Re-embed into Vectorize so chat reflects the edit immediately.
-  await upsertVector(body.id, body.content, {
-    title: body.title,
-    category: body.category,
-  });
+  await invalidate(CACHE_KEYS.knowledge);
 
   return Response.json({ ok: true, id: body.id });
 }
@@ -54,5 +56,6 @@ export async function DELETE(request: NextRequest) {
   if (!id) return new Response("id query param required", { status: 400 });
   await deleteKnowledge(id);
   await deleteVector(id);
+  await invalidate(CACHE_KEYS.knowledge);
   return Response.json({ ok: true });
 }

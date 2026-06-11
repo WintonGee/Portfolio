@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/chatbot-sources'],
+        disallow: ['/api/', '/chatbot-sources', '/dashboard'],
       },
     ],
     sitemap: 'https://wintongee.com/sitemap.xml',

@@ -61,12 +61,13 @@ export default function Button({
   );
 
   const MotionComponent = href ? motion.a : motion.button;
+  const isExternal = href ? /^https?:\/\//.test(href) : false;
   const componentProps = href
     ? {
         href,
         download,
-        target: href.startsWith("mailto:") ? undefined : "_blank",
-        rel: href.startsWith("mailto:") ? undefined : "noopener noreferrer",
+        target: isExternal ? "_blank" : undefined,
+        rel: isExternal ? "noopener noreferrer" : undefined,
       }
     : {
         onClick,

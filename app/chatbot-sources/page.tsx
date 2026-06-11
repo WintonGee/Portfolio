@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef, Suspense } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 
 interface SourceFile {
@@ -30,29 +30,53 @@ function ChatbotSourcesContent() {
   const [copySuccess, setCopySuccess] = useState(false);
   const [isCopying, setIsCopying] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-
-  const loadSources = async () => {
-    try {
-      setError(null);
-      const response = await fetch("/api/chatbot-sources");
-      if (response.ok) {
-        const data = (await response.json()) as SourceFile[];
-        setSources(data);
-      } else {
-        setError(
-          `Failed to load sources: ${response.status} ${response.statusText}`
-        );
-      }
-    } catch (error) {
-      console.error("Error loading sources:", error);
-      setError("Failed to load chatbot sources. Please try again later.");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const scrollFrameRef = useRef<number | null>(null);
 
   useEffect(() => {
+    let cancelled = false;
+
+    const loadSources = async () => {
+      try {
+        const response = await fetch("/api/chatbot-sources");
+        if (response.ok) {
+          const data = (await response.json()) as SourceFile[];
+          if (!cancelled) {
+            setSources(data);
+          }
+        } else if (!cancelled) {
+          setError(
+            `Failed to load sources: ${response.status} ${response.statusText}`
+          );
+        }
+      } catch (error) {
+        console.error("Error loading sources:", error);
+        if (!cancelled) {
+          setError("Failed to load chatbot sources. Please try again later.");
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    };
+
     loadSources();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (copyTimeoutRef.current !== null) {
+        clearTimeout(copyTimeoutRef.current);
+      }
+      if (scrollFrameRef.current !== null) {
+        cancelAnimationFrame(scrollFrameRef.current);
+      }
+    };
   }, []);
 
   // Auto-open modal if file parameter is present in URL
@@ -130,8 +154,11 @@ function ChatbotSourcesContent() {
     setIsCopying(true);
     try {
       await navigator.clipboard.writeText(selectedSource.content);
+      if (copyTimeoutRef.current !== null) {
+        clearTimeout(copyTimeoutRef.current);
+      }
       setCopySuccess(true);
-      setTimeout(() => setCopySuccess(false), 2000);
+      copyTimeoutRef.current = setTimeout(() => setCopySuccess(false), 2000);
     } catch (error) {
       console.error("Failed to copy to clipboard:", error);
       // Fallback for older browsers
@@ -141,8 +168,11 @@ function ChatbotSourcesContent() {
       textArea.select();
       document.execCommand("copy");
       document.body.removeChild(textArea);
+      if (copyTimeoutRef.current !== null) {
+        clearTimeout(copyTimeoutRef.current);
+      }
       setCopySuccess(true);
-      setTimeout(() => setCopySuccess(false), 2000);
+      copyTimeoutRef.current = setTimeout(() => setCopySuccess(false), 2000);
     } finally {
       setIsCopying(false);
     }
@@ -484,152 +514,164 @@ function ChatbotSourcesContent() {
       </div>
 
       {/* Modal for viewing full file */}
-      {showModal && selectedSource && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 z-50"
-          onClick={closeModal}
-        >
+      <AnimatePresence>
+        {showModal && selectedSource && (
           <motion.div
-            initial={{ scale: 0.8, opacity: 0, y: 30 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.8, opacity: 0, y: 30 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="bg-gradient-to-br from-brand-beige-light to-brand-beige rounded-xl shadow-2xl border border-brand-secondary/30 w-full max-w-5xl max-h-[85vh] h-[80vh] sm:h-[80vh] flex flex-col overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="modal-title"
-            aria-describedby="modal-description"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 z-50"
+            onClick={closeModal}
           >
-            {/* Modal Header - Fixed */}
-            <div className="bg-gradient-to-r from-brand-primary to-brand-primary-light text-brand-beige p-4 sm:p-6 flex-shrink-0 border-b border-brand-primary/20">
-              <div className="flex items-center justify-between">
-                <div className="flex-1 min-w-0">
-                  <h2
-                    id="modal-title"
-                    className="text-lg sm:text-xl font-bold truncate"
-                  >
-                    {selectedSource.title}
-                  </h2>
-                  <p
-                    id="modal-description"
-                    className="text-brand-beige-light text-xs sm:text-sm mt-1 truncate"
-                  >
-                    {selectedSource.path}
-                  </p>
-                </div>
-                <div className="flex items-center gap-3 ml-4">
-                  <span className="text-xs bg-brand-beige/20 text-brand-beige px-2 py-1 rounded-full font-medium">
-                    {selectedSource.category}
-                  </span>
-                  <motion.button
-                    whileHover={{ scale: 1.1, rotate: 90 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={closeModal}
-                    className="text-brand-beige hover:text-brand-beige-light text-xl font-bold transition-all duration-200 p-1 rounded-full hover:bg-brand-beige/10"
-                    title="Close (ESC)"
-                  >
-                    ×
-                  </motion.button>
-                </div>
-              </div>
-            </div>
-
-            {/* Modal Content - Scrollable */}
-            <div
-              className="flex-1 overflow-y-auto p-4 sm:p-6 relative modal-content-scroll"
-              onScroll={(e) => {
-                const target = e.target as HTMLElement;
-                const scrollTop = target.scrollTop;
-                const scrollHeight = target.scrollHeight - target.clientHeight;
-                const progress =
-                  scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
-
-                setShowScrollTop(scrollTop > 100);
-                setScrollProgress(progress);
-              }}
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0, y: 30 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.8, opacity: 0, y: 30 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="bg-gradient-to-br from-brand-beige-light to-brand-beige rounded-xl shadow-2xl border border-brand-secondary/30 w-full max-w-5xl max-h-[85vh] h-[80vh] sm:h-[80vh] flex flex-col overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="modal-title"
+              aria-describedby="modal-description"
             >
-              {/* Scroll indicator */}
-              <div className="absolute top-0 right-0 w-2 h-full bg-brand-secondary/30 rounded-full">
-                <div
-                  className="w-full bg-gradient-to-b from-brand-primary to-brand-primary-light rounded-full transition-all duration-300 shadow-sm"
-                  style={{ height: `${scrollProgress}%` }}
-                ></div>
-              </div>
-
-              <div className="prose prose-sm max-w-none text-brand-text pr-2">
-                <div className="whitespace-pre-wrap text-sm leading-relaxed font-mono bg-brand-beige/30 p-4 rounded-lg border border-brand-secondary/20 overflow-x-auto">
-                  {selectedSource.content}
+              {/* Modal Header - Fixed */}
+              <div className="bg-gradient-to-r from-brand-primary to-brand-primary-light text-brand-beige p-4 sm:p-6 flex-shrink-0 border-b border-brand-primary/20">
+                <div className="flex items-center justify-between">
+                  <div className="flex-1 min-w-0">
+                    <h2
+                      id="modal-title"
+                      className="text-lg sm:text-xl font-bold truncate"
+                    >
+                      {selectedSource.title}
+                    </h2>
+                    <p
+                      id="modal-description"
+                      className="text-brand-beige-light text-xs sm:text-sm mt-1 truncate"
+                    >
+                      {selectedSource.path}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3 ml-4">
+                    <span className="text-xs bg-brand-beige/20 text-brand-beige px-2 py-1 rounded-full font-medium">
+                      {selectedSource.category}
+                    </span>
+                    <motion.button
+                      whileHover={{ scale: 1.1, rotate: 90 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={closeModal}
+                      className="text-brand-beige hover:text-brand-beige-light text-xl font-bold transition-all duration-200 p-1 rounded-full hover:bg-brand-beige/10"
+                      title="Close (ESC)"
+                    >
+                      ×
+                    </motion.button>
+                  </div>
                 </div>
               </div>
 
-              {/* Scroll to top button */}
-              {showScrollTop && (
-                <motion.button
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  onClick={scrollToTop}
-                  className="fixed bottom-20 right-6 bg-gradient-to-r from-brand-primary to-brand-primary-light hover:from-brand-primary-dark hover:to-brand-primary text-brand-beige p-3 rounded-full shadow-organic-lg hover:shadow-organic-xl transition-all duration-300 z-10"
-                  title="Scroll to top"
-                >
-                  ↑
-                </motion.button>
-              )}
-            </div>
+              {/* Modal Content - Scrollable */}
+              <div
+                className="flex-1 overflow-y-auto p-4 sm:p-6 relative modal-content-scroll"
+                onScroll={(e) => {
+                  const target = e.target as HTMLElement;
+                  if (scrollFrameRef.current !== null) return;
+                  scrollFrameRef.current = requestAnimationFrame(() => {
+                    scrollFrameRef.current = null;
+                    const scrollTop = target.scrollTop;
+                    const scrollHeight =
+                      target.scrollHeight - target.clientHeight;
+                    const progress =
+                      scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
 
-            {/* Modal Footer - Fixed */}
-            <div className="bg-brand-beige border-t border-brand-secondary/30 p-4 sm:p-6 flex-shrink-0">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2 text-xs text-brand-text-light">
-                  <span className="flex items-center gap-1">
-                    <span className="w-2 h-2 bg-brand-primary rounded-full"></span>
-                    {selectedSource.content.length} characters
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <span className="w-2 h-2 bg-brand-secondary rounded-full"></span>
-                    {selectedSource.content.split("\n").length} lines
-                  </span>
+                    const nextShowScrollTop = scrollTop > 100;
+                    setShowScrollTop((prev) =>
+                      prev === nextShowScrollTop ? prev : nextShowScrollTop
+                    );
+                    setScrollProgress(progress);
+                  });
+                }}
+              >
+                {/* Scroll indicator */}
+                <div className="absolute top-0 right-0 w-2 h-full bg-brand-secondary/30 rounded-full">
+                  <div
+                    className="w-full bg-gradient-to-b from-brand-primary to-brand-primary-light rounded-full transition-all duration-300 shadow-sm"
+                    style={{ height: `${scrollProgress}%` }}
+                  ></div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={copyToClipboard}
-                    disabled={isCopying}
-                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 shadow-organic hover:shadow-organic-lg disabled:opacity-50 disabled:cursor-not-allowed ${
-                      copySuccess
-                        ? "bg-green-500 hover:bg-green-600 text-white"
-                        : "bg-brand-secondary hover:bg-brand-secondary-dark text-brand-text"
-                    }`}
-                    title="Copy content to clipboard"
-                  >
-                    {isCopying
-                      ? "Copying..."
-                      : copySuccess
-                      ? "Copied!"
-                      : "Copy"}
-                  </motion.button>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={closeModal}
-                    className="bg-gradient-to-r from-brand-primary to-brand-primary-light hover:from-brand-primary-dark hover:to-brand-primary text-brand-beige px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 shadow-organic hover:shadow-organic-lg"
-                  >
-                    Close
-                  </motion.button>
+
+                <div className="prose prose-sm max-w-none text-brand-text pr-2">
+                  <div className="whitespace-pre-wrap text-sm leading-relaxed font-mono bg-brand-beige/30 p-4 rounded-lg border border-brand-secondary/20 overflow-x-auto">
+                    {selectedSource.content}
+                  </div>
+                </div>
+
+                {/* Scroll to top button */}
+                <AnimatePresence>
+                  {showScrollTop && (
+                    <motion.button
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={scrollToTop}
+                      className="fixed bottom-20 right-6 bg-gradient-to-r from-brand-primary to-brand-primary-light hover:from-brand-primary-dark hover:to-brand-primary text-brand-beige p-3 rounded-full shadow-organic-lg hover:shadow-organic-xl transition-all duration-300 z-10"
+                      title="Scroll to top"
+                    >
+                      ↑
+                    </motion.button>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Modal Footer - Fixed */}
+              <div className="bg-brand-beige border-t border-brand-secondary/30 p-4 sm:p-6 flex-shrink-0">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2 text-xs text-brand-text-light">
+                    <span className="flex items-center gap-1">
+                      <span className="w-2 h-2 bg-brand-primary rounded-full"></span>
+                      {selectedSource.content.length} characters
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <span className="w-2 h-2 bg-brand-secondary rounded-full"></span>
+                      {selectedSource.content.split("\n").length} lines
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={copyToClipboard}
+                      disabled={isCopying}
+                      className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 shadow-organic hover:shadow-organic-lg disabled:opacity-50 disabled:cursor-not-allowed ${
+                        copySuccess
+                          ? "bg-green-500 hover:bg-green-600 text-white"
+                          : "bg-brand-secondary hover:bg-brand-secondary-dark text-brand-text"
+                      }`}
+                      title="Copy content to clipboard"
+                    >
+                      {isCopying
+                        ? "Copying..."
+                        : copySuccess
+                        ? "Copied!"
+                        : "Copy"}
+                    </motion.button>
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={closeModal}
+                      className="bg-gradient-to-r from-brand-primary to-brand-primary-light hover:from-brand-primary-dark hover:to-brand-primary text-brand-beige px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 shadow-organic hover:shadow-organic-lg"
+                    >
+                      Close
+                    </motion.button>
+                  </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
-        </motion.div>
-      )}
+        )}
+      </AnimatePresence>
     </div>
   );
 }

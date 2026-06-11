@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback, memo } from "react";
 import { motion } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -18,6 +18,157 @@ interface Message {
   }>;
 }
 
+// Categorized questions for sidebar - Interview-focused
+const questionCategories: QuestionCategory[] = [
+  {
+    category: "Availability & Logistics",
+    questions: [
+      { label: "Work Authorization", question: "What is your work authorization status?" },
+      { label: "Location & Relocation", question: "Where are you based and are you open to relocation?" },
+      { label: "Remote Work", question: "Are you open to remote work opportunities?" },
+      { label: "Career Goals", question: "What are you looking for in your next role?" },
+    ],
+  },
+  {
+    category: "Education & Research",
+    questions: [
+      { label: "Cal Poly SLO", question: "What did you study at Cal Poly San Luis Obispo?" },
+      { label: "City College SF", question: "Tell me about your studies at City College of San Francisco" },
+      { label: "AI Ethics Research", question: "What was your AI Ethics research at Cal Poly about?" },
+      { label: "Advanced AI Studies", question: "Why did you pursue advanced AI studies after your bachelor's?" },
+    ],
+  },
+  {
+    category: "Professional Experience",
+    questions: [
+      { label: "Mercor - AI Engineer", question: "What is your current role at Mercor as an AI Engineer?" },
+      { label: "CoChat - Founder", question: "Tell me about founding CoChat and your role as Founder" },
+      { label: "AfterQuery - Software Engineer", question: "What did you do at AfterQuery Experts as a Software Engineer?" },
+      { label: "Ricoh - Software Engineer Intern", question: "Tell me about your Software Engineer internship at Ricoh" },
+      { label: "Tribot - Software Developer", question: "What did you do as a Software Developer at Tribot?" },
+      { label: "LinkedIn - Apprentice", question: "What did you learn from your apprenticeship at LinkedIn?" },
+      { label: "Square - Apprentice", question: "What was your apprenticeship experience like at Square?" },
+    ],
+  },
+  {
+    category: "Projects & Startups",
+    questions: [
+      { label: "Paper Invoice Launch", question: "Tell me about building and launching Paper Invoice in 7 days" },
+      { label: "Offline-First Architecture", question: "How did you implement the offline-first architecture in Paper Invoice?" },
+      { label: "CoChat Founding", question: "Tell me about CoChat and how you founded it" },
+      { label: "Voice Cloning Tech", question: "How does voice cloning technology work in CoChat?" },
+      { label: "FoodManager AI", question: "What is FoodManager and what AI features did you build?" },
+      { label: "User Acquisition", question: "How did Paper Invoice gain 37 users in the first week?" },
+    ],
+  },
+  {
+    category: "Technical Deep-Dive",
+    questions: [
+      { label: "React Native & Expo", question: "How did React Native and Expo enable you to ship Paper Invoice in 7 days?" },
+      { label: "Mobile Development", question: "What are the challenges of building offline-first mobile apps?" },
+      { label: "Testing Approach", question: "How do you approach testing in your applications?" },
+      { label: "Error Handling", question: "How do you handle errors in your AI integrations?" },
+      { label: "Performance Optimization", question: "How do you optimize applications for production performance?" },
+      { label: "Hardest Problem", question: "What's the most challenging technical problem you've solved?" },
+    ],
+  },
+];
+
+const ChatMessage = memo(function ChatMessage({
+  role,
+  content,
+}: {
+  role: Message["role"];
+  content: string;
+}) {
+  return (
+    <div className="text-sm leading-relaxed">
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        components={{
+          // Custom styling for better UX
+          ul: ({ children }) => (
+            <ul className="list-disc ml-4 space-y-1">{children}</ul>
+          ),
+          ol: ({ children }) => (
+            <ol className="list-decimal ml-4 space-y-1">
+              {children}
+            </ol>
+          ),
+          li: ({ children }) => (
+            <li
+              className={
+                role === "user"
+                  ? "text-white"
+                  : "text-brand-text"
+              }
+            >
+              {children}
+            </li>
+          ),
+          strong: ({ children }) => (
+            <strong
+              className={`font-semibold ${
+                role === "user"
+                  ? "text-white"
+                  : "text-brand-text"
+              }`}
+            >
+              {children}
+            </strong>
+          ),
+          p: ({ children }) => (
+            <p
+              className={`mb-2 last:mb-0 ${
+                role === "user"
+                  ? "text-white"
+                  : "text-brand-text"
+              }`}
+            >
+              {children}
+            </p>
+          ),
+          h1: ({ children }) => (
+            <h1
+              className={`text-lg font-bold mb-2 ${
+                role === "user"
+                  ? "text-white"
+                  : "text-brand-text"
+              }`}
+            >
+              {children}
+            </h1>
+          ),
+          h2: ({ children }) => (
+            <h2
+              className={`text-base font-bold mb-2 ${
+                role === "user"
+                  ? "text-white"
+                  : "text-brand-text"
+              }`}
+            >
+              {children}
+            </h2>
+          ),
+          h3: ({ children }) => (
+            <h3
+              className={`text-sm font-bold mb-1 ${
+                role === "user"
+                  ? "text-white"
+                  : "text-brand-text"
+              }`}
+            >
+              {children}
+            </h3>
+          ),
+        }}
+      >
+        {content}
+      </ReactMarkdown>
+    </div>
+  );
+});
+
 export default function Chatbot() {
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -34,62 +185,13 @@ export default function Chatbot() {
   );
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
-  // Categorized questions for sidebar - Interview-focused
-  const questionCategories: QuestionCategory[] = [
-    {
-      category: "Availability & Logistics",
-      questions: [
-        { label: "Work Authorization", question: "What is your work authorization status?" },
-        { label: "Location & Relocation", question: "Where are you based and are you open to relocation?" },
-        { label: "Remote Work", question: "Are you open to remote work opportunities?" },
-        { label: "Career Goals", question: "What are you looking for in your next role?" },
-      ],
-    },
-    {
-      category: "Education & Research",
-      questions: [
-        { label: "Cal Poly SLO", question: "What did you study at Cal Poly San Luis Obispo?" },
-        { label: "City College SF", question: "Tell me about your studies at City College of San Francisco" },
-        { label: "AI Ethics Research", question: "What was your AI Ethics research at Cal Poly about?" },
-        { label: "Advanced AI Studies", question: "Why did you pursue advanced AI studies after your bachelor's?" },
-      ],
-    },
-    {
-      category: "Professional Experience",
-      questions: [
-        { label: "Mercor - AI Engineer", question: "What is your current role at Mercor as an AI Engineer?" },
-        { label: "CoChat - Founder", question: "Tell me about founding CoChat and your role as Founder" },
-        { label: "AfterQuery - Software Engineer", question: "What did you do at AfterQuery Experts as a Software Engineer?" },
-        { label: "Ricoh - Software Engineer Intern", question: "Tell me about your Software Engineer internship at Ricoh" },
-        { label: "Tribot - Software Developer", question: "What did you do as a Software Developer at Tribot?" },
-        { label: "LinkedIn - Apprentice", question: "What did you learn from your apprenticeship at LinkedIn?" },
-        { label: "Square - Apprentice", question: "What was your apprenticeship experience like at Square?" },
-      ],
-    },
-    {
-      category: "Projects & Startups",
-      questions: [
-        { label: "Paper Invoice Launch", question: "Tell me about building and launching Paper Invoice in 7 days" },
-        { label: "Offline-First Architecture", question: "How did you implement the offline-first architecture in Paper Invoice?" },
-        { label: "CoChat Founding", question: "Tell me about CoChat and how you founded it" },
-        { label: "Voice Cloning Tech", question: "How does voice cloning technology work in CoChat?" },
-        { label: "FoodManager AI", question: "What is FoodManager and what AI features did you build?" },
-        { label: "User Acquisition", question: "How did Paper Invoice gain 37 users in the first week?" },
-      ],
-    },
-    {
-      category: "Technical Deep-Dive",
-      questions: [
-        { label: "React Native & Expo", question: "How did React Native and Expo enable you to ship Paper Invoice in 7 days?" },
-        { label: "Mobile Development", question: "What are the challenges of building offline-first mobile apps?" },
-        { label: "Testing Approach", question: "How do you approach testing in your applications?" },
-        { label: "Error Handling", question: "How do you handle errors in your AI integrations?" },
-        { label: "Performance Optimization", question: "How do you optimize applications for production performance?" },
-        { label: "Hardest Problem", question: "What's the most challenging technical problem you've solved?" },
-      ],
-    },
-  ];
+  useEffect(() => {
+    return () => {
+      abortControllerRef.current?.abort();
+    };
+  }, []);
 
   const scrollToBottom = () => {
     // Use setTimeout to ensure the DOM has updated
@@ -103,8 +205,7 @@ export default function Chatbot() {
     }, 100);
   };
 
-  // Handler for sidebar question selection with auto-submit
-  const handleQuestionSelect = async (question: string) => {
+  const sendMessage = useCallback(async (question: string) => {
     if (isLoading) return;
 
     const userMessage: Message = {
@@ -118,6 +219,9 @@ export default function Chatbot() {
     setInput("");
     setIsLoading(true);
 
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
     try {
       const response = await fetch("/api/chat", {
         method: "POST",
@@ -125,6 +229,7 @@ export default function Chatbot() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ message: question }),
+        signal: controller.signal,
       });
 
       if (!response.ok) {
@@ -147,6 +252,7 @@ export default function Chatbot() {
       setMessages((prev) => [...prev, assistantMessage]);
 
       const decoder = new TextDecoder();
+      let buffer = "";
       let done = false;
 
       while (!done) {
@@ -154,8 +260,9 @@ export default function Chatbot() {
         done = readerDone;
 
         if (value) {
-          const chunk = decoder.decode(value);
-          const lines = chunk.split("\n");
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n");
+          buffer = lines.pop() ?? "";
 
           for (const line of lines) {
             if (line.startsWith("data: ")) {
@@ -175,7 +282,6 @@ export default function Chatbot() {
                         : msg
                     )
                   );
-                  scrollToBottom();
                 }
                 if (parsed.sources) {
                   setMessages((prev) =>
@@ -193,7 +299,10 @@ export default function Chatbot() {
           }
         }
       }
+
+      reader.cancel().catch(() => {});
     } catch (error) {
+      if (error instanceof Error && error.name === "AbortError") return;
       console.error("Error:", error);
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
@@ -205,7 +314,15 @@ export default function Chatbot() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [isLoading]);
+
+  // Handler for sidebar question selection with auto-submit
+  const handleQuestionSelect = useCallback(
+    (question: string) => {
+      void sendMessage(question);
+    },
+    [sendMessage]
+  );
 
   const handleSourcesClick = () => {
     window.open("/chatbot-sources", "_blank");
@@ -234,105 +351,7 @@ export default function Chatbot() {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
 
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      role: "user",
-      content: input,
-      timestamp: new Date(),
-    };
-
-    setMessages((prev) => [...prev, userMessage]);
-    setInput("");
-    setIsLoading(true);
-
-    try {
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ message: input }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to get response");
-      }
-
-      const reader = response.body?.getReader();
-      if (!reader) {
-        throw new Error("No response body");
-      }
-
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: "assistant",
-        content: "",
-        timestamp: new Date(),
-        sources: [], // Initialize sources array
-      };
-
-      setMessages((prev) => [...prev, assistantMessage]);
-
-      const decoder = new TextDecoder();
-      let done = false;
-
-      while (!done) {
-        const { value, done: readerDone } = await reader.read();
-        done = readerDone;
-
-        if (value) {
-          const chunk = decoder.decode(value);
-          const lines = chunk.split("\n");
-
-          for (const line of lines) {
-            if (line.startsWith("data: ")) {
-              const data = line.slice(6);
-              if (data === "[DONE]") {
-                done = true;
-                break;
-              }
-
-              try {
-                const parsed = JSON.parse(data);
-                if (parsed.content) {
-                  setMessages((prev) =>
-                    prev.map((msg) =>
-                      msg.id === assistantMessage.id
-                        ? { ...msg, content: msg.content + parsed.content }
-                        : msg
-                    )
-                  );
-                  // Scroll to bottom after each content update
-                  scrollToBottom();
-                }
-                if (parsed.sources) {
-                  setMessages((prev) =>
-                    prev.map((msg) =>
-                      msg.id === assistantMessage.id
-                        ? { ...msg, sources: parsed.sources }
-                        : msg
-                    )
-                  );
-                }
-              } catch (e) {
-                // Ignore parsing errors for incomplete chunks
-              }
-            }
-          }
-        }
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      const errorMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: "assistant",
-        content: "Sorry, I encountered an error. Please try again later.",
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, errorMessage]);
-    } finally {
-      setIsLoading(false);
-    }
+    await sendMessage(input);
   };
 
   return (
@@ -400,90 +419,7 @@ export default function Chatbot() {
                     : "bg-brand-secondary text-brand-text"
                 }`}
               >
-                <div className="text-sm leading-relaxed">
-                  <ReactMarkdown
-                    remarkPlugins={[remarkGfm]}
-                    components={{
-                      // Custom styling for better UX
-                      ul: ({ children }) => (
-                        <ul className="list-disc ml-4 space-y-1">{children}</ul>
-                      ),
-                      ol: ({ children }) => (
-                        <ol className="list-decimal ml-4 space-y-1">
-                          {children}
-                        </ol>
-                      ),
-                      li: ({ children }) => (
-                        <li
-                          className={
-                            message.role === "user"
-                              ? "text-white"
-                              : "text-brand-text"
-                          }
-                        >
-                          {children}
-                        </li>
-                      ),
-                      strong: ({ children }) => (
-                        <strong
-                          className={`font-semibold ${
-                            message.role === "user"
-                              ? "text-white"
-                              : "text-brand-text"
-                          }`}
-                        >
-                          {children}
-                        </strong>
-                      ),
-                      p: ({ children }) => (
-                        <p
-                          className={`mb-2 last:mb-0 ${
-                            message.role === "user"
-                              ? "text-white"
-                              : "text-brand-text"
-                          }`}
-                        >
-                          {children}
-                        </p>
-                      ),
-                      h1: ({ children }) => (
-                        <h1
-                          className={`text-lg font-bold mb-2 ${
-                            message.role === "user"
-                              ? "text-white"
-                              : "text-brand-text"
-                          }`}
-                        >
-                          {children}
-                        </h1>
-                      ),
-                      h2: ({ children }) => (
-                        <h2
-                          className={`text-base font-bold mb-2 ${
-                            message.role === "user"
-                              ? "text-white"
-                              : "text-brand-text"
-                          }`}
-                        >
-                          {children}
-                        </h2>
-                      ),
-                      h3: ({ children }) => (
-                        <h3
-                          className={`text-sm font-bold mb-1 ${
-                            message.role === "user"
-                              ? "text-white"
-                              : "text-brand-text"
-                          }`}
-                        >
-                          {children}
-                        </h3>
-                      ),
-                    }}
-                  >
-                    {message.content}
-                  </ReactMarkdown>
-                </div>
+                <ChatMessage role={message.role} content={message.content} />
               </div>
 
               {/* Timestamp - subtle and minimal */}

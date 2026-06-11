@@ -13,8 +13,13 @@ export default function ResumeTab() {
   const [status, setStatus] = useState("");
 
   async function load() {
-    const res = await fetch("/api/admin/resume");
-    if (res.ok) setMeta(await res.json());
+    try {
+      const res = await fetch("/api/admin/resume");
+      if (res.ok) setMeta(await res.json());
+      else setStatus(`Error ${res.status}`);
+    } catch {
+      setStatus("Network error — failed to load.");
+    }
   }
   useEffect(() => {
     load();
@@ -22,12 +27,17 @@ export default function ResumeTab() {
 
   async function upload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
+    e.target.value = "";
     if (!file) return;
     setStatus("Uploading…");
-    const form = new FormData();
-    form.append("file", file);
-    const res = await fetch("/api/admin/resume", { method: "POST", body: form });
-    setStatus(res.ok ? "Uploaded." : `Error ${res.status}`);
+    try {
+      const form = new FormData();
+      form.append("file", file);
+      const res = await fetch("/api/admin/resume", { method: "POST", body: form });
+      setStatus(res.ok ? "Uploaded." : `Error ${res.status}`);
+    } catch {
+      setStatus("Network error — try again.");
+    }
     load();
   }
 

@@ -9,18 +9,23 @@ export default function ContentTab() {
   const [key, setKey] = useState<Key>("about");
   const [text, setText] = useState("");
   const [status, setStatus] = useState("");
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
     async function load() {
       setStatus("Loading…");
-      const res = await fetch(`/api/admin/content/${key}`);
-      if (cancelled) return;
-      if (res.ok) {
-        setText(JSON.stringify(await res.json(), null, 2));
-        setStatus("");
-      } else {
-        setStatus(`Error ${res.status}`);
+      try {
+        const res = await fetch(`/api/admin/content/${key}`);
+        if (cancelled) return;
+        if (res.ok) {
+          setText(JSON.stringify(await res.json(), null, 2));
+          setStatus("");
+        } else {
+          setStatus(`Error ${res.status}`);
+        }
+      } catch {
+        if (!cancelled) setStatus("Network error — failed to load.");
       }
     }
     load();
@@ -30,6 +35,7 @@ export default function ContentTab() {
   }, [key]);
 
   async function save() {
+    if (saving) return;
     let parsed: unknown;
     try {
       parsed = JSON.parse(text);
@@ -37,13 +43,20 @@ export default function ContentTab() {
       setStatus("Invalid JSON — fix before saving.");
       return;
     }
+    setSaving(true);
     setStatus("Saving…");
-    const res = await fetch(`/api/admin/content/${key}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(parsed),
-    });
-    setStatus(res.ok ? "Saved." : `Error ${res.status}`);
+    try {
+      const res = await fetch(`/api/admin/content/${key}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(parsed),
+      });
+      setStatus(res.ok ? "Saved." : `Error ${res.status}`);
+    } catch {
+      setStatus("Network error — try again.");
+    } finally {
+      setSaving(false);
+    }
   }
 
   return (
@@ -68,8 +81,9 @@ export default function ContentTab() {
       />
       <div className="flex gap-2 items-center">
         <button
-          className="px-4 py-2 rounded-lg bg-brand-primary text-white text-sm"
+          className="px-4 py-2 rounded-lg bg-brand-primary text-white text-sm disabled:opacity-50"
           onClick={save}
+          disabled={saving}
         >
           Save
         </button>

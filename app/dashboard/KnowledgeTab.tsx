@@ -13,36 +13,53 @@ export default function KnowledgeTab() {
   const [docs, setDocs] = useState<Doc[]>([]);
   const [editing, setEditing] = useState<Doc | null>(null);
   const [status, setStatus] = useState("");
+  const [saving, setSaving] = useState(false);
 
   async function load() {
-    const res = await fetch("/api/admin/knowledge");
-    if (res.ok) setDocs(await res.json());
+    try {
+      const res = await fetch("/api/admin/knowledge");
+      if (res.ok) setDocs(await res.json());
+      else setStatus(`Error ${res.status}`);
+    } catch {
+      setStatus("Network error — failed to load.");
+    }
   }
   useEffect(() => {
     load();
   }, []);
 
   async function save() {
-    if (!editing) return;
+    if (!editing || saving) return;
+    setSaving(true);
     setStatus("Saving…");
-    const res = await fetch("/api/admin/knowledge", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(editing),
-    });
-    setStatus(res.ok ? "Saved + re-embedded." : `Error ${res.status}`);
-    if (res.ok) {
-      setEditing(null);
-      load();
+    try {
+      const res = await fetch("/api/admin/knowledge", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(editing),
+      });
+      setStatus(res.ok ? "Saved + re-embedded." : `Error ${res.status}`);
+      if (res.ok) {
+        setEditing(null);
+        load();
+      }
+    } catch {
+      setStatus("Network error — try again.");
+    } finally {
+      setSaving(false);
     }
   }
 
   async function remove(id: string) {
     setStatus("Deleting…");
-    const res = await fetch(`/api/admin/knowledge?id=${encodeURIComponent(id)}`, {
-      method: "DELETE",
-    });
-    setStatus(res.ok ? "Deleted." : `Error ${res.status}`);
+    try {
+      const res = await fetch(`/api/admin/knowledge?id=${encodeURIComponent(id)}`, {
+        method: "DELETE",
+      });
+      setStatus(res.ok ? "Deleted." : `Error ${res.status}`);
+    } catch {
+      setStatus("Network error — try again.");
+    }
     load();
   }
 
@@ -90,8 +107,9 @@ export default function KnowledgeTab() {
           />
           <div className="flex gap-2">
             <button
-              className="px-4 py-2 rounded-lg bg-brand-primary text-white text-sm"
+              className="px-4 py-2 rounded-lg bg-brand-primary text-white text-sm disabled:opacity-50"
               onClick={save}
+              disabled={saving}
             >
               Save
             </button>

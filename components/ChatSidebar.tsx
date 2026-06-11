@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { memo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 // Question category type definition
@@ -31,7 +31,7 @@ interface ChatSidebarProps {
  * @param onQuestionSelect - Callback function when a question is clicked
  * @param isVisible - Optional visibility toggle for responsive behavior
  */
-export default function ChatSidebar({
+function ChatSidebar({
   categories,
   onQuestionSelect,
   isVisible = true,
@@ -168,3 +168,5 @@ export default function ChatSidebar({
     </motion.aside>
   );
 }
+
+export default memo(ChatSidebar);

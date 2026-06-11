@@ -16,6 +16,7 @@ export default function Navbar() {
       setIsScrolled(window.scrollY > 10);
     };
 
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -45,7 +46,7 @@ export default function Navbar() {
   useEffect(() => {
     if (pathname === "/" && window.location.hash) {
       const hash = window.location.hash.substring(1);
-      setTimeout(() => {
+      const timeout = setTimeout(() => {
         const element = document.getElementById(hash);
         if (element) {
           const navbar = document.querySelector("nav");
@@ -58,6 +59,7 @@ export default function Navbar() {
           });
         }
       }, 100); // Small delay to ensure page is loaded
+      return () => clearTimeout(timeout);
     }
   }, [pathname]);
 

@@ -8,6 +8,8 @@ export interface TimelineItem {
   isCurrent?: boolean;
   category: "professional" | "academic";
   type?: string; // e.g., "Internship", "Full-time", "Research", "Education"
+  /** Internal: chart position nudged apart from a too-close neighbor. */
+  _adjustedDate?: number;
 }
 
 export interface TimelineData {

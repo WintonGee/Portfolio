@@ -14,7 +14,9 @@ export async function POST(request: NextRequest) {
       title: doc.title,
       category: doc.category,
     });
-    await upsertKnowledge({ ...doc, vector_id: doc.id });
+    if (doc.vector_id !== doc.id) {
+      await upsertKnowledge({ ...doc, vector_id: doc.id });
+    }
     count++;
   }
   return Response.json({ reindexed: count });

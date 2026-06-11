@@ -56,7 +56,7 @@ export default function Footer() {
           >
             {/* Copyright on the left */}
             <p className="text-sm text-brand-beige/80 order-2 sm:order-1">
-              © 2025 Winton Gee. All rights reserved.
+              © {new Date().getFullYear()} Winton Gee. All rights reserved.
             </p>
 
             {/* Social Links on the right */}

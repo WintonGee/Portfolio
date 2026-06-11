@@ -1,7 +1,7 @@
 // Service Worker for Portfolio Website
-const CACHE_NAME = "portfolio-v1.0.0";
-const STATIC_CACHE_NAME = "portfolio-static-v1.0.0";
-const DYNAMIC_CACHE_NAME = "portfolio-dynamic-v1.0.0";
+const CACHE_NAME = "portfolio-v1.0.1";
+const STATIC_CACHE_NAME = "portfolio-static-v1.0.1";
+const DYNAMIC_CACHE_NAME = "portfolio-dynamic-v1.0.1";
 
 // Assets to cache immediately
 const STATIC_ASSETS = [
@@ -21,27 +21,25 @@ const STATIC_ASSETS = [
   "/logos/companies/linkedin.png",
   "/logos/companies/ccsf.png",
   "/logos/companies/default.png",
-  "/resume/Winton_Gee_Resume.pdf",
   "/manifest.json",
 ];
 
 // Install event - cache static assets
 self.addEventListener("install", (event) => {
-  console.log("Service Worker: Installing...");
   event.waitUntil(
     caches
       .open(STATIC_CACHE_NAME)
-      .then((cache) => {
-        console.log("Service Worker: Caching static assets");
-        return cache.addAll(STATIC_ASSETS);
-      })
-      .then(() => {
-        console.log("Service Worker: Installation complete");
-        return self.skipWaiting();
-      })
-      .catch((error) => {
-        console.error("Service Worker: Installation failed", error);
-      })
+      .then((cache) =>
+        // Cache assets individually so one failure doesn't abort the rest.
+        Promise.allSettled(
+          STATIC_ASSETS.map((asset) =>
+            cache.add(asset).catch((error) => {
+              console.error("Service Worker: Failed to cache", asset, error);
+            })
+          )
+        )
+      )
+      .then(() => self.skipWaiting())
   );
 });
 
@@ -83,6 +81,19 @@ self.addEventListener("fetch", (event) => {
 
   // Skip external requests
   if (url.origin !== location.origin) {
+    return;
+  }
+
+  // Never cache API or dashboard requests
+  if (
+    url.pathname.startsWith("/api/") ||
+    url.pathname.startsWith("/dashboard")
+  ) {
+    return;
+  }
+
+  // Never cache Next.js RSC payload requests
+  if (url.searchParams.has("_rsc") || request.headers.get("RSC") === "1") {
     return;
   }
 
@@ -133,7 +144,7 @@ async function handleDocumentRequest(request) {
       return cachedResponse;
     }
     // Return offline page
-    return caches.match("/") || new Response("Offline", { status: 503 });
+    return (await caches.match("/")) || new Response("Offline", { status: 503 });
   }
 }
 

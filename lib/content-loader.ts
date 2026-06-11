@@ -10,11 +10,14 @@ export interface HomeContent {
 }
 
 export async function loadHomeContent(): Promise<HomeContent> {
-  return cached(CACHE_KEYS.home, 60, async () => ({
-    about: await getContentBlock("about"),
-    skills: await getContentBlock("skills"),
-    timeline: await getContentBlock("timeline"),
-  }));
+  return cached(CACHE_KEYS.home, 60, async () => {
+    const [about, skills, timeline] = await Promise.all([
+      getContentBlock<HomeContent["about"]>("about"),
+      getContentBlock("skills"),
+      getContentBlock("timeline"),
+    ]);
+    return { about, skills, timeline };
+  });
 }
 
 export async function loadProjects(): Promise<Project[]> {

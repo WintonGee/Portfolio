@@ -15,10 +15,16 @@ export default function ProjectsTab() {
   const [editing, setEditing] = useState<Row | null>(null);
   const [text, setText] = useState("");
   const [status, setStatus] = useState("");
+  const [saving, setSaving] = useState(false);
 
   async function load() {
-    const res = await fetch("/api/admin/projects");
-    if (res.ok) setRows(await res.json());
+    try {
+      const res = await fetch("/api/admin/projects");
+      if (res.ok) setRows(await res.json());
+      else setStatus(`Error ${res.status}`);
+    } catch {
+      setStatus("Network error — failed to load.");
+    }
   }
   useEffect(() => {
     load();
@@ -30,7 +36,7 @@ export default function ProjectsTab() {
   }
 
   async function save() {
-    if (!editing) return;
+    if (!editing || saving) return;
     let data: Record<string, unknown>;
     try {
       data = JSON.parse(text);
@@ -38,30 +44,42 @@ export default function ProjectsTab() {
       setStatus("Invalid JSON.");
       return;
     }
+    setSaving(true);
     setStatus("Saving…");
-    const res = await fetch("/api/admin/projects", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id: editing.id,
-        slug: editing.slug,
-        data,
-        featured: editing.featured,
-        sort_order: editing.sort_order,
-      }),
-    });
-    setStatus(res.ok ? "Saved." : `Error ${res.status}`);
-    if (res.ok) {
-      setEditing(null);
-      load();
+    try {
+      const res = await fetch("/api/admin/projects", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: editing.id,
+          slug: editing.slug,
+          data,
+          featured: editing.featured,
+          sort_order: editing.sort_order,
+        }),
+      });
+      setStatus(res.ok ? "Saved." : `Error ${res.status}`);
+      if (res.ok) {
+        setEditing(null);
+        load();
+      }
+    } catch {
+      setStatus("Network error — try again.");
+    } finally {
+      setSaving(false);
     }
   }
 
   async function remove(id: string) {
-    const res = await fetch(`/api/admin/projects?id=${encodeURIComponent(id)}`, {
-      method: "DELETE",
-    });
-    setStatus(res.ok ? "Deleted." : `Error ${res.status}`);
+    setStatus("Deleting…");
+    try {
+      const res = await fetch(`/api/admin/projects?id=${encodeURIComponent(id)}`, {
+        method: "DELETE",
+      });
+      setStatus(res.ok ? "Deleted." : `Error ${res.status}`);
+    } catch {
+      setStatus("Network error — try again.");
+    }
     load();
   }
 
@@ -120,8 +138,9 @@ export default function ProjectsTab() {
           />
           <div className="flex gap-2 items-center">
             <button
-              className="px-4 py-2 rounded-lg bg-brand-primary text-white text-sm"
+              className="px-4 py-2 rounded-lg bg-brand-primary text-white text-sm disabled:opacity-50"
               onClick={save}
+              disabled={saving}
             >
               Save
             </button>

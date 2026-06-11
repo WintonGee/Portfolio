@@ -1,10 +1,17 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const TILT_ANGLE = 10;
 
 export function use3DTilt() {
   const ref = useRef<HTMLDivElement>(null);
+  const frameRef = useRef<number | null>(null);
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    return () => {
+      if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
+    };
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!ref.current) return;
@@ -15,10 +22,18 @@ export function use3DTilt() {
     const centerY = rect.height / 2;
     const rotateX = ((y - centerY) / centerY) * -TILT_ANGLE;
     const rotateY = ((x - centerX) / centerX) * TILT_ANGLE;
-    setRotation({ x: rotateX, y: rotateY });
+    if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
+    frameRef.current = requestAnimationFrame(() => {
+      frameRef.current = null;
+      setRotation({ x: rotateX, y: rotateY });
+    });
   };
 
   const handleMouseLeave = () => {
+    if (frameRef.current !== null) {
+      cancelAnimationFrame(frameRef.current);
+      frameRef.current = null;
+    }
     setRotation({ x: 0, y: 0 });
   };
 

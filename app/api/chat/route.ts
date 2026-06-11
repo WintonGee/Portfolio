@@ -24,7 +24,12 @@ IMPORTANT INSTRUCTIONS:
 
 export async function POST(request: NextRequest) {
   try {
-    const { message } = (await request.json()) as { message?: string };
+    let message: string | undefined;
+    try {
+      ({ message } = (await request.json()) as { message?: string });
+    } catch {
+      return new Response("Invalid JSON", { status: 400 });
+    }
     if (!message) return new Response("Message is required", { status: 400 });
 
     const ai = getEnv().AI;
@@ -58,10 +63,11 @@ Respond as Winton, using only the information provided in the context. Be direct
 
     const encoder = new TextEncoder();
     const decoder = new TextDecoder();
+    const reader = aiStream.getReader();
+    let cancelled = false;
 
     const stream = new ReadableStream({
       async start(controller) {
-        const reader = aiStream.getReader();
         let buffer = "";
         const flushSources = () => {
           controller.enqueue(encoder.encode(`data: ${JSON.stringify({ sources })}\n\n`));
@@ -91,9 +97,11 @@ Respond as Winton, using only the information provided in the context. Be direct
               }
             }
           }
+          if (cancelled) return;
           flushSources();
           controller.close();
         } catch (error) {
+          if (cancelled) return;
           console.error("Streaming error:", error);
           controller.enqueue(
             encoder.encode(
@@ -105,6 +113,10 @@ Respond as Winton, using only the information provided in the context. Be direct
         } finally {
           reader.releaseLock();
         }
+      },
+      cancel() {
+        cancelled = true;
+        reader.cancel().catch(() => {});
       },
     });
 

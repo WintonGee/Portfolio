@@ -6,11 +6,9 @@ import {
   LineChart,
   Line,
   XAxis,
-  YAxis,
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Dot,
 } from "recharts";
 
 import { TimelineItem, FilterCategory } from "../types/timeline";
@@ -29,6 +27,56 @@ import {
 interface UnifiedTimelineProps {
   items: TimelineItem[];
 }
+
+// Helper function to get logo path for institution
+const LOGO_MAP: Record<string, string> = {
+  Mercor: "/logos/companies/mercor.png",
+  "CoChat.io": "/logos/companies/cochat.png",
+  "AfterQuery Experts": "/logos/companies/afterquery.png",
+  "Cal Poly, San Luis Obispo": "/logos/companies/calpoly-mustangs.png",
+  "California Polytechnic State University, San Luis Obispo":
+    "/logos/companies/calpoly-mustangs.png",
+  "Ricoh USA, Inc.": "/logos/companies/ricoh.png",
+  Tribot: "/logos/companies/tribot.png",
+  Square: "/logos/companies/square.png",
+  LinkedIn: "/logos/companies/linkedin.png",
+  "City College of San Francisco": "/logos/companies/ccsf.png",
+};
+
+const getLogoPath = (institution: string): string => {
+  // Try exact match first
+  if (LOGO_MAP[institution]) {
+    return LOGO_MAP[institution];
+  }
+
+  // Try partial matches for variations
+  const lowerInstitution = institution.toLowerCase();
+  if (lowerInstitution.includes("mercor"))
+    return "/logos/companies/mercor.png";
+  if (lowerInstitution.includes("cochat"))
+    return "/logos/companies/cochat.png";
+  if (lowerInstitution.includes("afterquery"))
+    return "/logos/companies/afterquery.png";
+  if (
+    lowerInstitution.includes("cal poly") ||
+    lowerInstitution.includes("calpoly")
+  )
+    return "/logos/companies/calpoly-mustangs.png";
+  if (lowerInstitution.includes("ricoh")) return "/logos/companies/ricoh.png";
+  if (lowerInstitution.includes("tribot"))
+    return "/logos/companies/tribot.png";
+  if (lowerInstitution.includes("square"))
+    return "/logos/companies/square.png";
+  if (lowerInstitution.includes("linkedin"))
+    return "/logos/companies/linkedin.png";
+  if (
+    lowerInstitution.includes("city college") ||
+    lowerInstitution.includes("ccsf")
+  )
+    return "/logos/companies/ccsf.png";
+
+  return "/logos/companies/default.png";
+};
 
 function UnifiedTimeline({ items }: UnifiedTimelineProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -73,56 +121,6 @@ function UnifiedTimeline({ items }: UnifiedTimelineProps) {
     () => transformToChartData(academicItems),
     [academicItems]
   );
-
-  // Helper function to get logo path for institution
-  const getLogoPath = (institution: string): string => {
-    const logoMap: Record<string, string> = {
-      Mercor: "/logos/companies/mercor.png",
-      "CoChat.io": "/logos/companies/cochat.png",
-      "AfterQuery Experts": "/logos/companies/afterquery.png",
-      "Cal Poly, San Luis Obispo": "/logos/companies/calpoly-mustangs.png",
-      "California Polytechnic State University, San Luis Obispo":
-        "/logos/companies/calpoly-mustangs.png",
-      "Ricoh USA, Inc.": "/logos/companies/ricoh.png",
-      Tribot: "/logos/companies/tribot.png",
-      Square: "/logos/companies/square.png",
-      LinkedIn: "/logos/companies/linkedin.png",
-      "City College of San Francisco": "/logos/companies/ccsf.png",
-    };
-
-    // Try exact match first
-    if (logoMap[institution]) {
-      return logoMap[institution];
-    }
-
-    // Try partial matches for variations
-    const lowerInstitution = institution.toLowerCase();
-    if (lowerInstitution.includes("mercor"))
-      return "/logos/companies/mercor.png";
-    if (lowerInstitution.includes("cochat"))
-      return "/logos/companies/cochat.png";
-    if (lowerInstitution.includes("afterquery"))
-      return "/logos/companies/afterquery.png";
-    if (
-      lowerInstitution.includes("cal poly") ||
-      lowerInstitution.includes("calpoly")
-    )
-      return "/logos/companies/calpoly-mustangs.png";
-    if (lowerInstitution.includes("ricoh")) return "/logos/companies/ricoh.png";
-    if (lowerInstitution.includes("tribot"))
-      return "/logos/companies/tribot.png";
-    if (lowerInstitution.includes("square"))
-      return "/logos/companies/square.png";
-    if (lowerInstitution.includes("linkedin"))
-      return "/logos/companies/linkedin.png";
-    if (
-      lowerInstitution.includes("city college") ||
-      lowerInstitution.includes("ccsf")
-    )
-      return "/logos/companies/ccsf.png";
-
-    return "/logos/companies/default.png";
-  };
 
   // Handler for opening card popup
   const handleDotClick = (item: TimelineItem) => {

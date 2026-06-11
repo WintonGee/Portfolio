@@ -7,6 +7,7 @@ export async function cached<T>(
   ttlSeconds: number,
   loader: () => Promise<T>
 ): Promise<T> {
+  if (typeof caches === "undefined") return loader();
   const cache = (caches as unknown as { default: Cache }).default;
   const req = new Request(`${ORIGIN}/${key}`);
   const hit = await cache.match(req);
@@ -23,6 +24,7 @@ export async function cached<T>(
 }
 
 export async function invalidate(key: string): Promise<void> {
+  if (typeof caches === "undefined") return;
   const cache = (caches as unknown as { default: Cache }).default;
   await cache.delete(new Request(`${ORIGIN}/${key}`));
 }
@@ -30,4 +32,5 @@ export async function invalidate(key: string): Promise<void> {
 export const CACHE_KEYS = {
   home: "home-content",
   projects: "projects-list",
+  knowledge: "knowledge-list",
 } as const;

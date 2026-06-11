@@ -29,4 +29,10 @@ describe("buildContext", () => {
     expect(context).toBe("Portfolio information not available.");
     expect(sources).toEqual([]);
   });
+
+  it("returns a fallback when no matched docs are found", () => {
+    const { context, sources } = buildContext([{ id: "gone", score: 0.8 }], []);
+    expect(context).toBe("Portfolio information not available.");
+    expect(sources).toEqual([]);
+  });
 });
