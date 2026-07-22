@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Button from "./ui/Button";
 import Typewriter from "./ui/Typewriter";
+import NeuralCanvas from "./NeuralCanvas";
 import {
   MapPinIcon,
   EnvelopeIcon,
@@ -14,10 +15,14 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center bg-gradient-to-br from-brand-beige via-brand-beige-light to-brand-beige-dark relative overflow-hidden pt-16 sm:pt-20 lg:pt-24"
+      className="min-h-screen flex items-center bg-[radial-gradient(circle_at_top_left,#ffffff_0,#FAFAF0_28%,#E8E8C8_58%,#F5F5DC_100%)] relative overflow-hidden pt-16 sm:pt-20 lg:pt-24"
     >
       {/* Enhanced Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 opacity-70 [background-image:linear-gradient(rgba(85,107,47,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(85,107,47,0.08)_1px,transparent_1px)] [background-size:42px_42px] [mask-image:radial-gradient(circle_at_center,black,transparent_72%)]" />
+        <div className="absolute inset-y-0 right-0 w-full lg:w-1/2 opacity-90">
+          <NeuralCanvas />
+        </div>
         {/* Primary floating element */}
         <motion.div
           animate={{
@@ -81,7 +86,7 @@ export default function Hero() {
               transition={{ duration: 1, delay: 0.3 }}
               className="relative group"
             >
-              <div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden shadow-organic-2xl ring-4 ring-brand-secondary/20 hover:ring-brand-primary/30 transition-all duration-700">
+              <div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-[2.5rem] overflow-hidden shadow-[0_28px_90px_rgba(74,66,56,0.28)] ring-1 ring-white/70 hover:ring-brand-primary/40 transition-all duration-700 backdrop-blur">
                 <Image
                   src="/headshot.jpg"
                   alt="Winton Gee - AI/ML Engineer"
@@ -208,13 +213,13 @@ export default function Hero() {
             initial={{ opacity: 0, x: 60 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.4 }}
-            className="space-y-8 sm:space-y-10 lg:space-y-12"
+            className="space-y-8 sm:space-y-10 lg:space-y-12 rounded-[2rem] border border-white/60 bg-white/35 p-6 sm:p-8 shadow-[0_30px_100px_rgba(74,66,56,0.14)] backdrop-blur-xl"
           >
             {/* Enhanced Typography Hierarchy */}
             <div className="space-y-4 sm:space-y-6 lg:space-y-8">
               {/* Main Headline with Balanced Typography */}
               <motion.h1
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-brand-text leading-tight tracking-tight"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-brand-text leading-tight tracking-tight"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.6 }}
@@ -240,7 +245,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.7 }}
-                className="text-2xl sm:text-3xl md:text-4xl font-light text-brand-text-light leading-tight"
+                className="text-2xl sm:text-3xl md:text-4xl font-light text-brand-text-light leading-tight text-balance"
               >
                 Building{" "}
                 <span className="text-brand-primary font-semibold">
@@ -249,6 +254,28 @@ export default function Hero() {
                 Systems
               </motion.h2>
             </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.75 }}
+              className="grid grid-cols-3 gap-3 rounded-2xl border border-brand-primary/15 bg-brand-beige-light/65 p-3 shadow-organic backdrop-blur"
+            >
+              {[
+                ["3D", "Interactive UI"],
+                ["AI", "Production systems"],
+                ["Full-stack", "Polished delivery"],
+              ].map(([value, label]) => (
+                <div key={value} className="text-center">
+                  <div className="text-lg sm:text-2xl font-extrabold text-brand-primary">
+                    {value}
+                  </div>
+                  <div className="text-[0.65rem] sm:text-xs font-semibold uppercase tracking-wide text-brand-text-light">
+                    {label}
+                  </div>
+                </div>
+              ))}
+            </motion.div>
 
             {/* Enhanced Action Section */}
             <motion.div

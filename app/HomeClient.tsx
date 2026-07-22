@@ -33,7 +33,7 @@ export default function HomeClient({
   timeline,
 }: Props) {
   return (
-    <main id="main-content" className="min-h-screen bg-gradient-to-br from-brand-beige to-brand-beige-light">
+    <main id="main-content" className="min-h-screen overflow-hidden bg-brand-beige">
       <Navbar />
 
       {/* Hero Section */}
@@ -46,7 +46,7 @@ export default function HomeClient({
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="relative py-12 sm:py-16 bg-gradient-to-b from-brand-beige-light to-brand-beige"
+        className="relative py-16 sm:py-20 bg-[linear-gradient(180deg,#FAFAF0_0%,#F5F5DC_100%)]"
       >
         {/* Section divider */}
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-secondary/60 to-transparent"></div>
@@ -61,7 +61,7 @@ export default function HomeClient({
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="relative py-12 sm:py-16 bg-gradient-to-b from-brand-beige to-brand-beige-light"
+        className="relative py-16 sm:py-20 bg-[radial-gradient(circle_at_20%_20%,rgba(210,180,140,0.28),transparent_34%),linear-gradient(180deg,#F5F5DC_0%,#FAFAF0_100%)]"
       >
         {/* Section divider */}
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-secondary/60 to-transparent"></div>
@@ -77,7 +77,7 @@ export default function HomeClient({
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="relative py-16 sm:py-24 lg:py-32 bg-gradient-to-b from-brand-beige-light to-brand-beige"
+        className="relative py-16 sm:py-24 lg:py-32 bg-[radial-gradient(circle_at_80%_10%,rgba(85,107,47,0.14),transparent_30%),linear-gradient(180deg,#FAFAF0_0%,#F5F5DC_100%)]"
       >
         {/* Section divider */}
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-secondary/60 to-transparent"></div>
@@ -93,7 +93,7 @@ export default function HomeClient({
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
         id="chat"
-        className="relative py-16 sm:py-24 lg:py-32 bg-gradient-to-b from-brand-beige to-brand-beige-light"
+        className="relative py-16 sm:py-24 lg:py-32 bg-[linear-gradient(180deg,#F5F5DC_0%,#FAFAF0_100%)]"
       >
         {/* Section divider */}
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-secondary/60 to-transparent"></div>
@@ -128,7 +128,7 @@ export default function HomeClient({
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="relative py-16 sm:py-24 lg:py-32 bg-gradient-to-b from-brand-beige-light to-brand-beige"
+        className="relative py-16 sm:py-24 lg:py-32 bg-[radial-gradient(circle_at_50%_0%,rgba(210,180,140,0.34),transparent_36%),linear-gradient(180deg,#FAFAF0_0%,#F5F5DC_100%)]"
       >
         {/* Section divider */}
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-secondary/60 to-transparent"></div>

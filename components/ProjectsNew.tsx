@@ -23,7 +23,7 @@ function ProjectItem({ project, index }: ProjectItemProps) {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       viewport={{ once: true }}
-      className=""
+      className="relative rounded-[2rem] border border-white/55 bg-white/35 p-4 sm:p-6 lg:p-8 shadow-[0_24px_80px_rgba(74,66,56,0.12)] backdrop-blur-xl"
     >
       <div
         className={`grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center ${
@@ -48,7 +48,7 @@ function ProjectItem({ project, index }: ProjectItemProps) {
               rotateY: rotation.y,
             }}
             transition={TILT_SPRING_CONFIG}
-            className={`relative aspect-video w-full overflow-hidden rounded-2xl shadow-organic-2xl ${
+            className={`relative aspect-video w-full overflow-hidden rounded-[1.5rem] border border-white/60 shadow-[0_24px_70px_rgba(74,66,56,0.22)] ${
               project.id === "paperinvoice"
                 ? "bg-white dark:bg-slate-900"
                 : ""
@@ -261,13 +261,15 @@ export default function ProjectsNew({ projects }: { projects: Project[] }) {
         viewport={{ once: true }}
         className="text-center mb-12 sm:mb-16 lg:mb-20"
       >
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-text">
+        <p className="mb-3 text-sm font-bold uppercase tracking-[0.35em] text-brand-primary/80">Selected builds</p>
+        <h2 className="text-3xl sm:text-4xl lg:text-6xl font-black text-brand-text">
           Featured <span className="gradient-text">Projects</span>
         </h2>
+        <p className="mx-auto mt-5 max-w-2xl text-base sm:text-lg text-brand-text-light">High-signal product work presented with immersive motion, tactile cards, and production-focused details.</p>
       </motion.div>
 
       {/* Projects List */}
-      <div className="space-y-16 sm:space-y-20 lg:space-y-24">
+      <div className="space-y-10 sm:space-y-12 lg:space-y-14">
         {projects.map((project, index) => (
           <ProjectItem key={project.id} project={project} index={index} />
         ))}

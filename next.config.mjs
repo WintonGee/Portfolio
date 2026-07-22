@@ -150,9 +150,13 @@ const nextConfig = {
 
 export default nextConfig;
 
-// Enable Cloudflare bindings (e.g. env.AI) during local `next dev` only.
-// Guarded so it never opens a remote connection during a production build (CI).
-if (process.env.NODE_ENV === "development") {
+// Enable Cloudflare bindings (e.g. env.AI) during local `next dev` only when requested.
+// This keeps regular UI work and screenshot capture from requiring a Wrangler login,
+// while preserving an opt-in path for binding-backed route testing.
+if (
+  process.env.NODE_ENV === "development" &&
+  process.env.ENABLE_CLOUDFLARE_DEV === "true"
+) {
   const { initOpenNextCloudflareForDev } = await import(
     "@opennextjs/cloudflare"
   );
