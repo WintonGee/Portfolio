@@ -1,15 +1,6 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import ServiceWorker from "@/components/ServiceWorker";
-
-const plusJakartaSans = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-plus-jakarta-sans",
-  display: "swap",
-  preload: true,
-});
 
 export const metadata: Metadata = {
   title: "Winton Gee - AI/ML Engineer",
@@ -105,7 +96,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={plusJakartaSans.className}>
+      <body>
         {children}
         <ServiceWorker />
       </body>

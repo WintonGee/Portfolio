@@ -88,7 +88,7 @@ function ChatbotSourcesContent() {
         openModal(sourceToOpen);
       }
     }
-  }, [sources, searchParams]);
+  }, [sources, searchParams, showModal]);
 
   // Handle ESC key to close modal
   useEffect(() => {
