@@ -1,5 +1,12 @@
 # Portfolio Updates
 
+## [2026-07-22] - Branch Deploy Trigger
+
+### Changed
+- Triggered a fresh Cloudflare branch deployment after enabling branch auto-deploys.
+
+---
+
 ## [2024-10-25] - Major Update: Dark Mode & Simplified Footer
 
 ### Added
