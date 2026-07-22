@@ -14,6 +14,5 @@ export default async function ProjectCaseStudy({ params }: Props) {
   const caseStudy = (row?.data as { caseStudy?: unknown })?.caseStudy;
   if (!caseStudy) notFound();
   // ProjectCaseStudyClient defines its own Project shape; the D1 JSON matches it.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return <ProjectCaseStudyClient project={caseStudy as any} />;
 }
