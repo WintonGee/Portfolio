@@ -5,16 +5,18 @@
   "scripts": {
     "dev": "next dev",
     "dev:cloudflare": "ENABLE_CLOUDFLARE_DEV=true next dev",
-    "build": "NODE_OPTIONS='--max-old-space-size=4096' next build",
+    "build": "npm run build:next && npm run build:worker",
+    "build:next": "NEXT_PRIVATE_STANDALONE=true NEXT_PRIVATE_OUTPUT_TRACE_ROOT=. NODE_OPTIONS='--max-old-space-size=4096' next build",
+    "build:worker": "opennextjs-cloudflare build --skipNextBuild",
     "start": "next start",
-    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "preview": "npm run build && opennextjs-cloudflare preview",
+    "deploy": "npm run build && opennextjs-cloudflare deploy",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "lint": "next lint",
     "optimize-images": "node scripts/optimize-images.js",
-    "analyze": "ANALYZE=true npm run build"
+    "analyze": "ANALYZE=true npm run build:next"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
